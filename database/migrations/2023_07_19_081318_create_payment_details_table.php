@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->string('food_id');
-            $table->string('food_name');
-            $table->string('food_requirement');
-            $table->string('quantity');
             $table->string('userID');
-            $table->float('lastest_food_price');
-            $table->float('total_food_price');
+            $table->float('totalFoodPrice');
             $table->float('discount');
             $table->float('nett_total');
+            $table->float('earnPoint');
             $table->string('payment_method');
-            $table->string('payment_id');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('payment_details');
     }
 };

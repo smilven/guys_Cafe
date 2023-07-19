@@ -125,21 +125,90 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wg
                                 <button type="submit" class="submit_status btn btn-primary" name="submit_status" style="width: 35%">Submit</button>
                             </div>
                         </form>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-danger mt-2">Issues</button>
+
                             <form action="{{ route('kitchen.delete', $item->userID) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-success mt-2">Complete</button>
                             </form>
 
-                        </div>
+
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
+
+
+
+    <script>
+        $(document).ready(function() {
+          // Handle form submission using AJAX
+          $('form').on('submit', function(event) {
+            event.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+            var formData = new FormData(form[0]);
+
+            $.ajax({
+              type: 'POST',
+              url: url,
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                // Update the card dynamically with the updated food_status
+                updateCard(response);
+              },
+              error: function(xhr, status, error) {
+                // Handle the error if any
+                console.log(error);
+              }
+            });
+          });
+
+          // Handle deletion using AJAX
+          $('form[action^="/kitchen/delete/"]').on('submit', function(event) {
+            event.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+              type: 'DELETE',
+              url: url,
+              success: function(response) {
+                // Remove the card dynamically
+                removeCard(form);
+              },
+              error: function(xhr, status, error) {
+                // Handle the error if any
+                console.log(error);
+              }
+            });
+          });
+
+          // Function to update the card with the updated food_status
+          function updateCard(response) {
+            var card = response.card;
+            var foodStatus = response.foodStatus;
+
+            // Find the corresponding card and update the food_status
+            var cardElement = $('div[data-card="' + card + '"]');
+            cardElement.find('.food-status').text(foodStatus);
+          }
+
+          // Function to remove the card from the view
+          function removeCard(form) {
+            var cardElement = form.closest('.card');
+            cardElement.remove();
+          }
+        });
+      </script>
+
+
 
 <style>
     [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
@@ -152,6 +221,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wg
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
       <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
       <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 @endsection

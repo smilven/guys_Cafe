@@ -20,21 +20,32 @@ class KitchenController extends Controller
     }
 
     public function fetchKitchenData(Request $request)
-    {
-        $userID = $request->input('userID');
-        $foodStatus = $request->input('food_Status');
+{
+    $userID = $request->input('userID');
+    $foodStatus = $request->input('food_Status');
 
-        // Find the kitchen records with the same userID
-        $kitchens = Kitchen::where('userID', $userID)->get();
+    // Find the kitchen records with the same userID
+    $kitchens = Kitchen::where('userID', $userID)->get();
 
-        // Update the food_status for each kitchen record
-        foreach ($kitchens as $kitchen) {
-            $kitchen->food_Status = $foodStatus;
-            $kitchen->save();
-        }
-
-        return redirect()->back();
+    // Update the food_status for each kitchen record
+    foreach ($kitchens as $kitchen) {
+        $kitchen->food_Status = $foodStatus;
+        $kitchen->save();
     }
+
+    // Get the updated kitchen record
+    $updatedKitchen = Kitchen::where('userID', $userID)->first();
+
+    // Prepare the response with the updated card information
+    $response = [
+        'card' => $updatedKitchen->userID,
+        'foodStatus' => $updatedKitchen->food_Status,
+    ];
+
+    // Return the JSON response
+    return response()->json($response);
+}
+
 
 
     public function deleteData($userID)

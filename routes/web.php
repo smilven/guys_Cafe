@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\DisableBackBtn;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\KitchenController;
+use App\Http\Controllers\paymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
    // Route::get('DeleteMyCart/{id}', [myCartController::class, 'DeleteMyCart']);
 Route::delete('mycart/delete/{id}', [myCartController::class, 'delete'])->name('mycart.delete');
     Route::post('mycart/update/{id}', [myCartController::class, 'update'])->name('mycart.update');
+    Route::get('/fetchAllPayment', [myCartController::class, 'fetchAllPayment'])->name('fetchAllPayment');
+    Route::get('/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
 
 
 
@@ -150,7 +154,6 @@ Route::post('/update-order-status', [KitchenController::class, 'fetchKitchenData
 
 
 Route::delete('/kitchen/delete/{userID}', [KitchenController::class, 'deleteData'])->name('kitchen.delete');
-
 
 
 });

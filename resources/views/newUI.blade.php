@@ -13,8 +13,7 @@ $tableNumber = 1;
     <link rel="icon" href="images/logo.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/location.js') }}"></script>
     <!-- Font Awesome -->
@@ -23,15 +22,14 @@ $tableNumber = 1;
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 </head>
 
-<body onload="getLocation()">
+<body>
 
 
     <style>
@@ -256,6 +254,7 @@ $tableNumber = 1;
         p {
             word-break: break-all;
         }
+
     </style>
 
     <nav>
@@ -267,8 +266,7 @@ $tableNumber = 1;
                 </p>
             </center>
 
-            <input type="search" class="form-control border" placeholder="Search... P001" aria-label="Search"
-                aria-describedby="search-addon" id="search-input" style="width: 90%; margin:10px auto;
+            <input type="search" class="form-control border" placeholder="Search... P001" aria-label="Search" aria-describedby="search-addon" id="search-input" style="width: 90%; margin:10px auto;
               background:transparent;
              border-radius:20px;
             height:35px;
@@ -291,46 +289,44 @@ $tableNumber = 1;
                 @csrf
             </form>
             <style>
-    
-       
-    .message-container {
-  display: flex;
-  justify-content: center;
-}
-          .message,.message2,.message3{
-            position: absolute;
-  display: none;
-  text-align: center;
-  margin: 10px auto;
-  padding: 10px;
-  background-color: #ffc107; /* Change the background color as desired */
-  color: #fff;
-  font-weight: bold;
-  width: 50%;
-  animation: fade-in 0.5s ease-out, fade-out 0.5s 1.5s ease-in-out;
-  border-radius: 10px;
-  z-index: 1;
-   
-}
-           
-                  
- 
+                .message-container {
+                    display: flex;
+                    justify-content: center;
+                }
 
+                .message,
+                .message2,
+                .message3 {
+                    position: absolute;
+                    display: none;
+                    text-align: center;
+                    margin: 10px auto;
+                    padding: 10px;
+                    background-color: #ffc107;
+                    /* Change the background color as desired */
+                    color: #fff;
+                    font-weight: bold;
+                    width: 50%;
+                    animation: fade-in 0.5s ease-out, fade-out 0.5s 1.5s ease-in-out;
+                    border-radius: 10px;
+                    z-index: 1;
 
-                     </style>
+                }
+
+            </style>
             <div class="message-container ">
                 <div id="message" class="message">
                     Added
                 </div>
                 <div id="message2" class="message2">
                     Order sent to kitchen.
-                  </div>
-         
-            <div id="message3" class="message3">
-                Has been removed.
-              </div>
+                </div>
+
+                <div id="message3" class="message3">
+                    Has been removed.
+                </div>
             </div>
-        </div>  
+        </div>
     </nav>
 
 
@@ -343,8 +339,7 @@ $tableNumber = 1;
     <div class="list-group">
         <ul class="list-group list-group-light list-group-small">
 
-            <div id="scrollfood" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
-                class="scrollspy-example-2" tabindex="0">
+            <div id="scrollfood" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
 
                 @foreach($data1 as $type)
                 <section id="section{{ $type->id }}">
@@ -353,9 +348,7 @@ $tableNumber = 1;
                     @if ($foodMenu['status'] == true)
                     @if ($foodMenu->food_category == $type->food_category)
 
-                    <button class="list-group-item list-group-item-action mb-1" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasBottom{{ $foodMenu->id }}"
-                        aria-controls="offcanvasBottom{{ $foodMenu->id }}">
+                    <button class="list-group-item list-group-item-action mb-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom{{ $foodMenu->id }}" aria-controls="offcanvasBottom{{ $foodMenu->id }}">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
@@ -377,21 +370,18 @@ $tableNumber = 1;
 
                     </button>
 
-                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom{{ $foodMenu->id }}"
-                        aria-labelledby="offcanvasBottomLabel{{ $foodMenu->id }}">
+                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom{{ $foodMenu->id }}" aria-labelledby="offcanvasBottomLabel{{ $foodMenu->id }}">
                         <form data-action="{{route('add.to.cart')}}" method="POST" id="add-project-form-{{ $foodMenu->id }}">
                             @csrf
                             <div class="form-group">
-                                <input type="hidden" id="tableNumber" name="tableNumber"
-                                    value="<?php echo $tableNumber; ?>" class="form-control">
+                                <input type="hidden" id="tableNumber" name="tableNumber" value="<?php echo $tableNumber; ?>" class="form-control">
                             </div>
                             <div class="offcanvas-header">
                                 <input type="hidden" name="foodName" id="foodName" value="{{ $foodMenu->food_name }}">
 
                                 <h4 class="offcanvas-title" id="foodName" data-food-name="{{ $foodMenu->food_name }}">{{
                                     $foodMenu->food_name }}</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body small">
 
@@ -400,39 +390,33 @@ $tableNumber = 1;
                                     <p id="foodDescription" data-food-description="{{ $foodMenu->food_description }}">{{
                                         $foodMenu->food_description }}</p>
 
-<input type="hidden" name="food_price"  id="food_price" value="{{ $foodMenu->food_price }}">
+                                    <input type="hidden" name="food_price" id="food_price" value="{{ $foodMenu->food_price }}">
 
 
                                     <h6>Requirement:</h6>
 
-                                    <textarea
-                                        style="resize:none;overflow:hidden; width:100%;  min-height: 75px;" id="food_requirement" name="food_requirement"></textarea>
+                                    <textarea style="resize:none;overflow:hidden; width:100%;  min-height: 75px;" id="food_requirement" name="food_requirement"></textarea>
 
-                                  
+
 
                                     <div class="d-flex mt-2 mb-2 justify-content-center">
-                                        <input type="hidden" name="food_name"  id="food_name" value="{{ $foodMenu->food_name }}">
+                                        <input type="hidden" name="food_name" id="food_name" value="{{ $foodMenu->food_name }}">
 
-                                        <button type="button" class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        <button type="button" class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                             <i class="fas fa-plus"></i>
                                         </button>
 
-                                        <input id="quantity_food" min="1" name="quantity_food" value="1" type="number"
-                                            class="form-control form-control-sm" onKeyDown="return false"
-                                            style="width: 15%; margin:5px 0" />
+                                        <input id="quantity_food" min="1" name="quantity_food" value="1" type="number" class="form-control form-control-sm" onKeyDown="return false" style="width: 15%; margin:5px 0" />
 
-                                        <button type="button" class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                        <button type="button" class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
                                     <input type="hidden" name="food_id" id="food_id" value="{{ $foodMenu->id }}">
 
-                                    <center> <button type="submit" data-bs-dismiss="offcanvas" aria-label="Close" class="btn btn-warning UserMenu"
-                                        style="width: 100%;" onclick="addToCart()">Add to Cart</button>
-                            
-                            </center>
+                                    <center> <button type="submit" data-bs-dismiss="offcanvas" aria-label="Close" class="btn btn-warning UserMenu" style="width: 100%;" onclick="addToCart()">Add to Cart</button>
+
+                                    </center>
                         </form>
 
                     </div>
@@ -457,17 +441,17 @@ $tableNumber = 1;
 
     <script>
         function incrementValue() {
-  var input = document.getElementById('quantity_food');
-  input.stepUp();
-}
+            var input = document.getElementById('quantity_food');
+            input.stepUp();
+        }
 
-function decrementValue() {
-  var input = document.getElementById('quantity_food');
-  input.stepDown();
-}
+        function decrementValue() {
+            var input = document.getElementById('quantity_food');
+            input.stepDown();
+        }
         const searchInput = document.getElementById('search-input');
         const foodItems = document.querySelectorAll('.list-group-item');
-        
+
         searchInput.addEventListener('input', function() {
             const searchTerm = searchInput.value.trim().toLowerCase();
             for (let i = 0; i < foodItems.length; i++) {
@@ -481,23 +465,20 @@ function decrementValue() {
                 }
             }
         });
-    
 
     </script>
- 
+
 
     <div class="fixed-bottom shadow-4-strong">
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas"
-                    data-bs-target="#menu">
+                <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas" data-bs-target="#menu">
                     <i class="bi bi-menu-button-wide"></i>
                     <strong> Menu</strong>
                 </div>
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook"
-                    aria-controls="offcanvasBottom">
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook" aria-controls="offcanvasBottom">
                     <i class="bi bi-clipboard-check"></i>
                     <strong>Food</strong>
                 </div>
@@ -508,8 +489,7 @@ function decrementValue() {
                     </div>
                     <div class="offcanvas-body small text-center">
                         <div class="container mb-9">
-                            <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
-                                alt="GCLogo" style="width:200px; height: 200px;">
+                            <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" alt="GCLogo" style="width:200px; height: 200px;">
 
 
 
@@ -520,7 +500,8 @@ function decrementValue() {
                                         <ul class="progressBar">
                                             <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
                                             <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
-                                            <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered</li>
+                                            <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -532,8 +513,7 @@ function decrementValue() {
                     </div>
                 </div>
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart"
-                    aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
                     <strong>Cart</strong>
                 </div>
 
@@ -541,248 +521,377 @@ function decrementValue() {
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasBottomLabel">Cart</h5>
 
-                       
+
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small">
-                        <div class="row" id="Table" >
+                        <div class="row" id="Table">
+
                         </div>
-  
+
 
                         <form data-action="{{ route('place') }}" method="POST" id="PlaceOrderForm">
                             @csrf
-                            <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%" >Place Order</button>
+                            <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%">Place
+                                Order</button>
                         </form>
 
 
 
                     </div>
                 </div>
-<style>
-    #Table a{
-    color: #050709;
-    text-decoration: none;
-    background-color: transparent;
-}
-.requirement-container {
-  word-wrap: break-word; // Enable word wrapping for the requirement container
-}
 
-.requirement-text {
-  word-break: break-all; // Allow long words to break and wrap within the requirement text
-}
+                <style>
+                    #Table a {
+                        color: #050709;
+                        text-decoration: none;
+                        background-color: transparent;
+                    }
 
-    </style>
+                    .requirement-container {
+                        word-wrap: break-word; // Enable word wrapping for the requirement container
+                    }
 
-<script>
- $(document).ready(function() {
-  var form = '#PlaceOrderForm';
+                    .requirement-text {
+                        word-break: break-all; // Allow long words to break and wrap within the requirement text
+                    }
 
-  $(form).on('submit', function(event) {
-    event.preventDefault();
-    var url = $(this).attr('data-action');
 
-    // Check if the table is empty
-    if ($('#Table').is(':empty')) {
-      alert('Cannot place order. Cart is empty.');
-      return; // Stop execution
-    }
+                    .payment_tbody_width {
+                        width: 70%;
+                    }
 
+                    tbody {
+                        line-height: 25px;
+                        font-size: 15px;
+                    }
+
+                </style>
+
+                <script>
+                    $(document).ready(function() {
+                        var form = '#PlaceOrderForm';
+
+                        $(form).on('submit', function(event) {
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
+
+                            // Check if the table is empty
+                            if ($('#Table').is(':empty')) {
+                                alert('Cannot place order. Cart is empty.');
+                                return; // Stop execution
+                            }
+
+                            $.ajax({
+                                url: '/home/place'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    console.log("Success");
+                                    $('#Table').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+
+                                    });
+                                    var message = document.getElementById("message2");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+                                }
+                                , error: function(response) {
+
+                                }
+                            });
+                        });
+                    });
+
+                </script>
+                <script>
+                    $(document).ready(function() {
+                        fetchAllOrder();
+
+                        function fetchAllOrder() {
+                            $.ajax({
+                                type: "GET"
+                                , url: "/fetchAllorder"
+                                , dataType: "json"
+                                , success: function(response) {
+                                    $('#Table').html("");
+                                    $.each(response.mycarts, function(key, data) {
+                                        var deleteUrl = "{{ route('mycart.delete', ':id') }}";
+                                        deleteUrl = deleteUrl.replace(':id', data.id);
+
+                                        var listItem = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
+
+                                        var itemContainer = $('<div class="d-flex align-items-start"></div>');
+                                        itemContainer.append('<img src="storage/images/' + data.avatar + '" width="100">');
+                                        var itemDetails = $('<div class="ms-3"></div>');
+                                        itemDetails.append('<span style="font-size:15px;"><strong>Food Name:' + data.food_name + '</strong></span><br>');
+                                        itemDetails.append('<span>RM' + data.lastest_food_price + '</span><br>');
+                                        itemDetails.append('<span>Quantity:' + data.quantity + '</span><br>');
+                                        var requirementContainer = $('<div class="requirement-container"></div>');
+                                        requirementContainer.append('<span>Requirement:</span>');
+                                        var requirementSpan = $('<span class="requirement-text">' + data.food_requirement + '</span>');
+                                        requirementContainer.append(requirementSpan);
+                                        itemDetails.append(requirementContainer);
+                                        itemContainer.append(itemDetails);
+
+                                        var buttonContainer = $('<div class="d-flex align-items-end"></div>');
+                                        var editButton = $('<button type="button" style="border: none; background-color: transparent; float: right;"><i class="fas fa-edit"></i></button>');
+
+                                        // Create a variable to store the updated requirement value
+                                        var updatedRequirement = data.food_requirement;
+
+                                        editButton.click(function() {
+                                            var requirementInput = $('<input type="text">');
+                                            requirementInput.val(updatedRequirement);
+                                            requirementInput.addClass('no-border');
+                                            requirementInput.blur(function() {
+                                                updatedRequirement = requirementInput.val();
+                                                requirementSpan.text(updatedRequirement);
+                                                requirementInput.replaceWith(requirementSpan);
+
+                                                // Make an AJAX request to update the requirement in the database
+                                                var updateUrl = "/mycart/update/" + data.id;
+                                                $.ajax({
+                                                    type: "POST"
+                                                    , url: updateUrl
+                                                    , data: {
+                                                        requirement: updatedRequirement
+                                                    }
+                                                    , success: function(response) {
+                                                        console.log(response);
+                                                    }
+                                                    , error: function(error) {
+                                                        console.log(error);
+                                                    }
+                                                });
+                                            });
+                                            requirementSpan.replaceWith(requirementInput);
+
+                                            // Auto-focus the input field
+                                            requirementInput.focus();
+                                        });
+
+                                        buttonContainer.append(editButton);
+
+                                        var deleteLink = $('<a href="javascript:void(0)" id="delete-mycart" data-url="' + deleteUrl + '" data-id="ITEM_ID"><i class="fas fa-trash"></i></a>');
+                                        buttonContainer.append(deleteLink);
+
+                                        listItem.append(itemContainer);
+                                        listItem.append(buttonContainer);
+
+                                        $('#Table').append(listItem);
+                                    });
+                                }
+                            });
+                        }
+
+
+                        fetchAllPayment()
+
+                        function fetchAllPayment() {
+                            $.ajax({
+                                type: "GET"
+                                , url: "/fetchAllPayment"
+                                , dataType: "json"
+                                , success: function(response) {
+                                    if (response && response.payments) {
+                                        var totalFoodPrice = 0;
+                                        var totalQuantity = 0;
+
+                                        $('#table_payment').html("");
+
+                                        $.each(response.payments, function(key, data) {
+                                            var listItem = '<ul class="list-group list-group-flush">' +
+                                                '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                                                '<div class="d-flex align-items-start">' +
+                                                '<div class="ms-3">' +
+                                                '<div class="fw-bold mb-1">Food Name: ' + data.food_name + '</div>' +
+                                                '<div class="fw-bold mb-1">Food Price: ' + data.lastest_food_price + '</div>' +
+                                                '<div class="fw-bold mb-1">Quantity: ' + data.quantity + '</div>' +
+                                                '<div class="fw-bold">Food Requirement: ' + data.food_requirement + '</div>' +
+
+                                                '</div>' +
+                                                '</div>' +
+                                                '</li>' +
+                                                '</ul>' + '<br>';
+
+                                            $('#table_payment').append(listItem);
+
+
+                                        });
+
+
+
+
+                                        console.log(response.payments);
+                                    }
+                                }
+                                , error: function(xhr, status, error) {
+                                    console.error("AJAX Error:", status, error);
+                                    $('#table_payment').html("<p>Error fetching payments.</p>");
+                                }
+                            });
+                        }
+
+
+
+
+                        fetchAllPaymentDetail()
+
+
+                        // Function to fetch the updated payment details after deletion
+                        function fetchAllPaymentDetail() {
     $.ajax({
-      url: '/home/place',
-      method: 'POST',
-      data: new FormData(this),
-      dataType: 'JSON',
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function(response) {
-        console.log("Success");
-        $('#Table').fadeOut('slow', function() {
-          $(this).empty().fadeIn('slow');
-        
-        });
-        var message = document.getElementById("message2");
-    message.style.display = "block";
-    setTimeout(function() {
-        message.style.display = "none";
-    }, 2000); 
-      },
-      error: function(response) {
-      
-      }
-    });
-  });
-});
+        type: "GET",
+        url: "/fetchAllPaymentDetail",
+        dataType: "json",
+        success: function(response) {
+            if (response && response.payment_details) {
+                $('#table_tbody_payment').html("");
 
+                $.each(response.payment_details, function(key, data) {
+                    var listItem = '<tr>' +
+                        '<td><strong>Food Price Total</strong> </td>' +
+                        '<td>' + data.totalFoodPrice + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td><strong>Discount</strong></td>' +
+                        '<td>' + data.discount + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td><strong>Earn Point</strong> </td>' +
+                        '<td>' + data.earnPoint + '</td>' +
+                        '</tr>'+
+                        '<tr>' +
+                        '<td><strong>Nett Total</strong> </td>' +
+                        '<td>' + data.nett_total + '</td>' +
+                        '</tr>';
+                    $('#table_tbody_payment').append(listItem);
+                });
 
-    </script>
-<script>
- $(document).ready(function() {
-    fetchAllOrder();
-    function fetchAllOrder() {
-  $.ajax({
-    type: "GET",
-    url: "/fetchAllorder",
-    dataType: "json",
-    success: function(response) {
-      $('#Table').html("");
-      $.each(response.mycarts, function(key, data) {
-        var deleteUrl = "{{ route('mycart.delete', ':id') }}";
-        deleteUrl = deleteUrl.replace(':id', data.id);
-
-        var listItem = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
-
-        var itemContainer = $('<div class="d-flex align-items-start"></div>');
-        itemContainer.append('<img src="storage/images/' + data.avatar + '" width="100" class="img-thumbnail">');
-        var itemDetails = $('<div class="ms-3"></div>');
-        itemDetails.append('<span style="font-size:15px;"><strong>Food Name:'+ data.food_name + '</strong></span><br>');
-        itemDetails.append('<span>RM' + data.lastest_food_price + '</span><br>');
-        itemDetails.append('<span>Quantity:' + data.quantity + '</span><br>');
-        var requirementContainer = $('<div class="requirement-container"></div>');
-        requirementContainer.append('<span>Requirement:</span>');
-        var requirementSpan = $('<span class="requirement-text">' + data.food_requirement + '</span>');
-        requirementContainer.append(requirementSpan);
-        itemDetails.append(requirementContainer);
-        itemContainer.append(itemDetails);
-
-        var buttonContainer = $('<div class="d-flex align-items-end"></div>');
-        var editButton = $('<button type="button" style="border: none; background-color: transparent; float: right;"><i class="fas fa-edit"></i></button>');
-
-        // Create a variable to store the updated requirement value
-        var updatedRequirement = data.food_requirement;
-
-        editButton.click(function() {
-          var requirementInput = $('<input type="text">');
-          requirementInput.val(updatedRequirement);
-          requirementInput.addClass('no-border');
-          requirementInput.blur(function() {
-            updatedRequirement = requirementInput.val();
-            requirementSpan.text(updatedRequirement);
-            requirementInput.replaceWith(requirementSpan);
-
-            // Make an AJAX request to update the requirement in the database
-            var updateUrl = "/mycart/update/" + data.id;
-            $.ajax({
-              type: "POST",
-              url: updateUrl,
-              data: { requirement: updatedRequirement },
-              success: function(response) {
-                console.log(response);
-              },
-              error: function(error) {
-                console.log(error);
-              }
-            });
-          });
-          requirementSpan.replaceWith(requirementInput);
-
-          // Auto-focus the input field
-          requirementInput.focus();
-        });
-
-        buttonContainer.append(editButton);
-
-        var deleteLink = $('<a href="javascript:void(0)" id="delete-mycart" data-url="' + deleteUrl + '" data-id="ITEM_ID"><i class="fas fa-trash"></i></a>');
-        buttonContainer.append(deleteLink);
-
-        listItem.append(itemContainer);
-        listItem.append(buttonContainer);
-
-        $('#Table').append(listItem);
-      });
-    }
-  });
-}
-
-
-
-
-
-
-
-var form = '[id^="add-project-form-"]';
-
-    $('[id^="add-project-form-"]').on('submit', function(event) {
-        event.preventDefault();
-
-        var url = $(this).attr('data-action');
-        $.ajax({
-            url: '/add.to.cart',
-            method: 'POST',
-            data: new FormData(this),
-            dataType: 'JSON',
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(response) {
-                if (response.status == 200) {
-                    $(form).find('textarea').val('');
-                    $(form).find('#quantity_food').val('1');
-                    $('.offcanvas-bottom').offcanvas('hide');
-                    fetchAllOrder();
-                    console.log('successlah')
-                }
-            },
-            error: function(response) {
-
+                // Update the totalFoodPrice value after receiving the updated data
+                var totalFoodPrice = response.totalFoodPrice;
+                $('#total_food_price_value').text(totalFoodPrice);
             }
-        });
-    });
-
-  
-   
-   $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
- 
-   /*------------------------------------------
-   --------------------------------------------
-   When click user on Show Button
-   --------------------------------------------
-   --------------------------------------------*/
-   $('body').on('click', '#delete-mycart', function () {
-    var deleteUrl = $(this).data('url');
-    var itemId = $(this).data('id');
-
-    // Update the userURL with the specific ID.
-    var userURL = deleteUrl.replace('{id}', itemId);
-
-    var liObj = $(this).closest('li');
-
-    // Make sure to use HTTPS for the AJAX request URL
-   //userURL = userURL.replace('http://', 'https://');
-
-    $.ajax({
-        url: userURL,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function (data) {
-            liObj.fadeOut(200, function () {
-                $(this).remove();
-            });
-            var message = document.getElementById("message3");
-            message.style.display = "block";
-            setTimeout(function () {
-                message.style.display = "none";
-            }, 2000);
         },
-        error: function (response) {
-            // Handle error response
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
         }
     });
-});
-
-});
+}
 
 
-    </script>
 
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#pay"
-                    aria-controls="offcanvasBottom">
+
+
+
+
+                        var form = '[id^="add-project-form-"]';
+
+                        $('[id^="add-project-form-"]').on('submit', function(event) {
+                            event.preventDefault();
+
+                            var url = $(this).attr('data-action');
+                            var form = $(this); // Store the form reference here
+                            $.ajax({
+                                url: '/add.to.cart'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    if (response.status == 200) {
+                                        form.find('textarea').val('');
+                                        form.find('#quantity_food').val('1');
+                                        $('.offcanvas-bottom').offcanvas('hide');
+                                        fetchAllOrder();
+                                        fetchAllPayment();
+                                        fetchAllPaymentDetail();
+                                        console.log('successlah')
+                                    }
+                                }
+                                , error: function(response) {
+                                    console.log('fail');
+                                    console.log(response); // Log the error response for further investigation
+                                }
+                            });
+                        });
+
+
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        /*------------------------------------------
+                        --------------------------------------------
+                        When click user on Show Button
+                        --------------------------------------------
+                        --------------------------------------------*/
+
+
+                        $('body').on('click', '#delete-mycart', function() {
+                            var deleteUrl = $(this).data('url');
+                            var itemId = $(this).data('id');
+
+                            // Update the userURL with the specific ID.
+                            var userURL = deleteUrl.replace('{id}', itemId);
+
+                            var liObj = $(this).closest('li');
+
+                            // Make sure to use HTTPS for the AJAX request URL
+                            //userURL = userURL.replace('http://', 'https://');
+
+                            $.ajax({
+                                url: userURL
+                                , type: 'DELETE'
+                                , dataType: 'json'
+                                , success: function(data) {
+                                    liObj.fadeOut(200, function() {
+                                        $(this).remove();
+                                    });
+                                    var message = document.getElementById("message3");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+
+                                    // Fetch the updated payment list after successful deletion
+                                    fetchAllPayment();
+                                    fetchAllPaymentDetail();
+                                }
+                                , error: function(response) {
+                                    // Handle error response
+                                }
+                            });
+                        });
+
+
+
+                    });
+
+                </script>
+
+
+
+
+
+
+
+
+
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#pay" aria-controls="offcanvasBottom">
                     <i class="bi bi-receipt"></i>
                     <strong>Pay</strong>
                 </div>
@@ -797,80 +906,29 @@ var form = '[id^="add-project-form-"]';
                     <div class="offcanvas-body small">
 
                         <div class="container mb-8">
-                            <table class="table">
+                            <table class="table_payment" id="table_payment" style="width: 100%">
 
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-start">
-
-
-                                            <div class="ms-3">
-                                                <div class="fw-bold mb-1">Sushi</div>
-                                                <div class="fw-light mb-2">No Egg,No Prawn</div>
-
-                                                <div class="fst-normal mt3">RM 150</div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="d-flex align-items-end">
-                                            <div class="fw-light">x1</div>
-                                        </div>
-                                    </li>
-
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-start">
-
-
-                                            <div class="ms-3">
-                                                <div class="fw-bold mb-1">Sushi</div>
-                                                <div class="fw-light mb-2">No Egg,No Prawn</div>
-
-                                                <div class="fst-normal mt3">RM 150</div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-end">
-                                            <div class="fw-light">x1</div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <tbody>
-
-                                    <tr>
-                                        <td> <strong>Food Price Total</strong> </td>
-                                        <td>2</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><strong>Discount</strong> </td>
-                                        <td>RM450</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><strong>Nett Total</strong> </td>
-                                        <td>RM450</td>
-                                    </tr>
-
-                                </tbody>
 
                             </table>
 
+                            <div class id="table_tbody_payment_div">
+                                <table class="table" id="table_tbody_payment" style="width: 100%">
 
-                            <h6 style="margin-left: 10px;">Payment Method :</h6>
+
+                                </table>
+                            </div>
+
+
+                            <h6 style="margin-left: 20px; margin-top: 25px;">Payment Method :</h6>
 
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-                                            aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                             <i class="fas fa-hand-holding-usd"></i>Cash Payment
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">Please inform the cashier at the counter that you
                                             would like
                                             to
@@ -879,28 +937,22 @@ var form = '[id^="add-project-form-"]';
                                 </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-                                            aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                             <i class="far fa-credit-card"></i>Debit/Credit Card
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <h5>Card Information <img
-                                                            src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png"
-                                                            width="60px" height="25px"></h5>
+                                                    <h5>Card Information <img src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png" width="60px" height="25px"></h5>
                                                     <form id="cardinfo">
                                                         <div class="row  mt-2">
                                                             <div class="col">
 
                                                                 <div class="form-outline">
 
-                                                                    <input type="number" id="formField1"
-                                                                        class="form-control" required />
+                                                                    <input type="number" id="formField1" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Number</label>
                                                                 </div>
@@ -911,18 +963,15 @@ var form = '[id^="add-project-form-"]';
                                                         <div class="row  mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="tel" id="formField2"
-                                                                        class="form-control" required />
+                                                                    <input type="tel" id="formField2" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">MM /
                                                                         YY</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="tel" id="formField3"
-                                                                        class="form-control" required />
-                                                                    <label class="form-label"
-                                                                        for="form6Example2">Cvv</label>
+                                                                    <input type="tel" id="formField3" class="form-control" required />
+                                                                    <label class="form-label" for="form6Example2">Cvv</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -930,8 +979,7 @@ var form = '[id^="add-project-form-"]';
                                                         <div class="row mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="formField4"
-                                                                        class="form-control" required />
+                                                                    <input type="text" id="formField4" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Holder
                                                                         Name</label>
@@ -940,8 +988,7 @@ var form = '[id^="add-project-form-"]';
 
 
 
-                                                            <button type="submit" class="btn btn-primary" id="checkbox"
-                                                                style="width:100%;">Checkout</button>
+                                                            <button type="submit" class="btn btn-primary" id="checkbox" style="width:100%;">Checkout</button>
                                                     </form>
 
 
@@ -956,17 +1003,13 @@ var form = '[id^="add-project-form-"]';
 
 
 
-
-
-
                         </div>
 
                     </div>
 
                 </div>
             </div>
-            <div class="col text-center" style="border-top-right-radius: 20px;" data-bs-toggle="offcanvas"
-                data-bs-target="#User" aria-controls="offcanvasBottom">
+            <div class="col text-center" style="border-top-right-radius: 20px;" data-bs-toggle="offcanvas" data-bs-target="#User" aria-controls="offcanvasBottom">
                 <i class="bi bi-person"></i>
                 <strong>User</strong>
             </div>
@@ -1003,23 +1046,20 @@ var form = '[id^="add-project-form-"]';
                             @foreach ($data3 as $data3)
 
 
-                            <li class="list-group-item d-flex justify-content-between align-items-center mb-2"
-                                style="background: orange;">
+                            <li class="list-group-item d-flex justify-content-between align-items-center mb-2" style="background: orange;">
 
 
                                 <div class="row">
 
 
                                     <div class="col-3">
-                                        <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
-                                            width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">
+                                        <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">
 
                                     </div>
                                     <div class="col-9">
                                         <div class="infor" style="color: white;">
                                             <h4>Voucher RM{{$data3->amount}}</h4>
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm UserMenu">Points{{$data3->point}}</button>
+                                            <button type="button" class="btn btn-danger btn-sm UserMenu">Points{{$data3->point}}</button>
 
                                         </div>
                                     </div>
@@ -1057,11 +1097,6 @@ var form = '[id^="add-project-form-"]';
 
 
     <script>
-
-
-
-
-
         var menu = document.getElementById("menu");
         var scrollLeft = 500;
 
@@ -1092,14 +1127,11 @@ var form = '[id^="add-project-form-"]';
 
     <!--Boostrap-->
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
