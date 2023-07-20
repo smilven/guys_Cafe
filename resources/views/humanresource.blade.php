@@ -1,201 +1,253 @@
 @extends('adlayout')
 @section('content')
 
-<div class="container">
+<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="pragma" content="no-cache">
 
-  
+<div class="card">
 
-  
+  <div class="card-body">
 
-    <form action="worker" method="POST">
-        @csrf
-        <center>
-            <h3 style="font-weight:800">Add Worker</h3>
-        </center>
-        <div class="row g-4 mb-4">
-    
-            <div class="col-sm">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Name" autocomplete="off" />
-            </div>
-    
-            <div class="col-sm">
-    
-                <input type="text" name="position" id="Position" class="form-control" placeholder="Position"
-                    autocomplete="off" />
-    
-    
-            </div>
-    
-            <div class="col-sm">
-                <input type="text" name="phone" id="Phone" class="form-control" placeholder="Phone number"
-                    autocomplete="off">
-            </div>
-    
-    
-            <div class="col-sm">
-                <input type="text" name="ic" id="ic" class="form-control" placeholder="identity number" autocomplete="off">
-            </div>
-    
-            <div class="col-sm">
-                <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-color="dark">Add</button>
-            </div>
+    <legend>Flash Message</legend>
+
+    <form id="flashMessageForm" method="post" action="{{ route('smessage') }}">
+        @CSRF
+        @method('post')
+
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="title" placeholder="Title" class="form-control" id="" aria-describedby="title">
         </div>
-    
+
+        <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <input type="text" name="body" placeholder="Body" class="form-control" id="" aria-describedby="body">
+        </div>
+
+        <br>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Save Flash Message">
+        </div>
+
+        <br>
+
+        <div id="flashMessageContainer">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><h6><b>Title</b></h6></th>
+                        <th scope="col"><h6><b>Body</b></h6></th>
+                        <th scope="col"><h6><b>Edit</b></h6></th>
+                        <th scope="col"><h6><b>Delete</b></h6></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($messages as $message)
+                    <tr>
+                        <td><h6>{{$message->title}}</h6></td>
+                        <td><h6>{{$message->body}}</h6></td>
+                        <td>
+                            <button type="button" value="{{$message->id}}" class="btn btn-primary editbtn btn-sm">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" value="{{$message->id}}" class="btn btn-danger deletebtn btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </form>
-    
 
-
-<script>
-    $(document).ready(function() {
-        $(document).on('click', '.edit', function() {
-
-            var worker_id = $(this).val();
-            // alert(stud_id);
-
-            $.ajax({
-                type: "GET",
-                url: "/edit-worker/" + worker_id,
-                success: function(response) {
-                    //console.log(response);
-                    $('#phone').val(response.data.phone);
-                    $('#position').val(response.data.position);
-                    $('#worker_id').val(response.worker_id); // Set the worker_id input field
-                }
-            });
-
-        });
-    });
-</script>
-
-    <div class="card">
-        <table class="table align-middle mb-0 bg-white">
-
-            <thead class="bg-light" style="font-weight:700">
-                <tr>
-
-                    <td>Worker ID</td>
-                    <td>Name</td>
-                    <td>Position</td>
-                    <td>Phone number</td>
-                    <td>Identity number</td>
-                    <td>Edit Account</td>
-                    <td>Remove Account</td>
-
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach ($workers as $Worker)
-
-
-                <tr>
-                    <td>
-                        <p class="fw-normal mb-1">{{$Worker['id']}}</p>
-                    </td>
-
-                    <td>
-                        <p class="fw-normal mb-1">{{$Worker['name']}}</p>
-
-                    </td>
-
-                    <td>
-                        <p class="fw-normal mb-1">{{$Worker['position']}}</p>
-
-                    </td>
-
-                    <td>
-                        <p class="fw-normal mb-1">{{$Worker['phone']}}</p>
-
-                    </td>
-
-                    <td>
-                        <p class="fw-normal mb-1">{{$Worker['ic']}}</p>
-
-                    </td>
-
-
-
-
-                    <td>
-                        <button type="button" class="btn btn-link btn-sm btn-rounded edit" data-bs-toggle="modal"
-                            data-bs-target="#editWorker" value="{{$Worker->id}}">
-                            Edit
-                        </button>
-                    </td>
-
-
- 
-
-                    
-                    <div class="modal fade" id="editWorker" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form action="{{ url('update-worker') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <input type="hidden" name="worker_id" id="worker_id">
-
-                                    <div class="container" style="padding:20px;">
-
-                                        <center>
-                                            <h4 style="margin-bottom: 10px;">Edit User</h4>
-                                        </center>
-                                        <!-- Name input -->
-                                        <div class="form-outline mb-4">
-                                            <input type="text" id="phone" class="form-control" name="phone" />
-                                            <label class="form-label" for="phone">Phone Number</label>
-                                        </div>
-
-                                        <div class="form-outline mb-4">
-                                            <input type="text" id="position" class="form-control" name="position" />
-                                            <label class="form-label" for="position">Position</label>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary btn-block mt-2" id="checkout">Submit</button>
-
-                                    </div>
-
-                                </form>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                    <td>
-                        <a href="delete3/{{$Worker['id']}}" class="btn btn-link btn-sm btn-rounded">
-                            Remove
-                        </a>
-                    </td>
-
-
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+  </div>
 
 </div>
 
 
- 
- 
-<style>
-    #worker {
-        background-color: #f1f1f1;
-    }
 
-    @media(max-width: 768px) {
+<!-- Modal -->
+<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-        .btn {
-            width: 100%;
-        }
-    }
-</style>
+        <form action="{{ url('update-message') }}" method="POST" class="editForm">
+            @csrf
+            @method('PUT')
+
+            <input type="hidden" name="id" id="id" />
+
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label for="">Title</label>
+                    <input type="text" name="title" id="title" required class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Body</label>
+                    <input type="text" name="body" id="body" required class="form-control">
+                </div>
+            </div>
+        
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!--Delete Modal-->
+
+<div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <form action="{{ url('delete-message') }}" method="POST" class="deleteForm" id="delete_id">
+            @csrf
+            @method('DELETE')
+
+            <legend>Comfirm to Delete?</legend>
+            <input type="hidden" id="deleteing_id" name="delete_id">
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Delete</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!--END-->
+
+@endsection
+
+
+
+@section('scripts')
+
+<script>
+$(document).ready(function(){
+   
+    $(document).on('click', '.deletebtn', function(e) {
+        e.preventDefault();
+        var id = $(this).val();
+        $('#DeleteModal').modal('show');
+        $('#deleteing_id').val(id);
+        deleteForm = $(this).closest('form');
+    });
+
+    $('.deleteForm').submit(function(event) {
+        event.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            type: 'DELETE',
+            url: $(this).attr('action'),
+            data: formData,
+            success: function(response) {
+                var deletedRow = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
+                deletedRow.remove();
+                $('#DeleteModal').modal('hide');
+            },
+            error: function(error) {
+                alert('Error deleting message.');
+            }
+        });
+    });
+            
+        $(document).on('click','.editbtn' , function(){
+
+            var id = $(this).val();
+            $('#editModal').modal('show');
+
+            $.ajax({
+                type:"GET",
+                url:"/edit-message/"+id,
+                success: function(response){
+                    //console.log(response);
+                    $('#title').val(response.message.title);
+                    $('#body').val(response.message.body);
+                    $('#id').val(response.message.id);
+
+                }
+            });
+        });
+
+        $('#flashMessageForm').submit(function(event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function(response) {
+                    var newRow = '<tr>' +
+                        '<td><h6>' + response.message.title + '</h6></td>' +
+                        '<td><h6>' + response.message.body + '</h6></td>' +
+                        '<td>' +
+                        '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
+                        '</td>' +
+                        '<td>' +
+                        '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
+                        '</td>' +
+                        '</tr>';
+
+                    $('#flashMessageContainer tbody').append(newRow);
+                    
+                    $('#flashMessageForm')[0].reset();
+                    
+                },
+                
+                error: function(error) {
+                }
+            });
+        });
+
+        $('.editForm').submit(function(event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'PUT',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function(response) {
+                    var rowToUpdate = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
+                    var newRow = '<tr>' +
+                        '<td><h6>' + response.message.title + '</h6></td>' +
+                        '<td><h6>' + response.message.body + '</h6></td>' +
+                        '<td>' +
+                        '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
+                        '</td>' +
+                        '<td>' +
+                        '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
+                        '</td>' +
+                        '</tr>';
+                    rowToUpdate.replaceWith(newRow);
+                    $('#editModal').modal('hide');
+                },
+            });
+        });
+
+});
+</script>
 
 @endsection

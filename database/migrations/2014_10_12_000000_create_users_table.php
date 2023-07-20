@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->tinyInteger('type')->default(0);
+            $table->Integer('point')->default(0);
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('verification_code')->unique()->nullable();
             $table->rememberToken();

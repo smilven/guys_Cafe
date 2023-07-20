@@ -296,7 +296,8 @@ $tableNumber = 1;
 
                 .message,
                 .message2,
-                .message3 {
+                .message3,
+                .message4 {
                     position: absolute;
                     display: none;
                     text-align: center;
@@ -324,6 +325,9 @@ $tableNumber = 1;
 
                 <div id="message3" class="message3">
                     Has been removed.
+                </div>
+                <div id="message4" class="message4">
+                    Done Payment Thank You.
                 </div>
             </div>
         </div>
@@ -469,77 +473,112 @@ $tableNumber = 1;
     </script>
 
 
-    <div class="fixed-bottom shadow-4-strong">
-        <div class="container-fluid">
+<div class="fixed-bottom shadow-4-strong">
+    <div class="container-fluid">
 
-            <div class="row">
-                <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas" data-bs-target="#menu">
-                    <i class="bi bi-menu-button-wide"></i>
-                    <strong> Menu</strong>
+        <div class="row">
+            <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas"
+                data-bs-target="#menu">
+                <i class="bi bi-menu-button-wide"></i>
+                <strong> Menu</strong>
+            </div>
+
+            <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook"
+                aria-controls="offcanvasBottom">
+                <i class="bi bi-clipboard-check"></i>
+                <strong>Food</strong>
+            </div>
+            <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cook" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Food</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook" aria-controls="offcanvasBottom">
-                    <i class="bi bi-clipboard-check"></i>
-                    <strong>Food</strong>
-                </div>
-                <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cook" aria-labelledby="offcanvasBottomLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Food</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body small text-center">
-                        <div class="container mb-9">
-                            <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" alt="GCLogo" style="width:200px; height: 200px;">
+                <div class="offcanvas-body small text-center">
+                    <div class="container mb-9">
+                        <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
+                            alt="GCLogo" style="width:200px; height: 200px;">
 
 
 
 
-                            <div class="row">
-                                <div class="col-xs-12 col-md-8 offset-md-2">
-                                    <div class="wrapper-progressBar">
-                                        <ul class="progressBar">
-                                            <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
-                                            <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
-                                            <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8 offset-md-2">
+                                <div class="wrapper-progressBar">
+                                    <ul class="progressBar">
+                                        <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
+                                        <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
+                                        <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered</li>
+                                    </ul>
                                 </div>
                             </div>
-
                         </div>
 
-
                     </div>
+
+
                 </div>
+            </div>
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
-                    <strong>Cart</strong>
+            <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart"
+                aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
+                <strong>Cart</strong>
+            </div>
+
+            <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cart" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Cart</h5>
+
+
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-
-                <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cart" aria-labelledby="offcanvasBottomLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Cart</h5>
-
-
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div class="offcanvas-body small">
+                    <div class="row" id="Table" >
                     </div>
-                    <div class="offcanvas-body small">
-                        <div class="row" id="Table">
-
-                        </div>
 
 
-                        <form data-action="{{ route('place') }}" method="POST" id="PlaceOrderForm">
-                            @csrf
-                            <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%">Place
-                                Order</button>
-                        </form>
+                    <form data-action="{{ route('place') }}" method="POST" id="PlaceOrderForm">
+                        @csrf
+                        <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%" >Place Order</button>
+                    </form>
 
 
 
-                    </div>
                 </div>
+            </div>
+            <script>
+               $(document).ready(function() {
+// Function to handle place order button click
+$('#PlaceOrderForm').submit(function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Make the AJAX request
+    $.ajax({
+        url: $(this).data('action'), // Retrieve the URL from the form's data-action attribute
+        type: 'POST',
+        dataType: 'json',
+        data: $(this).serialize(), // Serialize the form data
+        success: function(response) {
+            // Handle the response from the server
+            console.log(response);
+            // Display success message to the user
+            // Update the progress bar dynamically
+            $('.progressBar li').removeClass('active');
+            $('.progressBar li').eq(0).addClass('active'); // Update the index to match the placeorder step
+            // Clear the cart items
+            $('#Table').empty();
+        },
+        error: function(xhr, status, error) {
+            // Handle the error
+            console.error(error);
+            // Display error message to the user
+            alert('An error occurred. Please try again later.');
+        }
+    });
+});
+});
+
+</script>
+
 
                 <style>
                     #Table a {
@@ -946,15 +985,14 @@ $tableNumber = 1;
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <h5>Card Information <img src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png" width="60px" height="25px"></h5>
-                                                    <form id="cardinfo">
+                                                    <form id="cardinfo" method="POST" data-action="{{route('store.card.info')}}">
+                                                        @csrf
                                                         <div class="row  mt-2">
                                                             <div class="col">
 
                                                                 <div class="form-outline">
-
-                                                                    <input type="number" id="formField1" class="form-control" required />
-                                                                    <label class="form-label" for="form6Example1">Card
-                                                                        Number</label>
+                                                                    <input type="text" id="card_number" class="form-control" required />
+                                                                    <label class="form-label" for="form6Example1">Card Number</label>
                                                                 </div>
 
                                                             </div>
@@ -963,14 +1001,14 @@ $tableNumber = 1;
                                                         <div class="row  mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="tel" id="formField2" class="form-control" required />
+                                                                    <input type="text" id="expiry_date" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">MM /
                                                                         YY</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="tel" id="formField3" class="form-control" required />
+                                                                    <input type="text" id="cvv" class="form-control" required />
                                                                     <label class="form-label" for="form6Example2">Cvv</label>
                                                                 </div>
                                                             </div>
@@ -979,7 +1017,7 @@ $tableNumber = 1;
                                                         <div class="row mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="formField4" class="form-control" required />
+                                                                    <input type="text" id="cardholder_name" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Holder
                                                                         Name</label>
@@ -988,8 +1026,8 @@ $tableNumber = 1;
 
 
 
-                                                            <button type="submit" class="btn btn-primary" id="checkbox" style="width:100%;">Checkout</button>
-                                                    </form>
+                                                            <button type="submit" class="btn btn-primary" id="checkoutBtn" style="width: 100%;">Checkout</button>
+                                                        </form>
 
 
                                                 </div>
@@ -999,7 +1037,55 @@ $tableNumber = 1;
                                 </div>
 
                             </div>
+                            <script>
+$(document).ready(function() {
+    var form = '#cardinfo';
 
+    $(form).on('submit', function(event) {
+        event.preventDefault();
+        var url = $(this).attr('data-action');
+        var expiry_date = $('#expiry_date').val(); // Get the expiry_date value from the input field
+        var cvv = $('#cvv').val(); // Get the expiry_date value from the input field
+        var cardholder_name = $('#cardholder_name').val(); // Get the expiry_date value from the input field
+        var card_number = $('#card_number').val(); // Get the expiry_date value from the input field
+
+        $.ajax({
+            url: '{{ route("store.card.info") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                expiry_date: expiry_date, 
+               
+                cvv: cvv,
+                cardholder_name: cardholder_name,
+                card_number: card_number,
+
+            },
+            dataType: 'JSON',
+            success: function(response) {
+                console.log("Success Good");
+                console.log(response);
+                var message = document.getElementById("message4");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+
+                $('#cardinfo')[0].reset(); // Reset the form to clear the values
+            },
+            error: function(response) {
+                console.log("Fail Bad");
+                console.log(response);
+            }
+        });
+    });
+});
+
+
+                                </script>
+                                
+                            
+                            
 
 
 
@@ -1028,13 +1114,11 @@ $tableNumber = 1;
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td><strong>{{ Auth::user()->name }}</strong></td>
+                                    <td><strong>User: {{ Auth::user()->name }}</strong></td>
                                 </tr>
+                
                                 <tr>
-                                    <td><strong>UserID : Guys0001</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Points : 58</strong></td>
+                                    <td><strong>Point: {{ Auth::user()->point }}</strong></td>
                                 </tr>
                             </tbody>
                         </table>

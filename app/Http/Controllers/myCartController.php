@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\mycart;
 use App\Models\Payment; 
-use App\Models\paymentDetail; 
+use App\Models\paymentDetail;
+use App\Models\paymentRecord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 class myCartController extends Controller
@@ -113,6 +114,7 @@ public function addCart(Request $request)
     
       // Save the payment details to the PaymentDetail model/database
       $paymentDetail = PaymentDetail::where('userID', $userId)->first();
+
     if (!$paymentDetail) {
         $paymentDetail = new PaymentDetail;
         $paymentDetail->userID = $userId;
@@ -131,11 +133,45 @@ public function addCart(Request $request)
     $paymentDetail->save();
 
     
+    
+    $paymentRecord = new paymentRecord();
+    // Assign values from the paymentDetail
+    $paymentRecord->payment_method = $paymentDetail->payment_method;
+    $paymentRecord->nett_total = $paymentDetail->nett_total;
+    $paymentRecord->earnPoint = $paymentDetail->earnPoint;
+    $paymentRecord->discount = $paymentDetail->discount;
+    $paymentRecord->totalFoodPrice = $paymentDetail->totalFoodPrice;
+    $paymentRecord->userID = $paymentDetail->userID;
+    $paymentRecord->save();
+    
     return response()->json([
         'status' => 200,
         'message' => 'Mycart added successfully.'
     ]);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public function delete($id)
 {

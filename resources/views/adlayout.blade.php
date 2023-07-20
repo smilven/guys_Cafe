@@ -53,7 +53,7 @@
 
 
 
-          <a href="worker" id="worker" class="list-group-item list-group-item-action py-3 ripple"
+          <a href="general" id="general" class="list-group-item list-group-item-action py-3 ripple"
             data-mdb-ripple-color="#44c6e3"><i class="fas fa-building fa-fw me-3"></i><span>Management</span></a>
 
 

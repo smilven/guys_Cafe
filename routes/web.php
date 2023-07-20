@@ -18,8 +18,9 @@ use App\Http\Middleware\DisableBackBtn;
 use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\paymentController;
-
-
+use App\Http\Controllers\paymentDetailController;
+use App\Models\paymentDetail;
+use App\Http\Controllers\MessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,8 +80,7 @@ Route::delete('mycart/delete/{id}', [myCartController::class, 'delete'])->name('
     Route::post('mycart/update/{id}', [myCartController::class, 'update'])->name('mycart.update');
     Route::get('/fetchAllPayment', [myCartController::class, 'fetchAllPayment'])->name('fetchAllPayment');
     Route::get('/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
-
-
+    Route::post('/home/store', [paymentDetailController::class, 'store'])->name('store.card.info');
 
 
 });
@@ -148,12 +148,10 @@ Route::middleware(['auth', 'user-access:kitchen'])->group(function () {
 
     Route::get('kitchen', [KitchenController::class, 'showFood'] )-> name('showfood');
 
-Route::post('/kitchen', [KitchenController::class, 'kitchenData'])->name('kitchen.kitchenData');
-// Define the route for updating the order status
-Route::post('/update-order-status', [KitchenController::class, 'fetchKitchenData'])->name('update.order.status');
+    Route::post('/update-order-status', [KitchenController::class, 'updateOrderStatus'])->name('update.order.status');
+    Route::delete('/kitchen/{userID}', [KitchenController::class, 'deleteOrder'])->name('kitchen.delete');
+    Route::get('/get-food-status/{userID}', [KitchenController::class, 'getFoodStatus'])->name('get.food.status');
 
-
-Route::delete('/kitchen/delete/{userID}', [KitchenController::class, 'deleteData'])->name('kitchen.delete');
 
 
 });
@@ -218,4 +216,14 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
     Route::post('SaveTable', [TableController::class, 'CreateTable']);
     Route::get('fetch-table', [TableController::class, 'fetchTables']);
     Route::get('deleteTable/{id}', [TableController::class, 'DeleteTable']);
+
+
+
+    Route::get('/general',[MessageController::class, 'message'])->name('humanresource');
+    Route::post('/general',[MessageController::class, 'smessage'])->name('smessage');
+    Route::get('edit-message/{id}',[MessageController::class, 'edit']);
+    Route::put('update-message',[MessageController::class, 'update']);
+    Route::delete('delete-message',[MessageController::class, 'destroy']);
+    Route::get('remind', [ControlController::class, 'remind']);
+
 });
