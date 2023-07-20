@@ -33,14 +33,22 @@ class myCartController extends Controller
 
 public function fetchAllPayment()
 {
-    $payments = Payment::all();
+    $userId = Auth::id();
+    $payments = Payment::where('userID', $userId)->first();
+
+   
     return response()->json(['payments' => $payments]); // Correct key name
 }
 
 public function fetchAllPaymentDetail()
 {
-    $paymentDetail = PaymentDetail::all();
-    return response()->json(['payment_details' => $paymentDetail]); // Correct key name
+    // Get the authenticated user's ID
+    $userId = Auth::id();
+
+    // Fetch the payment details for the authenticated user
+    $paymentDetail = PaymentDetail::where('userID', $userId)->first();
+
+    return response()->json(['payment_details' => $paymentDetail]);
 }
 public function addCart(Request $request)
 {
