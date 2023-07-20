@@ -2,6 +2,9 @@
 @section('content')
 
 {{-- Add Modal --}}
+
+<br>
+
 <div class="modal fade" id="AddSupplierModal" tabindex="-1" aria-labelledby="AddSupplierModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -17,10 +20,12 @@
                     <label for="">Name</label>
                     <input type="text" required class="SupplierName form-control">
                 </div>
+
                 <div class="form-group mb-3">
                     <label for="">Tel</label>
                     <input type="text" required class="PhoneNumber form-control">
                 </div>
+                
                 <div class="form-group mb-3">
                     <label for="">Category</label>
                     <input type="text" required class="Category form-control">
@@ -133,7 +138,7 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-10 mb-8">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -151,7 +156,7 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-10 mb-8">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -169,7 +174,7 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-10 mb-8">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -196,14 +201,47 @@
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-10 mb-8">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Pending Requests
+                                            </div>
+
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php
+                                                    //和db做Connection
+                                                    $serverName = "localhost";
+                                                    $userName = "root";
+                                                    $password ="";
+                                                    $dbName = "status_guys_cafe";
+
+                                                    //create connection
+                                                    $con = mysqli_connect($serverName,$userName,$password, $dbName);
+
+                                                    $dash_message_query = "SELECT * from messages";
+                                                    $dash_message_query_run = mysqli_query($con,$dash_message_query);
+
+                                                    if($message_total = mysqli_num_rows($dash_message_query_run))
+                                                    {
+                                                        echo '<h4 class="mb-0"> ' .$message_total.' </h4>';
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<h4 class="mb-0"> No Data </h4>';
+                                                    }
+                                                ?>
+                                            </div>
+
+                                            <br>
+
+                                            <!--Modal鏈接FlashMessage-->
+                                            <div>
+                                                <button type="button" class="btn btn-primary show-msg-btn btn-sm" >Detail</button>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -212,6 +250,65 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="showModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Flash Message</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                
+                                <table class="table"  id="FlashMessages">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Body</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+
+                                    <?php
+                                        $conn = mysqli_connect("localhost", "root","","status_guys_cafe");
+                                        if ($conn-> connect_error){
+                                            die("Connection failed:". $conn-> connect_error);
+                                        }
+
+                                        $sql = "SELECT title, body from messages";
+                                        $result = $conn-> query($sql);
+
+                                        if ($result-> num_rows > 0){
+                                            while ($row = $result-> fetch_assoc()){
+                                                echo "<tr><td>". $row["title"] ."</td><td>". $row["body"] ."</td></tr>";
+                                            }
+
+                                            echo "</table>";
+                                        }
+
+                                        else{
+                                            echo "0 result";
+                                        }
+
+                                        $conn-> close();
+                                    ?>
+
+                                    </tbody>
+                                    
+                                </table>        
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
                     </div>
 
                     <!-- Content Row -->
@@ -305,7 +402,7 @@
                                 <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
                             </div>
                         </div>
-                        <table class="table"  >
+                        <table class="table" id="supplier-table">
                             <thead>
                                 <tr>
                                     <th class="fw-bold">Name</th>
@@ -315,8 +412,10 @@
                                     <th class="fw-bold">Delete</th>
                                 </tr>
                             </thead>
-                            <tbody >
+
+                            <tbody>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -341,6 +440,7 @@
 <!-- Page level plugins -->
 <script src="javascript/chart.js"></script>
 
+
 <!-- Page level custom scripts -->
 <script src="javascript/chartarea"></script>
 <script src="javascript/chartpie"></script>
@@ -352,6 +452,11 @@
 
 @section('scripts')
 <script>
+
+    $(document).on('click', '.show-msg-btn', function() {
+        $('#showModal').modal('show');
+    });
+
     $(document).ready(function() {
         fetchsupplier();
 
@@ -362,9 +467,9 @@
                 , dataType: "json"
                 , success: function(response) {
                     // console.log(response);
-                    $('tbody').html("");
+                    $('#supplier-table tbody').html("");
                     $.each(response.suppliers, function(key, item) {
-                        $('tbody').append('<tr>\
+                        $('#supplier-table tbody').append('<tr>\
                             <td>' + item.SupplierName + '</td>\
                             <td>' + item.PhoneNumber + '</td>\
                             <td>' + item.Category + '</td>\
