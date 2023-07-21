@@ -33,10 +33,14 @@ $tableNumber = 1;
 
 
     <style>
-        .wrapper-progressBar {
-            width: 100%
-        }
-
+        #userTableInfo{
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    z-index: 0;
+    font-size: 18px;
+    line-height: 30px;
+}
 
         .progressBar li {
             list-style-type: none;
@@ -684,13 +688,17 @@ function fetchAllMyPoint() {
                 $('#userTableInfo').html("");
 
                 $.each(response.users, function(key, data) {
-                    var listItem = '<tr>' +
-                        '<td><strong>Point</strong> </td>' +
-                        '<td>' + data.point + '</td>' +
-                        '</tr>';
+                    var listItem = '<div>' +
+                        '<span><strong>User:</strong> </span>' +
+                        '<span>' + data.name + '</span>' +
+                        '</div>'+
+                        '<div>' +
+                        '<span><strong>Point:</strong> </span>' +
+                        '<span>' + data.point  + '</span>' +
+                        
+                        '</div>';
                     $('#userTableInfo').append(listItem);
                 });
-
                 // Update the totalFoodPrice value after receiving the updated data
                 var totalFoodPrice = response.totalFoodPrice;
             }
@@ -1129,15 +1137,13 @@ function fetchAllMyPoint() {
                 <div class="offcanvas-body small">
 
                     <div class="container">
-                        <table class="table table-borderless" id="userTableInfo">
-                            <tbody>
-                                <tr>
-                                    <td><strong>User: {{ Auth::user()->name }}</strong></td>
-                                </tr>
+                        <div class="table table-borderless" id="userTableInfo">
+                          
+                               
 
                               
-                            </tbody>
-                        </table>
+                     
+                        </div>
 
 
 

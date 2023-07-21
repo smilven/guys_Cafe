@@ -56,7 +56,7 @@ public function fetchAllPaymentDetail()
 public function fetchAllMyPoint()
 {
     $fetchAllMyPoint = DB::table('users')
-        ->select('point') // Select the "point" column
+        ->select('point','name') // Select the "point" column
         ->where('id', Auth::id()) // You can directly use Auth::id() here
         ->get();
 
