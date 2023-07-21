@@ -80,6 +80,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('mycart/update/{id}', [myCartController::class, 'update'])->name('mycart.update');
     Route::get('/fetchAllPayment', [myCartController::class, 'fetchAllPayment'])->name('fetchAllPayment');
     //Route::get('/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
+    Route::get('/fetchAllMyPoint', [myCartController::class, 'fetchAllMyPoint'])->name('fetchAllMyPoint');
     Route::match(['get', 'post'], '/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
     Route::delete('paymentDetail/delete/{id}', [myCartController::class, 'delete'])->name('paymentDetail.delete');
     Route::post('/home/store', [paymentDetailController::class, 'store'])->name('store.card.info');

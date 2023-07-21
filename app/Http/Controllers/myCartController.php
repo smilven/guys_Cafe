@@ -51,6 +51,18 @@ public function fetchAllPaymentDetail()
     ->get();
     return response()->json(['payment_details' => $paymentDetail]); // Correct key name
 }
+
+
+public function fetchAllMyPoint()
+{
+    $fetchAllMyPoint = DB::table('users')
+        ->select('point') // Select the "point" column
+        ->where('id', Auth::id()) // You can directly use Auth::id() here
+        ->get();
+
+    return response()->json(['users' => $fetchAllMyPoint]);
+}
+
 public function addCart(Request $request)
 {
     $foodId = $request->input('food_id');

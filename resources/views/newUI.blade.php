@@ -649,10 +649,9 @@ $tableNumber = 1;
                                    // $('#delete-mycart').click(); 
                                     $('#PlaceOrderForm').submit();
                                 
-
                                     $('#table_payment').remove();
             $('#table_tbody_payment').remove();
-
+            fetchAllMyPoint()
                                 },
 
 
@@ -671,7 +670,36 @@ $tableNumber = 1;
 
  
 
+                        fetchAllMyPoint()
+                       // Function to fetch and update user's points
+function fetchAllMyPoint() {
+    $.ajax({
+        type: "GET",
+        url: "/fetchAllMyPoint",
+        dataType: "json",
+        success: function(response) {
+            if (response && response.users) {
+                console.log(response); // Check the response in the browser console
 
+                $('#userTableInfo').html("");
+
+                $.each(response.users, function(key, data) {
+                    var listItem = '<tr>' +
+                        '<td><strong>Point</strong> </td>' +
+                        '<td>' + data.point + '</td>' +
+                        '</tr>';
+                    $('#userTableInfo').append(listItem);
+                });
+
+                // Update the totalFoodPrice value after receiving the updated data
+                var totalFoodPrice = response.totalFoodPrice;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+        }
+    });
+}
 
 
                     });
@@ -860,8 +888,7 @@ $tableNumber = 1;
 
 
 
-
-
+                      
 
 
 
@@ -942,6 +969,7 @@ $tableNumber = 1;
                                     // Fetch the updated payment list after successful deletion
                                     fetchAllPayment();
                                     fetchAllPaymentDetail();
+                                    
                                 }
                                 , error: function(response) {
                                     // Handle error response
@@ -1101,15 +1129,13 @@ $tableNumber = 1;
                 <div class="offcanvas-body small">
 
                     <div class="container">
-                        <table class="table table-borderless">
+                        <table class="table table-borderless" id="userTableInfo">
                             <tbody>
                                 <tr>
                                     <td><strong>User: {{ Auth::user()->name }}</strong></td>
                                 </tr>
 
-                                <tr>
-                                    <td><strong>Point: {{ Auth::user()->point }}</strong></td>
-                                </tr>
+                              
                             </tbody>
                         </table>
 

@@ -8,6 +8,7 @@ use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\paymentRecord;
+use App\Models\User;
 
 class paymentDetailController extends Controller
 {
@@ -17,7 +18,7 @@ class paymentDetailController extends Controller
     
         // Check if the PaymentDetail record exists for the user
         $paymentDetail = PaymentDetail::where('userID', $userID)->first();
-    
+
         if (!$paymentDetail) {
             // If the PaymentDetail record doesn't exist, create a new one
             $paymentDetail = new PaymentDetail;
@@ -29,9 +30,7 @@ class paymentDetailController extends Controller
     
         // Set the new payment method from the request
         $paymentDetail->payment_method = "Credit Card"; // Assuming 'payment_method' is the name of the input field
-    
-        // Save the PaymentDetail record
-        $paymentDetail->save();
+     
     
         // Now, handle the CardInfo record
         $cardInfo = new CardInfor;
@@ -55,6 +54,17 @@ class paymentDetailController extends Controller
         $paymentRecord->userID = $paymentDetail->userID;
         $paymentRecord->save();
     
+
+        $user = User::find($userID);
+
+        if ($user) {
+            // Update the user's point with the value from the paymentDetail's earnPoint
+            $user->point += $paymentDetail->earnPoint;
+            $user->save();
+        } else {
+            // Handle the case if the user record is not found
+            // You may want to decide what to do in this situation (e.g., create a new user, show an error, etc.)
+        }
         
         // Delete existing data from the Payment and PaymentRecord tables (assuming you have models for them)
     
