@@ -6,7 +6,7 @@ use App\Models\FoodMenu;
 use App\Models\mycart;
 use App\Models\Voucher;
 use App\Models\Kitchen;
-
+use App\Models\paymentDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -45,11 +45,11 @@ class HomeController extends Controller
 
     public function showCategoryAndProduct()
     {
-
+        $userId = auth()->user()->id; // Replace this with the actual logic to get the user ID
         $data1 = Category::all();
         $data2 = FoodMenu::all();
         $data3 = Voucher::all();
-
+        $paymentDetail = paymentDetail::all();
         $mycarts = DB::table('mycarts')
         ->leftJoin('food_menus', 'food_menus.id', '=', 'mycarts.food_id')
         ->select('food_menus.*')
@@ -63,7 +63,14 @@ class HomeController extends Controller
         // Extract the food_Status from the kitchen record
         $status = $kitchen ? $kitchen->food_Status : '';
 
-        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts','status'));
+        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts','status','userId','paymentDetail'));
+    }
+
+    public function destroyPaymentDetail($id)
+    {
+        $paymentDetail = paymentDetail::findOrFail($id);
+        $paymentDetail->delete();
+        return response()->json(['message' => 'paymentDetail deleted successfully']);
     }
 
 

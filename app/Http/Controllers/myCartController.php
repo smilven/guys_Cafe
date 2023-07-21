@@ -135,7 +135,7 @@ public function addCart(Request $request)
 
     // Update the payment details
     $paymentDetail->totalFoodPrice += $totalFoodPrice; // Accumulate the totalFoodPrice
-    $paymentDetail->earnPoint = $totalFoodPrice/ 10;
+    $paymentDetail->earnPoint =  $totalFoodPrice / 10;
     $paymentDetail->nett_total += $nett_total; // Accumulate the nett_total
     $paymentDetail->discount += $discount; // Accumulate the discount
     // Update other necessary fields as needed
@@ -158,23 +158,6 @@ public function addCart(Request $request)
         'message' => 'Mycart added successfully.'
     ]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -218,14 +201,53 @@ public function delete($id)
         // Delete the mycart item
         $cartItem->delete();
 
+        if ($paymentDetail = PaymentDetail::find($id)) {
+            // Delete the PaymentDetail record
+            $paymentDetail->delete();
+    
+            return response()->json([
+                'status' => 200,
+                'message' => 'Payment detail removed successfully.'
+            ]);
+        }
+    
+        return response()->json(['error' => 'Failed to delete payment detail.']);
+    }
+
+
+    $paymentDetail = paymentDetail::find($id);
+    $paymentDetail->delete();
+
         return response()->json([
             'status' => 200,
             'message' => 'Item removed successfully.'
         ]);
-    }
 
     return response()->json(['error' => 'Failed to delete item and update payment details.']);
 }
+
+
+
+
+
+/*
+public function deletePaymentDetail($id)
+{
+    $paymentDetail = paymentDetail::find($id);
+
+
+        // Delete the mycart item
+        $paymentDetail->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Item removed successfully.'
+        ]);
+    
+
+    return response()->json(['error' => 'Failed to delete item and update payment details.']);
+}
+*/
 
 
 public function update(Request $request, $id)

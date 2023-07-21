@@ -12,7 +12,7 @@ use App\Models\paymentRecord;
 class paymentDetailController extends Controller
 {
     public function store(Request $request)
-    {  
+    {
         $userID = Auth::id();
     
         // Check if the PaymentDetail record exists for the user
@@ -33,44 +33,34 @@ class paymentDetailController extends Controller
         // Save the PaymentDetail record
         $paymentDetail->save();
     
-
-
-        $paymentRecord = paymentRecord::where('userID', $userID)->first();
-        if (!$paymentDetail) {
-        $paymentRecord = new paymentRecord();
-        // Assign values from the paymentDetail
-        $paymentRecord = new PaymentDetail;
-        $paymentRecord->userID = $userID;
-        $paymentRecord->totalFoodPrice = 0; // Initialize the totalFoodPrice to 0 for new users
-        $paymentRecord->nett_total = 0;
-        $paymentRecord->discount = 0;
-        }
-        $paymentRecord->payment_method = $paymentDetail->payment_method="Credit Card";
-        $paymentRecord->save();
-
-
-
-
-
-
-
-        
         // Now, handle the CardInfo record
         $cardInfo = new CardInfor;
-        $cardInfo->expiry_date = $request->input('expiry_date'); 
+        $cardInfo->expiry_date = $request->input('expiry_date');
         $cardInfo->card_number = $request->input('card_number');
         $cardInfo->cvv = $request->input('cvv');
         $cardInfo->cardholder_name = $request->input('cardholder_name');
         $cardInfo->userID = $userID;
-    
         $cardInfo->save();
+    
+        // Delete existing data from the Payment and PaymentRecord tables (assuming you have models for them)
+    
+        // Delete Payment records
+        Payment::where('userID', $userID)->delete();
+    
+        // Delete PaymentRecord records
+        PaymentDetail::where('userID', $userID)->delete();
     
         return response()->json([
             'status' => 200,
             'message' => 'Mycart added successfully.'
-        ]);    
+        ]);
     }
     
+
+ 
+    
+    
+
 }
 
 

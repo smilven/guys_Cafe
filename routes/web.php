@@ -76,12 +76,14 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::post('/home/place', [App\Http\Controllers\OrderController::class,'placeOrder'])->name('place');
    // Route::get('DeleteMyCart/{id}', [myCartController::class, 'DeleteMyCart']);
-Route::delete('mycart/delete/{id}', [myCartController::class, 'delete'])->name('mycart.delete');
+    Route::delete('mycart/delete/{id}', [myCartController::class, 'delete'])->name('mycart.delete');
     Route::post('mycart/update/{id}', [myCartController::class, 'update'])->name('mycart.update');
     Route::get('/fetchAllPayment', [myCartController::class, 'fetchAllPayment'])->name('fetchAllPayment');
-    Route::get('/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
+    //Route::get('/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
+    Route::match(['get', 'post'], '/fetchAllPaymentDetail', [myCartController::class, 'fetchAllPaymentDetail'])->name('fetchAllPaymentDetail');
+    Route::delete('paymentDetail/delete/{id}', [myCartController::class, 'delete'])->name('paymentDetail.delete');
     Route::post('/home/store', [paymentDetailController::class, 'store'])->name('store.card.info');
-
+    Route::post('/delete-card', [paymentDetailController::class,'deleteCard'])->name('delete.card');
 
 });
 
