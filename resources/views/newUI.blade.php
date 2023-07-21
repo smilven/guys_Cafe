@@ -677,6 +677,9 @@ $tableNumber = 1;
                     });
 
                 </script>
+
+
+
                 <script>
                     $(document).ready(function() {
                         fetchAllOrder();
@@ -798,6 +801,7 @@ $tableNumber = 1;
 
                                         console.log(response.payments);
                                     }
+
                                 }
                                 , error: function(xhr, status, error) {
                                     console.error("AJAX Error:", status, error);
@@ -846,6 +850,7 @@ $tableNumber = 1;
                                         var totalFoodPrice = response.totalFoodPrice;
                                         $('#total_food_price_value').text(totalFoodPrice);
                                     }
+
                                 }
                                 , error: function(xhr, status, error) {
                                     console.error("AJAX Error:", status, error);

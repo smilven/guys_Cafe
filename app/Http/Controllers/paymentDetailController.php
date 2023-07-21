@@ -42,6 +42,20 @@ class paymentDetailController extends Controller
         $cardInfo->userID = $userID;
         $cardInfo->save();
     
+
+
+
+        $paymentRecord = new paymentRecord();
+        // Assign values from the paymentDetail
+        $paymentRecord->payment_method = $paymentDetail->payment_method;
+        $paymentRecord->nett_total = $paymentDetail->nett_total;
+        $paymentRecord->earnPoint = $paymentDetail->earnPoint;
+        $paymentRecord->discount = $paymentDetail->discount;
+        $paymentRecord->totalFoodPrice = $paymentDetail->totalFoodPrice;
+        $paymentRecord->userID = $paymentDetail->userID;
+        $paymentRecord->save();
+    
+        
         // Delete existing data from the Payment and PaymentRecord tables (assuming you have models for them)
     
         // Delete Payment records

@@ -135,7 +135,7 @@ public function addCart(Request $request)
 
     // Update the payment details
     $paymentDetail->totalFoodPrice += $totalFoodPrice; // Accumulate the totalFoodPrice
-    $paymentDetail->earnPoint =  $totalFoodPrice / 10;
+    $paymentDetail->earnPoint +=  (($totalFoodPrice/10)|0) ;
     $paymentDetail->nett_total += $nett_total; // Accumulate the nett_total
     $paymentDetail->discount += $discount; // Accumulate the discount
     // Update other necessary fields as needed
@@ -143,16 +143,7 @@ public function addCart(Request $request)
 
     
     
-    $paymentRecord = new paymentRecord();
-    // Assign values from the paymentDetail
-    $paymentRecord->payment_method = $paymentDetail->payment_method;
-    $paymentRecord->nett_total = $paymentDetail->nett_total;
-    $paymentRecord->earnPoint = $paymentDetail->earnPoint;
-    $paymentRecord->discount = $paymentDetail->discount;
-    $paymentRecord->totalFoodPrice = $paymentDetail->totalFoodPrice;
-    $paymentRecord->userID = $paymentDetail->userID;
-    $paymentRecord->save();
-    
+   
     return response()->json([
         'status' => 200,
         'message' => 'Mycart added successfully.'
@@ -182,7 +173,7 @@ public function delete($id)
             $reductionNettTotal = $reductionPrice - $payment->discount;
 
             // Calculate the reduction in earnPoint
-            $earnPointReduction = $reductionPrice / 10;
+            $earnPointReduction = (($reductionPrice/10)|0);
 
             // Update the PaymentDetail record
             $paymentDetail = PaymentDetail::where('userID', $cartItem->userID)->first();
@@ -191,7 +182,7 @@ public function delete($id)
                 $paymentDetail->nett_total -= $reductionNettTotal;
                 $paymentDetail->earnPoint -= $earnPointReduction; // Deduct the earnPoint
                 // Update other necessary fields as needed
-                $paymentDetail->save();
+                $paymentDetail->delete();
             }
 
             // Delete the corresponding payment record
