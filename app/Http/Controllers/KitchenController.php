@@ -9,9 +9,10 @@ class KitchenController extends Controller
 {
     public function showFood(Request $request)
     {
+        // Retrieve all data from the Kitchen model
         $data4 = Kitchen::all();
         $user = $request->user();
-
+    
         // Retrieve the cart items for the current user
         $data5 = Kitchen::where('userID', $user->id)->get();
         return view('kitchen', compact('data4', 'data5'));

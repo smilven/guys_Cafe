@@ -19,8 +19,9 @@ use App\Http\Controllers\ForgetPasswordManager;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\paymentController;
 use App\Http\Controllers\paymentDetailController;
-use App\Models\paymentDetail;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\CashController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +86,10 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::delete('paymentDetail/delete/{id}', [myCartController::class, 'delete'])->name('paymentDetail.delete');
     Route::post('/home/store', [paymentDetailController::class, 'store'])->name('store.card.info');
     Route::post('/delete-card', [paymentDetailController::class,'deleteCard'])->name('delete.card');
+    Route::get('/getRedemptionCode', [VoucherController::class, 'getRedemptionCode'])->name('getRedemptionCode');
+    Route::get('/fetchRedemptionCode', [VoucherController::class, 'fetchRedemptionCode'])->name('fetchRedemptionCode');
+    Route::post('/VoucherRedemption', [VoucherController::class,'storeVoucherRedemption'])->name('VoucherRedemption');
+    Route::get('/get-payment-records', [HomeController::class, 'getPaymentRecords'])->name('get.payment.records')->middleware('verifiedphone');
 
 });
 
@@ -148,9 +153,7 @@ All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:kitchen'])->group(function () {
-
-    Route::get('kitchen', [KitchenController::class, 'showFood'] )-> name('showfood');
-
+    Route::get('kitchen', [KitchenController::class, 'showFood'])->name('showfood');
     Route::post('/update-order-status', [KitchenController::class, 'updateOrderStatus'])->name('update.order.status');
     Route::delete('/kitchen/{userID}', [KitchenController::class, 'deleteOrder'])->name('kitchen.delete');
     Route::get('/get-food-status/{userID}', [KitchenController::class, 'getFoodStatus'])->name('get.food.status');
@@ -228,5 +231,9 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
     Route::put('update-message',[MessageController::class, 'update']);
     Route::delete('delete-message',[MessageController::class, 'destroy']);
     Route::get('remind', [ControlController::class, 'remind']);
+
+
+    Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
+    Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
 
 });

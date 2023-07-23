@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\FoodMenu;
-use App\Models\mycart;
+use App\Models\paymentRecord;
 use App\Models\Voucher;
 use App\Models\Kitchen;
 use App\Models\paymentDetail;
@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
@@ -59,11 +59,11 @@ class HomeController extends Controller
 
         // Fetch the latest kitchen record from the database
         $kitchen = Kitchen::latest()->first();
-
+        $paymentRecords = paymentRecord::where('userID', $userId)->get();
         // Extract the food_Status from the kitchen record
         $status = $kitchen ? $kitchen->food_Status : '';
 
-        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts','status','userId','paymentDetail'));
+        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail'));
     }
 
     public function destroyPaymentDetail($id)
@@ -73,5 +73,10 @@ class HomeController extends Controller
         return response()->json(['message' => 'paymentDetail deleted successfully']);
     }
 
-
+    public function getPaymentRecords(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $paymentRecords = paymentRecord::where('userID', $userId)->get();
+        return response()->json(['paymentRecords' => $paymentRecords]);
+    }
 }

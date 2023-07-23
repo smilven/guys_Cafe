@@ -152,13 +152,13 @@
     </div>
 </div>
 {{-- End - Delete Modal --}}
-
 <div class="container py-5">
     <div class="row">
         <div class="col-md-12">
 
             <div id="success_message"></div>
 
+            <!-- Voucher Table -->
             <div class="card">
                 <div class="card-header">
                     <h4>
@@ -181,14 +181,42 @@
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="voucher_tbody">
+                            <!-- Your voucher data will be populated here -->
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <!-- Redemption Table -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4>
+                        Redemption Details
+                    </h4>
+                </div>
+                <div class="Redemption-body">
+                    <table class="table Redemption-bordered">
+                        <thead>
+                            <tr>
+                                <th>Voucher Code</th>
+                                <th>Redemption Code</th>
+                                <th>Redemption Date</th>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Your redemption data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @section('scripts')
@@ -216,9 +244,9 @@
                 dataType: "json",
                 success: function(response) {
                     console.log(response);
-                    $('tbody').html("");
+                    $('#voucher_tbody').html("");
                     $.each(response.vouchers, function(key, item) {
-                        $('tbody').append('<tr>\
+                        $('#voucher_tbody').append('<tr>\
                                     <td>' + item.id + '</td>\
                                     <td>' + item.code + '</td>\
                                     <td>' + item.type + '</td>\

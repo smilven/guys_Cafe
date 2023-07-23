@@ -33,14 +33,14 @@ $tableNumber = 1;
 
 
     <style>
-        #userTableInfo{
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-    z-index: 0;
-    font-size: 18px;
-    line-height: 30px;
-}
+        #userTableInfo {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            z-index: 0;
+            font-size: 18px;
+            line-height: 30px;
+        }
 
         .progressBar li {
             list-style-type: none;
@@ -301,7 +301,8 @@ $tableNumber = 1;
                 .message,
                 .message2,
                 .message3,
-                .message4 {
+                .message4,
+                .message5 {
                     position: absolute;
                     display: none;
                     text-align: center;
@@ -332,6 +333,9 @@ $tableNumber = 1;
                 </div>
                 <div id="message4" class="message4">
                     Done Payment Thank You.
+                </div>
+                <div id="message5" class="message5" style="background: red">
+                    Your Point Is Not Enough.
                 </div>
             </div>
         </div>
@@ -537,7 +541,7 @@ $tableNumber = 1;
                         </div>
 
 
-                        <form data-action="{{ route('place') }}" method="POST"   id="PlaceOrderForm">
+                        <form data-action="{{ route('place') }}" method="POST" id="PlaceOrderForm">
                             @csrf
                             <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%">Place
                                 Order</button>
@@ -552,6 +556,15 @@ $tableNumber = 1;
 
 
                 <style>
+                    #table_tbody_payment tbody,
+                    td,
+                    tfoot,
+                    th,
+                    thead,
+                    tr {
+                        width: 50%;
+                    }
+
                     #Table a {
                         color: #050709;
                         text-decoration: none;
@@ -578,146 +591,19 @@ $tableNumber = 1;
 
                 </style>
 
+
+
+
+
                 <script>
                     $(document).ready(function() {
-                        var form = '#PlaceOrderForm';
 
-                        $(form).on('submit', function(event) {
-                            event.preventDefault();
-                            var url = $(this).attr('data-action');
-
-                            // Check if the table is empty
-                            if ($('#Table').is(':empty')) {
-                                alert('Cannot place order. Cart is empty.');
-                                return; // Stop execution
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
-
-                            $.ajax({
-                                url: '/home/place'
-                                , method: 'POST'
-                                , data: new FormData(this)
-                                , dataType: 'JSON'
-                                , contentType: false
-                                , cache: false
-                                , processData: false
-                                , success: function(response) {
-                                    console.log("Success");
-                                    $('#Table').fadeOut('slow', function() {
-                                        $(this).empty().fadeIn('slow');
-
-                                    });
-                                    var message = document.getElementById("message2");
-                                    message.style.display = "block";
-                                    setTimeout(function() {
-                                        message.style.display = "none";
-                                    }, 2000);
-                                }
-                                , error: function(response) {
-
-                                }
-                            });
                         });
 
-
-                        var form = '#cardinfo';
-
-                        $(form).on('submit', function(event) {
-                            event.preventDefault();
-                            var url = $(this).attr('data-action');
-                            var expiry_date = $('#expiry_date').val();
-                            var cvv = $('#cvv').val();
-                            var cardholder_name = $('#cardholder_name').val();
-                            var card_number = $('#card_number').val();
-
-                            $.ajax({
-                                url: '{{ route("store.card.info") }}'
-                                , method: 'POST'
-                                , data: {
-                                    _token: '{{ csrf_token() }}'
-                                    , expiry_date: expiry_date
-                                    , cvv: cvv
-                                    , cardholder_name: cardholder_name
-                                    , card_number: card_number
-                                , }
-                                , dataType: 'JSON'
-                                , success: function(response) {
-                                    console.log("Success Good");
-                                    console.log(response);
-                                    var message = document.getElementById("message4");
-                                    message.style.display = "block";
-                                    setTimeout(function() {
-                                        message.style.display = "none";
-                                    }, 2000);
-
-                                    $('#cardinfo')[0].reset(); // Reset the form to clear the values
-                                   // $('#delete-mycart').click(); 
-                                    $('#PlaceOrderForm').submit();
-                                
-                                    $('#table_payment').remove();
-            $('#table_tbody_payment').remove();
-            fetchAllMyPoint()
-                                },
-
-
-
-
-
-
-
-                                error: function(response) {
-                                    console.log("Fail Bad");
-                                    console.log(response);
-                                }
-                            });
-                        });
-
-
- 
-
-                        fetchAllMyPoint()
-                       // Function to fetch and update user's points
-function fetchAllMyPoint() {
-    $.ajax({
-        type: "GET",
-        url: "/fetchAllMyPoint",
-        dataType: "json",
-        success: function(response) {
-            if (response && response.users) {
-                console.log(response); // Check the response in the browser console
-
-                $('#userTableInfo').html("");
-
-                $.each(response.users, function(key, data) {
-                    var listItem = '<div>' +
-                        '<span><strong>User:</strong> </span>' +
-                        '<span>' + data.name + '</span>' +
-                        '</div>'+
-                        '<div>' +
-                        '<span><strong>Point:</strong> </span>' +
-                        '<span>' + data.point  + '</span>' +
-                        
-                        '</div>';
-                    $('#userTableInfo').append(listItem);
-                });
-                // Update the totalFoodPrice value after receiving the updated data
-                var totalFoodPrice = response.totalFoodPrice;
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", status, error);
-        }
-    });
-}
-
-
-                    });
-
-                </script>
-
-
-
-                <script>
-                    $(document).ready(function() {
                         fetchAllOrder();
 
                         function fetchAllOrder() {
@@ -818,7 +704,7 @@ function fetchAllMyPoint() {
                                                 '<div class="d-flex align-items-start">' +
                                                 '<div class="ms-3">' +
                                                 '<div class="fw-bold mb-1">Food Name: ' + data.food_name + '</div>' +
-                                                '<div class="fw-bold mb-1">Food Price: ' + data.lastest_food_price + '</div>' +
+                                                '<div class="fw-bold mb-1">Food Price:RM ' + data.lastest_food_price + '</div>' +
                                                 '<div class="fw-bold mb-1">Quantity: ' + data.quantity + '</div>' +
                                                 '<div class="fw-bold">Food Requirement: ' + data.food_requirement + '</div>' +
 
@@ -854,49 +740,51 @@ function fetchAllMyPoint() {
 
                         // Function to fetch the updated payment details after deletion
                         function fetchAllPaymentDetail() {
-                            $.ajax({
-                                type: "GET"
-                                , url: "/fetchAllPaymentDetail"
-                                , dataType: "json"
-                                , success: function(response) {
-                                    if (response && response.payment_details) {
-                                        $('#table_tbody_payment').html("");
+        $.ajax({
+            type: "GET",
+            url: "/fetchAllPaymentDetail",
+            dataType: "json",
+            success: function(response) {
+                if (response && response.payment_details) {
+                    $('#table_tbody_payment').html("");
 
-                                        $.each(response.payment_details, function(key, data) {
-                                            var listItem = '<tr>' +
-                                                '<td><strong>Food Price Total</strong> </td>' +
-                                                '<td>' + data.totalFoodPrice + '</td>' +
-                                                '</tr>' +
-                                                '<tr>' +
-                                                '<td><strong>Discount</strong></td>' +
-                                                '<td>' + data.discount + '</td>' +
-                                                '</tr>' +
-                                                '<tr>' +
-                                                '<td><strong>Earn Point</strong> </td>' +
-                                                '<td>' + data.earnPoint + '</td>' +
-                                                '</tr>' +
-                                                '<tr>' +
-                                                '<td><strong>Nett Total</strong> </td>' +
-                                                '<td>' + data.nett_total + '</td>' +
-                                                '</tr>';
-                                            $('#table_tbody_payment').append(listItem);
-                                        });
+                    $.each(response.payment_details, function(key, data) {
+                        var listItem = '<tr>' +
+                            '<td><strong>Total Price</strong> </td>' +
+                            '<td>RM' + data.totalFoodPrice + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<tr>' +
+                            '<td><strong>Earn Point</strong> </td>' +
+                            '<td>' + data.earnPoint + '</td>' +  
+                            '<tr>' +             
+                            '<td><strong>Discount</strong></td>' +
+                            '<td>' + data.discount + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td><strong>Nett Total</strong> </td>' +
+                            '<td>RM' + data.nett_total + '</td>' +
+                            '</tr>';
+                        $('#table_tbody_payment').append(listItem);
+                    });
 
-                                        // Update the totalFoodPrice value after receiving the updated data
-                                        var totalFoodPrice = response.totalFoodPrice;
-                                        $('#total_food_price_value').text(totalFoodPrice);
-                                    }
-
-                                }
-                                , error: function(xhr, status, error) {
-                                    console.error("AJAX Error:", status, error);
-                                }
-                            });
-                        }
+                    // Update the totalFoodPrice value after receiving the updated data
+                    var totalFoodPrice = response.totalFoodPrice;
+                    $('#total_food_price_value').text(totalFoodPrice);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+            }
+        });
 
 
+    }
 
-                      
+
+
+
+
 
 
 
@@ -921,9 +809,11 @@ function fetchAllMyPoint() {
                                         form.find('#quantity_food').val('1');
                                         $('.offcanvas-bottom').offcanvas('hide');
                                         fetchAllOrder();
+                                        // Fetch the payment and payment details after a successful cart update
                                         fetchAllPayment();
                                         fetchAllPaymentDetail();
-                                        console.log('successlah')
+
+                                        console.log('successlah');
                                     }
                                 }
                                 , error: function(response) {
@@ -935,11 +825,6 @@ function fetchAllMyPoint() {
 
 
 
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
 
                         /*------------------------------------------
                         --------------------------------------------
@@ -977,7 +862,7 @@ function fetchAllMyPoint() {
                                     // Fetch the updated payment list after successful deletion
                                     fetchAllPayment();
                                     fetchAllPaymentDetail();
-                                    
+
                                 }
                                 , error: function(response) {
                                     // Handle error response
@@ -987,7 +872,223 @@ function fetchAllMyPoint() {
 
 
 
-                        
+
+                    });
+
+
+                    $(document).ready(function() {
+                        var form = '#PlaceOrderForm';
+
+                        $(form).on('submit', function(event) {
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
+
+                            // Check if the table is empty
+                            if ($('#Table').is(':empty')) {
+                                alert('Cannot place order. Cart is empty.');
+                                return; // Stop execution
+                            }
+
+                            $.ajax({
+                                url: '/home/place'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    console.log("Success");
+                                    $('#Table').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+
+                                    });
+                                    var message = document.getElementById("message2");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+                                }
+                                , error: function(response) {
+
+                                }
+                            });
+                        });
+
+
+                        var form = '#cardinfo';
+
+                        $(form).on('submit', function(event) {
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
+                            var expiry_date = $('#expiry_date').val();
+                            var cvv = $('#cvv').val();
+                            var cardholder_name = $('#cardholder_name').val();
+                            var card_number = $('#card_number').val();
+
+                            $.ajax({
+                                url: '/home/store'
+                                , method: 'POST'
+                                , data: {
+                                    _token: '{{ csrf_token() }}'
+                                    , expiry_date: expiry_date
+                                    , cvv: cvv
+                                    , cardholder_name: cardholder_name
+                                    , card_number: card_number
+                                , }
+                                , dataType: 'JSON'
+                                , success: function(response) {
+                                    console.log("Success Good");
+                                    console.log(response);
+                                    var message = document.getElementById("message4");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+
+                                    $('#total_food_price_value').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+                                    $('#table_payment').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+                                    $('#table_tbody_payment').fadeOut('Slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    })
+                                    $('#cardinfo')[0].reset(); // Reset the form to clear the values
+                                    // $('#delete-mycart').click(); 
+                                    $('#PlaceOrderForm').submit();
+
+
+                                    fetchAllMyPoint()
+                                },
+
+
+
+
+
+
+
+                                error: function(response) {
+                                    console.log("Fail Bad");
+                                    console.log(response);
+                                }
+                            });
+                        });
+
+
+
+
+                        fetchAllMyPoint()
+                        // Function to fetch and update user's points
+                        function fetchAllMyPoint() {
+                            $.ajax({
+                                type: "GET"
+                                , url: "/fetchAllMyPoint"
+                                , dataType: "json"
+                                , success: function(response) {
+                                    if (response && response.users) {
+                                        console.log(response); // Check the response in the browser console
+
+                                        $('#userTableInfo').html("");
+
+                                        $.each(response.users, function(key, data) {
+                                            var listItem = '<div>' +
+                                                '<span><strong>User:</strong> </span>' +
+                                                '<span>' + data.name + '</span>' +
+                                                '</div>' +
+                                                '<div>' +
+                                                '<span><strong>Point:</strong> </span>' +
+                                                '<span id="userPoints"> ' + data.point + '</span>' +
+                                                '</div>';
+                                            $('#userTableInfo').append(listItem);
+                                        });
+
+                                        // Update the totalFoodPrice value after receiving the updated data
+                                        var totalFoodPrice = response.totalFoodPrice;
+                                    }
+                                }
+                                , error: function(xhr, status, error) {
+                                    console.error("AJAX Error:", status, error);
+                                }
+                            });
+                        }
+
+
+
+                        fetchRedemptionCode()
+
+
+                        // Function to fetch the updated payment details after deletion
+                        function fetchRedemptionCode() {
+                            $.ajax({
+                                type: "GET"
+                                , url: "/fetchRedemptionCode"
+                                , dataType: "json"
+                                , success: function(response) {
+                                    if (response && response.redemptions) {
+                                        $('#redemptionCode').html("");
+
+                                        $.each(response.redemptions, function(key, data) {
+                                            var listItem = '<li class="list-group-item d-flex justify-content-between align-items-center mb-2" style="background: rgb(149 203 255);">' +
+                                                '<div class="row">' +
+                                                '<div class="col-3">' +
+                                                '<img src="https://t4.ftcdn.net/jpg/03/31/50/87/360_F_331508755_eDTtcgYlNmjxC7MZIsRgXGsARgkigSaB.jpg" width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">' +
+                                                '</div>' +
+                                                '<div class="col-9">' +
+                                                '<div class="infor" style="color: white;">' +
+                                                '<h4>Voucher RM' + data.amount + '</h4>' +
+                                                '<button type="button" class="btn btn-info btn-sm UserVoucher" >Code: ' + data.redemptionCode + '</button>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '</li>';
+
+                                            $('#redemptionCode').append(listItem);
+                                        });
+                                    }
+                                }
+                                , error: function(xhr, status, error) {
+                                    console.error("AJAX Error:", status, error);
+                                }
+                            });
+                        }
+
+                        var form = '[id^="VoucherRedemption"]';
+                        $(form).on('submit', function(event) {
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
+
+                            $.ajax({
+                                url: '/VoucherRedemption'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    console.log("Redemption");
+
+                                    // Access the updated points from the response
+                                    var updatedPoints = response.userPoints;
+                                    var redemptionCode = response.redemptionCode; // Assuming 'redemptionCode' is returned in the AJAX response
+                                    // Update the displayed points on the page without reloading
+                                    $('#userPoints').text(updatedPoints); // Update the points correctly without concatenating with existing points
+                                    fetchRedemptionCode()
+                                }
+                                , error: function(response) {
+                                    var message = document.getElementById("message5");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+                                }
+                            });
+                        });
+
+
+
                     });
 
                 </script>
@@ -1025,6 +1126,7 @@ function fetchAllMyPoint() {
 
 
                                 </table>
+                             
                             </div>
 
 
@@ -1055,13 +1157,13 @@ function fetchAllMyPoint() {
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <h5>Card Information <img src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png" width="60px" height="25px"></h5>
-                                            <form id="cardinfo" method="POST" data-action="{{ route('store.card.info') }}">
+                                                    <form id="cardinfo" method="POST" data-action="{{ route('store.card.info') }}">
                                                         @csrf
                                                         <div class="row  mt-2">
                                                             <div class="col">
 
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="card_number" class="form-control" required />
+                                                                    <input type="number" id="card_number" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Number</label>
                                                                 </div>
@@ -1072,14 +1174,14 @@ function fetchAllMyPoint() {
                                                         <div class="row  mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="expiry_date" class="form-control" required />
+                                                                    <input type="text" id="expiry_date" class="form-control" required maxlength="5" placeholder="MM/YY">
                                                                     <label class="form-label" for="form6Example1">MM /
                                                                         YY</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="cvv" class="form-control" required />
+                                                                    <input type="number" id="cvv" class="form-control" required />
                                                                     <label class="form-label" for="form6Example2">Cvv</label>
                                                                 </div>
                                                             </div>
@@ -1088,7 +1190,7 @@ function fetchAllMyPoint() {
                                                         <div class="row mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="cardholder_name" class="form-control" required />
+                                                                    <input type="text" id="cardholder_name" class="form-control" required autocomplete="off" />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Holder
                                                                         Name</label>
@@ -1100,7 +1202,28 @@ function fetchAllMyPoint() {
                                                             <button type="submit" class="btn btn-primary" id="checkoutBtn" style="width: 100%;">Checkout</button>
                                                     </form>
 
+                                                    <script>
+                                                        document.getElementById('cvv').addEventListener('input', function() {
+                                                            if (this.value.length > 3) {
+                                                                this.value = this.value.slice(0, 3); // Truncate to 3 characters
+                                                            }
+                                                        });
+                                                        document.getElementById('expiry_date').addEventListener('input', function() {
+                                                            var value = this.value;
+                                                            if (value.length === 2 && value.indexOf('/') === -1) {
+                                                                this.value = value + '/';
+                                                            } else if (value.length > 5) {
+                                                                this.value = value.slice(0, 5); // Truncate to 5 characters
+                                                            }
+                                                        });
 
+                                                        document.getElementById('card_number').addEventListener('input', function() {
+                                                            if (this.value.length > 16) {
+                                                                this.value = this.value.slice(0, 16); // Truncate to 3 characters
+                                                            }
+                                                        });
+
+                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -1112,7 +1235,7 @@ function fetchAllMyPoint() {
 
 
 
-            
+
 
 
                         </div>
@@ -1138,49 +1261,207 @@ function fetchAllMyPoint() {
 
                     <div class="container">
                         <div class="table table-borderless" id="userTableInfo">
-                          
-                               
 
-                              
-                     
+
+
+
+                        </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop" style="width: 100%">
+                            View Your Order History
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal-dialog modal-dialog-scrollable">
+
+                            <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="false" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog mt-5">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel"> Order History</h5>
+
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="modal-orders-container">
+
+                                                @foreach ($paymentRecords->groupBy('userID') as $userID => $histories)
+                                                <div class="accordion" id="accordionExample">
+                                                    @foreach ($histories as $index => $history)
+                                                    @php
+                                                    $accordionId = 'accordion_' . $userID . '_' . $index;
+                                                    @endphp
+
+                                                    <div class="card">
+                                                        <div class="card-header mb-2" id="heading_{{ $accordionId }}">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn btn-link card-header mb-2" id="heading_{{ $accordionId }}" type="button" data-toggle="collapse" data-target="#collapse_{{ $accordionId }}" aria-expanded="true" aria-controls="collapse_{{ $accordionId }}">
+                                                                    Order {{ $history->id }}
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapse_{{ $accordionId }}" class="collapse" aria-labelledby="heading_{{ $accordionId }}" data-parent="#accordionExample">
+                                                            <div class="card-body">
+                                                                <table class="table table-borderless">
+                                                                    <!-- Your table content -->
+                                                                </table>
+
+                                                                <table class="table table-borderless">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Total Price :</td>
+                                                                            <td>RM{{ $history->nett_total }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Payment Method :</td>
+                                                                            <td>{{ $history->payment_method }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Point Earned :</td>
+                                                                            <td>{{ $history->earnPoint }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+
+                                        <div class="modal-footer">
+                                            <button type="hidden" class="btn btn-secondary hidden" data-mdb-dismiss="modal" hidden>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
+                        <style>
+                            .modal-dialog-scrollable .modal-content {
+                                max-height: calc(80vh - 1rem);
+                                overflow: hidden;
+                                margin-top: 80px;
+                            }
+
+                        </style>
 
 
+                        <!-- Your existing HTML content -->
+
+                        <div id="orders-container">
+                            <!-- Payment records will be loaded here through AJAX -->
+                        </div>
+
+                        <!-- Add the following script to handle AJAX request for payment records -->
+                        <script>
+                            function loadOrderHistory() {
+                                $.ajax({
+                                    url: "{{ route('get.payment.records') }}"
+                                    , type: 'GET'
+                                    , dataType: 'json'
+                                    , success: function(response) {
+                                        var paymentRecordsHtml = '';
+
+                                        $.each(response.paymentRecords, function(index, history) {
+                                            var accordionId = "accordion_" + history.userID + "_" + index;
+
+                                            paymentRecordsHtml += '<div class="card">';
+                                            paymentRecordsHtml += '    <div class="card-header mb-2" id="heading_' +
+                                                accordionId + '">';
+                                            paymentRecordsHtml += '        <h5 class="mb-0">';
+                                            paymentRecordsHtml +=
+                                                '            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_' +
+                                                accordionId + '" aria-expanded="true" aria-controls="collapse_' +
+                                                accordionId + '">';
+                                            paymentRecordsHtml += '                Order ' + history.id;
+                                            paymentRecordsHtml += '            </button>';
+                                            paymentRecordsHtml += '        </h5>';
+                                            paymentRecordsHtml += '    </div>';
+                                            paymentRecordsHtml += '    <div id="collapse_' + accordionId +
+                                                '" class="collapse" aria-labelledby="heading_' + accordionId +
+                                                '" data-parent="#modal-orders-container">';
+                                            paymentRecordsHtml += '        <div class="card-body">';
+                                            paymentRecordsHtml += '            <table class="table table-borderless">';
+                                            // Add your table content here
+                                            paymentRecordsHtml += '            </table>';
+                                            paymentRecordsHtml += '            <table class="table table-borderless">';
+                                            paymentRecordsHtml += '                <tbody>';
+                                            paymentRecordsHtml += '                    <tr>';
+                                            paymentRecordsHtml += '                        <td>Total Price :</td>';
+                                            paymentRecordsHtml += '                        <td>RM' + history.nett_total +
+                                                '</td>';
+                                            paymentRecordsHtml += '                    </tr>';
+                                            paymentRecordsHtml += '                    <tr>';
+                                            paymentRecordsHtml += '                        <td>Payment Method :</td>';
+                                            paymentRecordsHtml += '                        <td>' + history.payment_method +
+                                                '</td>';
+                                            paymentRecordsHtml += '                    </tr>';
+                                            paymentRecordsHtml += '                    <tr>';
+                                            paymentRecordsHtml += '                        <td>Point Earned :</td>';
+                                            paymentRecordsHtml += '                        <td>' + history.earnPoint +
+                                                '</td>';
+                                            paymentRecordsHtml += '                    </tr>';
+                                            paymentRecordsHtml += '                </tbody>';
+                                            paymentRecordsHtml += '            </table>';
+                                            paymentRecordsHtml += '        </div>';
+                                            paymentRecordsHtml += '    </div>';
+                                            paymentRecordsHtml += '</div>';
+                                        });
+
+                                        $('#modal-orders-container').html(paymentRecordsHtml);
+                                    }
+                                    , error: function(error) {
+                                        console.error(error);
+                                    }
+                                });
+                            }
+
+                            // Load order history immediately when the modal is shown
+                            $('#staticBackdrop').on('shown.bs.modal', function() {
+                                loadOrderHistory();
+                            });
+
+                        </script>
+                        <h4 class="text-center"> Your Voucher</h4>
+
+                        <ul style="padding-left: 0; margin-bottom: 20px; margin-top: 20px;" class="text-center" id="redemptionCode">
+
+                        </ul>
+                        <hr>
                         <ul style="padding-left: 0; margin-bottom: 80px;" class="text-center">
-                            @foreach ($data3 as $data3)
-
-
+                            <h4>Redeemable Voucher</h4>
+                            @foreach ($data3 as $voucher)
                             <li class="list-group-item d-flex justify-content-between align-items-center mb-2" style="background: orange;">
-
-
                                 <div class="row">
-
-
                                     <div class="col-3">
                                         <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">
-
                                     </div>
                                     <div class="col-9">
                                         <div class="infor" style="color: white;">
-                                            <h4>Voucher RM{{$data3->amount}}</h4>
-                                            <button type="button" class="btn btn-danger btn-sm UserMenu">Points{{$data3->point}}</button>
-
+                                            <h4>Voucher RM{{ $voucher->amount }}</h4>
+                                            <form data-action="{{ route('VoucherRedemption') }}" method="POST" id="VoucherRedemption{{ $voucher->id }}">
+                                                @csrf
+                                                <input type="hidden" name="Voucher[{{ $voucher->id }}]" id="Voucher[{{ $voucher->id }}]" value="{{ $voucher->id }}">
+                                                <button type="submit" class="btn btn-danger btn-sm UserVoucher" data-voucher-id="{{ $voucher->id }}" data-redemption-code="{{ $voucher->redemptionCode }}" data-points="{{ $voucher->point }}">Points {{ $voucher->point
+                                                    }}</button>
+                                            </form>
+                                            <span class="redemption-code" style="display: none;"></span>
                                         </div>
                                     </div>
-
-
-
-
-
+                                </div>
                             </li>
                             @endforeach
-
-
                         </ul>
 
+
                     </div>
+
+
 
 
 
@@ -1191,10 +1472,6 @@ function fetchAllMyPoint() {
 
     </div>
     </div>
-
-
-
-
 
 
 
