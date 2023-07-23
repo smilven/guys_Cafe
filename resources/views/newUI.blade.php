@@ -556,15 +556,6 @@ $tableNumber = 1;
 
 
                 <style>
-                    #table_tbody_payment tbody,
-                    td,
-                    tfoot,
-                    th,
-                    thead,
-                    tr {
-                        width: 50%;
-                    }
-
                     #Table a {
                         color: #050709;
                         text-decoration: none;
@@ -740,50 +731,105 @@ $tableNumber = 1;
 
                         // Function to fetch the updated payment details after deletion
                         function fetchAllPaymentDetail() {
+                            $.ajax({
+                                type: "GET"
+                                , url: "/fetchAllPaymentDetail"
+                                , dataType: "json"
+                                , success: function(response) {
+                                    if (response && response.payment_details) {
+                                        $('#table_tbody_payment').html("");
+
+                                        $.each(response.payment_details, function(key, data) {
+                                            var listItem = '<tr>' +
+                                                '<td><strong>Total Price</strong> </td>' +
+                                                '<td>RM' + data.totalFoodPrice + '</td>' +
+                                                '</tr>' +
+                                                '<tr>' +
+                                                '<tr>' +
+                                                '<td><strong>Earn Point</strong> </td>' +
+                                                '<td>' + data.earnPoint + '</td>' +
+                                                '</tr>' +
+                                                '<td><strong>Discount</strong></td>' +
+                                                '<td id="discountAmount">' + data.discount + '</td>' +
+                                                '</tr>' +
+
+                                                '<tr>' +
+                                                '<td><strong>Nett Total</strong> </td>' +
+                                                '<td id="nett_total">RM' + data.nett_total + '</td>' +
+                                                '</tr>';
+                                            $('#table_tbody_payment').append(listItem);
+                                        });
+
+                                        // Update the totalFoodPrice value after receiving the updated data
+                                        var totalFoodPrice = response.totalFoodPrice;
+                                        $('#total_food_price_value').text(totalFoodPrice);
+                                    }
+
+                                }
+                                , error: function(xhr, status, error) {
+                                    console.error("AJAX Error:", status, error);
+                                }
+                            });
+                        }
+
+
+
+                      
+                        $(document).ready(function() {
+    // Create a flag to keep track of whether the coupon has been applied
+    let couponApplied = false;
+
+    $('#couponForm').submit(function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Check if the coupon has already been applied
+        if (couponApplied) {
+            // Show a message or take any appropriate action to indicate that the coupon has already been applied
+            $('#responseContainer').html('<p>Coupon has already been applied.</p>');
+            return; // Stop further processing
+        }
+
+        // Get the coupon code from the input field
+        const couponCode = $('#coupon_code').val();
+
+        // Make the AJAX request to storeCoupon endpoint
         $.ajax({
-            type: "GET",
-            url: "/fetchAllPaymentDetail",
-            dataType: "json",
-            success: function(response) {
-                if (response && response.payment_details) {
-                    $('#table_tbody_payment').html("");
-
-                    $.each(response.payment_details, function(key, data) {
-                        var listItem = '<tr>' +
-                            '<td><strong>Total Price</strong> </td>' +
-                            '<td>RM' + data.totalFoodPrice + '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<tr>' +
-                            '<td><strong>Earn Point</strong> </td>' +
-                            '<td>' + data.earnPoint + '</td>' +  
-                            '<tr>' +             
-                            '<td><strong>Discount</strong></td>' +
-                            '<td>' + data.discount + '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td><strong>Nett Total</strong> </td>' +
-                            '<td>RM' + data.nett_total + '</td>' +
-                            '</tr>';
-                        $('#table_tbody_payment').append(listItem);
-                    });
-
-                    // Update the totalFoodPrice value after receiving the updated data
-                    var totalFoodPrice = response.totalFoodPrice;
-                    $('#total_food_price_value').text(totalFoodPrice);
-                }
+            type: 'POST',
+            url: "{{ route('coupon.store') }}",
+            data: {
+                coupon_code: couponCode,
+                _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
             },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error:", status, error);
+            dataType: 'json',
+            success: function(response) {
+                // Handle the success response
+                const message = response.message;
+                const amount = response.amount;
+
+                // Update the response container with the success message and amount
+                $('#responseContainer').html(`<p>${message}</p><p>Amount: ${amount}</p>`);
+
+                // Update the discount amount value after receiving the updated data
+                $('#discountAmount').text('RM' + amount); // Assuming the "amount" is the discount amount.
+
+                // Calculate and update the nett_total value after applying the coupon
+                const oldNettTotal = parseFloat($('#nett_total').text().replace('RM', ''));
+                const newNettTotal = (oldNettTotal - amount).toFixed(2); // Ensure the result has two decimal places
+                $('#nett_total').text('RM' + newNettTotal);
+
+                // Set the flag to indicate that the coupon has been applied
+                couponApplied = true;
+            },
+            error: function(error) {
+                // Handle the error response
+                const errorMessage = error.responseJSON.message;
+
+                // Update the response container with the error message
+                $('#responseContainer').html(`<p>${errorMessage}</p>`);
             }
         });
-
-
-    }
-
-
-
-
+    });
+});
 
 
 
@@ -1083,6 +1129,7 @@ $tableNumber = 1;
                                     setTimeout(function() {
                                         message.style.display = "none";
                                     }, 2000);
+                                    console.log(response);
                                 }
                             });
                         });
@@ -1126,9 +1173,17 @@ $tableNumber = 1;
 
 
                                 </table>
-                             
                             </div>
 
+                            <form id="couponForm">
+                                @csrf
+                                <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="coupon_code" name="coupon_code" placeholder="Voucher Code" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Apply</button>
+                              </div>
+                            </form>
+
+                            <div id="responseContainer"></div>
 
                             <h6 style="margin-left: 20px; margin-top: 25px;">Payment Method :</h6>
 

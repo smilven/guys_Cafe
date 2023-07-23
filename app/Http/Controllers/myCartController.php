@@ -145,6 +145,8 @@ public function addCart(Request $request)
         $paymentDetail->payment_method = "";
     }
 
+
+    
     // Update the payment details
     $paymentDetail->totalFoodPrice += $totalFoodPrice; // Accumulate the totalFoodPrice
     $paymentDetail->earnPoint +=  (($totalFoodPrice/10)|0) ;

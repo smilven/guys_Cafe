@@ -56,7 +56,9 @@
             
             <a href="cash" id="cash" class="list-group-item list-group-item-action py-3 ripple"
             data-mdb-ripple-color="#44c6e3"><i class="fas fa-hand-holding-dollar me-3"></i><span>Payment</span></a>
-
+            
+            <a href="record" id="record" class="list-group-item list-group-item-action py-3 ripple"
+            data-mdb-ripple-color="#44c6e3"><i class="fas fa-clipboard me-3"></i><span>Record</span></a>
         </div>
       </div>
     </nav>

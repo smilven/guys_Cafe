@@ -21,6 +21,8 @@ use App\Http\Controllers\paymentController;
 use App\Http\Controllers\paymentDetailController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\RecordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +92,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/fetchRedemptionCode', [VoucherController::class, 'fetchRedemptionCode'])->name('fetchRedemptionCode');
     Route::post('/VoucherRedemption', [VoucherController::class,'storeVoucherRedemption'])->name('VoucherRedemption');
     Route::get('/get-payment-records', [HomeController::class, 'getPaymentRecords'])->name('get.payment.records')->middleware('verifiedphone');
+    Route::post('/coupon', [VoucherController::class,'storeCoupon'])->name('coupon.store');
+    Route::post('/coupon/remove', [VoucherController::class,'storeCoupon'])->name('coupon.remove');
 
 });
 
@@ -236,4 +240,6 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
 
+    Route::get('record', [RecordController::class, 'show'])->name('record.show');
+    Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
 });
