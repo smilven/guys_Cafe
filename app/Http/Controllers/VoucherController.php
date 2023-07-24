@@ -125,14 +125,15 @@ class VoucherController extends Controller
             ]);
         }
     }
-
     public function storeCoupon(Request $request)
     {
         $userId = Auth::id();
     
         $couponCode = strtoupper($request->coupon_code);
-        $coupon = Redemption::where('redemptionCode', $couponCode)->first();
-    
+        $coupon = Redemption::where([
+            'redemptionCode' => $couponCode,
+            'userID' => $userId
+        ])->first();    
         if (!$coupon) {
             // Coupon not found in the database
             return response()->json(['message' => 'Invalid coupon code'], 404);
@@ -147,18 +148,46 @@ class VoucherController extends Controller
         if ($paymentDetail) {
             $oldNettTotal = $paymentDetail->nett_total;
             $newNettTotal = $oldNettTotal - $relatedAmount;
-            $paymentDetail->nett_total = $newNettTotal;
-            $paymentDetail->discount=$relatedAmount;
-            $paymentDetail->save();
+            
+            if ($newNettTotal < 0) {
+                // Coupon amount is greater than the current nett_total, do not apply the coupon
+                return response()->json(['message' => 'Coupon amount is greater than nett total'], 400);
+            }
     
-            // You can perform additional operations with the $relatedAmount if required.
+            $paymentDetail->nett_total = $newNettTotal;
+            $paymentDetail->discount = $relatedAmount;
+            $paymentDetail->save();
         }
     
         // Return a success response or perform other actions based on the coupon validity
         return response()->json(['message' => 'Coupon applied successfully', 'amount' => $relatedAmount], 200);
     }
     
-
+    
+    public function removeCoupon(Request $request)
+    {
+        $userId = Auth::id();
+    
+        // Find the relevant payment detail record
+        $paymentDetail = PaymentDetail::where('userID', $userId)->first();
+    
+        if ($paymentDetail && $paymentDetail->discount > 0) {
+            $discountAmount = $paymentDetail->discount;
+    
+            // Calculate the new nett_total after removing the coupon
+            $newNettTotal = $paymentDetail->nett_total + $discountAmount;
+    
+            // Update the payment detail
+            $paymentDetail->nett_total = $newNettTotal;
+            $paymentDetail->discount = 0; // Set the discount to 0 as the coupon is removed
+            $paymentDetail->save();
+    
+            return response()->json(['message' => 'Coupon removed successfully', 'amount' => $discountAmount], 200);
+        }
+    
+        return response()->json(['message' => 'No coupon applied or already removed', 'amount' => 0], 400);
+    }
+    
     
 
     private function generateRedemptionCode($length)

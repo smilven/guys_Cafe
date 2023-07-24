@@ -93,7 +93,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('/VoucherRedemption', [VoucherController::class,'storeVoucherRedemption'])->name('VoucherRedemption');
     Route::get('/get-payment-records', [HomeController::class, 'getPaymentRecords'])->name('get.payment.records')->middleware('verifiedphone');
     Route::post('/coupon', [VoucherController::class,'storeCoupon'])->name('coupon.store');
-    Route::post('/coupon/remove', [VoucherController::class,'storeCoupon'])->name('coupon.remove');
+    Route::post('/remove-coupon', [VoucherController::class, 'removeCoupon'])->name('coupon.remove');
 
 });
 
