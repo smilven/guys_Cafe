@@ -266,11 +266,17 @@ $tableNumber = 1;
         <div class="fixed-top">
             <center>
                 <h3 class="mt-2">Guys Café</h3>
-                <p>Table Number:
-                    <?php echo $tableNumber; ?>
-                </p>
             </center>
+            <p style="display: flex; align-items: center; justify-content: center; position: relative;">
+                <span id="TableNumber">Table Number: <?php echo $tableNumber; ?></span>
+                    <a href="{{ route('logout') }}" style="position: absolute; right: 0; margin-right: 15px;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logoutBtn">
+                        <i class="bi bi-box-arrow-right"></i>
 
+
+                    </a>
+                
+            </p>
+       
             <input type="search" class="form-control border" placeholder="Search... P001" aria-label="Search"
                 aria-describedby="search-addon" id="search-input" style="width: 90%; margin:10px auto;
               background:transparent;
@@ -287,14 +293,17 @@ $tableNumber = 1;
 
             </div>
 
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
+          
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
             <style>
+#logoutBtn{
+   
+    color: black; /* Set the color to black (or any color you prefer) */
+    text-decoration: none; /* Remove underline */
+  
+}
                 .message-container {
                     display: flex;
                     justify-content: center;
@@ -416,7 +425,7 @@ $tableNumber = 1;
 
                                     <h6>Requirement:</h6>
 
-                                    <textarea style="resize:none;overflow:hidden; width:100%;  min-height: 75px;"
+                                    <textarea style="resize:none;overflow:hidden; width:100%;  min-height: 105px;"
                                         id="food_requirement" name="food_requirement"></textarea>
 
 

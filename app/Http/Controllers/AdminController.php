@@ -18,16 +18,12 @@ class AdminController extends Controller
 {
     public function Category()
     {
-        return view('record');
+        return view('item');
     }
 
 
 
-    public function show(Request $request)
-    {
-        $paymentDetails = PaymentRecord::all();
-        return view('control', compact('paymentDetails'));
-    }
+ 
 
    //这边show upload food后  在admin page
    public function fetchcategory()

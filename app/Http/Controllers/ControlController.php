@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\PaymentRecord;
 
 class ControlController extends Controller
 {
@@ -18,6 +19,13 @@ class ControlController extends Controller
         return response()->json([
             'suppliers'=>$suppliers,
         ]);
+    }
+
+
+    public function show(Request $request)
+    {
+        $paymentDetails = PaymentRecord::all();
+        return view('control', compact('paymentDetails'));
     }
 
     public function store(Request $request)

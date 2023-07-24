@@ -47,6 +47,11 @@ class LoginController extends Controller
     return view('auth.login');
   }
 
+
+  public function page(){
+    return view('control');
+  }
+
     public function login(Request $request)
     {   
         $input = $request->all();
@@ -59,8 +64,8 @@ class LoginController extends Controller
         {
     
             
-            if (auth()->user()->type == 'admin') {
-                return redirect()->route('admin.home');
+            if (auth()->user()->type == 'user') {
+                return redirect()->route('home.user');
             } else  if (auth()->user()->type == 'kitchen'){
                 return redirect()->route('showfood');
             }else{

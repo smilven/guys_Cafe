@@ -68,7 +68,7 @@ Route::get('/Login', function () {
  
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/home', [HomeController::class, 'showCategoryAndProduct'])->name('home')->middleware('verifiedphone');
+    Route::get('/homeuser', [HomeController::class, 'showCategoryAndProduct'])->name('home.user')->middleware('verifiedphone');
     Route::post('build-twiml/{code}','PhoneVerificationController@buildTwiMl')->name('phoneverification.build');
     Auth::routes();
     Route::post('/phone/verify', [App\Http\Controllers\PhoneNumberVerifyController::class, 'verify'])->name('phoneverification.verify');
@@ -130,21 +130,10 @@ Route::put('update-worker', [AdminController::class, 'UpdateWorker']);
 
 
 
-//这个是display kitchen的
-Route::get('/kitchen', function () {
-    return view('kitchen');
-});
 
 
 
 
-
-
-Route::get('/new', function () {
-    return view('newUI');
-});
-
- 
 
 
 
@@ -174,11 +163,14 @@ All Admin Routes List
 // Routes for authenticated users
  
 
-Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function () {
+Route::middleware(['auth', 'user-access:admin'] )->group(function () {
+    Route::get('/home', [LoginController::class, 'page'])->name('home');
+
     Route::get('/',[LoginController::class, 'index']);
 
-    Route::get('/adminhome', function() {return view('control');})->name('admin.home');
-         Route::post('supplier', [ControlController::class, 'store']);
+    
+
+    Route::post('supplier', [ControlController::class, 'store']);
     Route::get('fetch-supplier', [ControlController::class, 'fetchsupplier']);
     Route::get('edit-supplier/{id}', [ControlController::class, 'edit']);
     Route::put('update-supplier/{id}', [ControlController::class, 'update']);
@@ -192,7 +184,7 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
         return view('client');
     });
     
-    Route::get('adminhome', [AdminController::class, 'show'])->name('record.show');
+    Route::get('/adminhome', [ControlController::class, 'show'])->name('record.show');
     Route::get('supplier', [AdminController::class, 'Category']);
     Route::post('worker', [AdminController::class, 'addWorker']);
     Route::get('worker', [AdminController::class, 'showWorker']);
@@ -235,12 +227,9 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
     Route::get('edit-message/{id}',[MessageController::class, 'edit']);
     Route::put('update-message',[MessageController::class, 'update']);
     Route::delete('delete-message',[MessageController::class, 'destroy']);
-    Route::get('remind', [ControlController::class, 'remind']);
 
 
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
-
-
     Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
 });
