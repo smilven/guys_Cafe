@@ -1,10 +1,14 @@
 @extends('adlayout')
 @section('content')
 
-<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="pragma" content="no-cache">
 
+
+
+<style>
+    #general {
+        background-color: #f1f1f1;
+    }
+</style>
 <div class="card">
 
   <div class="card-body">
@@ -132,122 +136,122 @@
 </div>
 
 <!--END-->
-
-@endsection
-
-
-
-@section('scripts')
-
 <script>
-$(document).ready(function(){
-   
-    $(document).on('click', '.deletebtn', function(e) {
-        e.preventDefault();
-        var id = $(this).val();
-        $('#DeleteModal').modal('show');
-        $('#deleteing_id').val(id);
-        deleteForm = $(this).closest('form');
-    });
-
-    $('.deleteForm').submit(function(event) {
-        event.preventDefault();
-
-        var formData = $(this).serialize();
-
-        $.ajax({
-            type: 'DELETE',
-            url: $(this).attr('action'),
-            data: formData,
-            success: function(response) {
-                var deletedRow = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
-                deletedRow.remove();
-                $('#DeleteModal').modal('hide');
-            },
-            error: function(error) {
-                alert('Error deleting message.');
-            }
-        });
-    });
-            
-        $(document).on('click','.editbtn' , function(){
-
+    $(document).ready(function(){
+       
+        $(document).on('click', '.deletebtn', function(e) {
+            e.preventDefault();
             var id = $(this).val();
-            $('#editModal').modal('show');
-
-            $.ajax({
-                type:"GET",
-                url:"/edit-message/"+id,
-                success: function(response){
-                    //console.log(response);
-                    $('#title').val(response.message.title);
-                    $('#body').val(response.message.body);
-                    $('#id').val(response.message.id);
-
-                }
-            });
+            $('#DeleteModal').modal('show');
+            $('#deleteing_id').val(id);
+            deleteForm = $(this).closest('form');
         });
-
-        $('#flashMessageForm').submit(function(event) {
+    
+        $('.deleteForm').submit(function(event) {
             event.preventDefault();
-
+    
             var formData = $(this).serialize();
-
+    
             $.ajax({
-                type: 'POST',
+                type: 'DELETE',
                 url: $(this).attr('action'),
                 data: formData,
                 success: function(response) {
-                    var newRow = '<tr>' +
-                        '<td><h6>' + response.message.title + '</h6></td>' +
-                        '<td><h6>' + response.message.body + '</h6></td>' +
-                        '<td>' +
-                        '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
-                        '</td>' +
-                        '<td>' +
-                        '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
-                        '</td>' +
-                        '</tr>';
-
-                    $('#flashMessageContainer tbody').append(newRow);
-                    
-                    $('#flashMessageForm')[0].reset();
-                    
+                    var deletedRow = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
+                    deletedRow.remove();
+                    $('#DeleteModal').modal('hide');
                 },
-                
                 error: function(error) {
+                    alert('Error deleting message.');
                 }
             });
         });
-
-        $('.editForm').submit(function(event) {
-            event.preventDefault();
-
-            var formData = $(this).serialize();
-
-            $.ajax({
-                type: 'PUT',
-                url: $(this).attr('action'),
-                data: formData,
-                success: function(response) {
-                    var rowToUpdate = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
-                    var newRow = '<tr>' +
-                        '<td><h6>' + response.message.title + '</h6></td>' +
-                        '<td><h6>' + response.message.body + '</h6></td>' +
-                        '<td>' +
-                        '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
-                        '</td>' +
-                        '<td>' +
-                        '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
-                        '</td>' +
-                        '</tr>';
-                    rowToUpdate.replaceWith(newRow);
-                    $('#editModal').modal('hide');
-                },
+                
+            $(document).on('click','.editbtn' , function(){
+    
+                var id = $(this).val();
+                $('#editModal').modal('show');
+    
+                $.ajax({
+                    type:"GET",
+                    url:"/edit-message/"+id,
+                    success: function(response){
+                        //console.log(response);
+                        $('#title').val(response.message.title);
+                        $('#body').val(response.message.body);
+                        $('#id').val(response.message.id);
+    
+                    }
+                });
             });
-        });
-
-});
-</script>
-
+    
+            $('#flashMessageForm').submit(function(event) {
+                event.preventDefault();
+    
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    success: function(response) {
+                        var newRow = '<tr>' +
+                            '<td><h6>' + response.message.title + '</h6></td>' +
+                            '<td><h6>' + response.message.body + '</h6></td>' +
+                            '<td>' +
+                            '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
+                            '</td>' +
+                            '<td>' +
+                            '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
+                            '</td>' +
+                            '</tr>';
+    
+                        $('#flashMessageContainer tbody').append(newRow);
+                        
+                        $('#flashMessageForm')[0].reset();
+                        
+                    },
+                    
+                    error: function(error) {
+                    }
+                });
+            });
+    
+            $('.editForm').submit(function(event) {
+                event.preventDefault();
+    
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    success: function(response) {
+                        var rowToUpdate = $('#flashMessageContainer').find('button[value="' + response.message.id + '"]').closest('tr');
+                        var newRow = '<tr>' +
+                            '<td><h6>' + response.message.title + '</h6></td>' +
+                            '<td><h6>' + response.message.body + '</h6></td>' +
+                            '<td>' +
+                            '<button type="button" value="' + response.message.id + '" class="btn btn-primary editbtn btn-sm">Edit</button>' +
+                            '</td>' +
+                            '<td>' +
+                            '<button type="button" value="' + response.message.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button>' +
+                            '</td>' +
+                            '</tr>';
+                        rowToUpdate.replaceWith(newRow);
+                        $('#editModal').modal('hide');
+                    },
+                });
+            });
+    
+    });
+    </script>
 @endsection
+
+
+
+
+
+
+
+

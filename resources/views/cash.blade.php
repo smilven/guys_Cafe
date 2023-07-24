@@ -1,6 +1,13 @@
 <!-- cash.blade.php -->
 @extends('adlayout')
 @section('content')
+
+<style>
+    #cash {
+        background-color: #f1f1f1;
+    }
+</style>
+
     <h1>Payment Details</h1>
     <div class="container">
     <div class="card">

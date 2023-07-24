@@ -177,8 +177,8 @@ All Admin Routes List
 Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function () {
     Route::get('/',[LoginController::class, 'index']);
 
-      Route::get('/adminhome',function(){return view('control');})->name('admin.home');
-     Route::post('supplier', [ControlController::class, 'store']);
+    Route::get('/adminhome', function() {return view('control');})->name('admin.home');
+         Route::post('supplier', [ControlController::class, 'store']);
     Route::get('fetch-supplier', [ControlController::class, 'fetchsupplier']);
     Route::get('edit-supplier/{id}', [ControlController::class, 'edit']);
     Route::put('update-supplier/{id}', [ControlController::class, 'update']);
@@ -192,7 +192,8 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
         return view('client');
     });
     
-
+    Route::get('adminhome', [AdminController::class, 'show'])->name('record.show');
+    Route::get('supplier', [AdminController::class, 'Category']);
     Route::post('worker', [AdminController::class, 'addWorker']);
     Route::get('worker', [AdminController::class, 'showWorker']);
     Route::get('delete3/{id}', [AdminController::class, 'deleteWorker']);
@@ -240,6 +241,6 @@ Route::middleware(['auth', 'user-access:admin','revalidate'] )->group(function (
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
 
-    Route::get('record', [RecordController::class, 'show'])->name('record.show');
+
     Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
 });

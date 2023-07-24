@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\FoodMenu;
 use App\Models\Worker;
 use App\Models\Category;
-use App\Models\Voucher;
+use App\Models\PaymentRecord;
 
 use App\Models\Employee;
 use Illuminate\Support\Facades\Validator;
@@ -18,12 +18,16 @@ class AdminController extends Controller
 {
     public function Category()
     {
-        return view('item');
+        return view('record');
     }
 
 
 
-
+    public function show(Request $request)
+    {
+        $paymentDetails = PaymentRecord::all();
+        return view('control', compact('paymentDetails'));
+    }
 
    //这边show upload food后  在admin page
    public function fetchcategory()

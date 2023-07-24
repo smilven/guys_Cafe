@@ -1,6 +1,12 @@
 @extends('adlayout')
 @section('content')
 {{-- Add Modal --}}
+<style>
+    #voucher {
+        background-color: #f1f1f1;
+    }
+</style>
+
 <div class="modal fade" id="AddVoucherModal" tabindex="-1" aria-labelledby="AddVoucherModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
