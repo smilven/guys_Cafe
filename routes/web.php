@@ -214,7 +214,9 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
     Route::get('edit-voucher/{id}', [VoucherController::class, 'edit']);
     Route::put('update-voucher/{id}', [VoucherController::class, 'update']);
     Route::delete('delete-voucher/{id}', [VoucherController::class, 'destroy']);
+    Route::get('vouchers', [VoucherController::class, 'showRedemption']);
 
+    
     Route::get('/table', [TableController::class, 'indexTable'])->name('admin.table');
     Route::post('SaveTable', [TableController::class, 'CreateTable']);
     Route::get('fetch-table', [TableController::class, 'fetchTables']);
@@ -232,4 +234,7 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
     Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
+
+
 });
+

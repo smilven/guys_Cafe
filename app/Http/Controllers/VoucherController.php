@@ -217,7 +217,11 @@ class VoucherController extends Controller
 
 
 
-
+    public function showRedemption()
+    {
+        $redemptions = Redemption::all();
+        return view('voucher.index', compact('redemptions'));
+    }
 
 
 

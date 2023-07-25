@@ -155,7 +155,7 @@
     $('#Open-Menu-button').click(function() {
         document.getElementById('Open-Menu-button').addEventListener('click', function() {
     var tableNumber = document.getElementById('Tableinfo').getElementsByTagName('h1')[0].innerText.split(" ")[2];
-    var url = "/new?tableNumber=" + tableNumber;
+    var url = "/homeuser?tableNumber=" + tableNumber;
     window.open(url, '_blank');
   });
         

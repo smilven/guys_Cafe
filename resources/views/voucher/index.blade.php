@@ -165,18 +165,17 @@
             <div id="success_message"></div>
 
             <!-- Voucher Table -->
-            <div class="card">
-                <div class="card-header">
-                    <h4>
+            <div class="card" >
+                <div class="card-header" style="background: #7db89f" >
+                    <h4 style="color: aliceblue">
                         Voucher
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddVoucherModal">Add Voucher</button>
+                        <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#AddVoucherModal">Add Voucher</button>
                     </h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="tableBody" >
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Voucher Code</th>
                                 <th>Voucher Type</th>
                                 <th>Voucher Amount</th>
@@ -196,13 +195,13 @@
 
             <!-- Redemption Table -->
             <div class="card mt-4">
-                <div class="card-header">
-                    <h4>
+                <div class="card-header" style="background: #8aaa9c">
+                    <h4 style="color: aliceblue">
                         Redemption Details
                     </h4>
                 </div>
-                <div class="Redemption-body">
-                    <table class="table Redemption-bordered">
+                <div class="Redemption-body" style="padding: 15px;" id="tableBody">
+    <table class="table Redemption-bordered" id="redemptionTable">
                         <thead>
                             <tr>
                                 <th>Voucher Code</th>
@@ -212,9 +211,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Your redemption data will be populated here -->
+                            @foreach ($redemptions as $item)
+                                <tr>
+                                    <td>{{ $item->voucherCode }}</td>
+                                    <td>{{ $item->redemptionCode }}</td>
+                                    <td>{{ $item->redemptionDate }}</td>
+                                    <td>{{ $item->userID }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        
                     </table>
+                    
+            
                 </div>
             </div>
 
@@ -222,6 +231,33 @@
     </div>
 </div>
 
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+<style>
+    #tableBody{
+        overflow-y: auto;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+
+    #tableBody::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('#redemptionTable').DataTable({
+            searching: false,
+            dom: 'tp' //t-> table p->pagination
+        });
+    });
+</script>
 
 @endsection
 
@@ -253,7 +289,6 @@
                     $('#voucher_tbody').html("");
                     $.each(response.vouchers, function(key, item) {
                         $('#voucher_tbody').append('<tr>\
-                                    <td>' + item.id + '</td>\
                                     <td>' + item.code + '</td>\
                                     <td>' + item.type + '</td>\
                                     <td>' + item.amount + '</td>\

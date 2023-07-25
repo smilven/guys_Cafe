@@ -8,11 +8,15 @@
     }
 </style>
 
-    <h1>Payment Details</h1>
     <div class="container">
     <div class="card">
-    <div class="card-body">
-    <table class="table">
+        <div class="card-header" style="background: #108de4">
+            <h4 style="color: aliceblue">
+                Payment
+            </h4>
+        </div>
+    <div class="card-body " id="tableBody">
+    <table class="table" id="paymentTable">
         <thead>
             <tr>
                 <th>Payment ID</th>
@@ -75,4 +79,32 @@
             performCashPayment(paymentId);
         });
     </script>
+
+    
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+
+<style>
+    #tableBody{
+        overflow-y: auto;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+
+    #tableBody::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('#paymentTable').DataTable({
+        });
+    });
+</script>
 @endsection
+

@@ -4,6 +4,15 @@
     #recordSupplier {
         background-color: #f1f1f1;
     }
+    #tableBody{
+        overflow-y: auto;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+
+    #tableBody::-webkit-scrollbar {
+        display: none;
+    }
 </style>
 
 <br>
@@ -114,20 +123,20 @@
 
             <div id="success_message"></div>
 
-            <div class="card" style="padding: 15px; overflow:scroll ; overflow-y: hidden;">
+            <div class="card" >
                 <div class="card-header" >
                     <h4>
                         Supplier Contact Number
                         <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddSupplierModal">Add Supplier</button>
                     </h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="tableBody">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
                         </div>
                     </div>
-                    <table class="table" id="supplier-table">
+                    <table class="table" id="supplier-table" >
                         <thead>
                             <tr>
                                 <th class="fw-bold">Name</th>

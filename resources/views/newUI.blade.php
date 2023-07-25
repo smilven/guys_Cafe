@@ -1405,8 +1405,8 @@ $('#removeCouponBtn').click(function() {
                                 $(document).ready(function() {
                                     $("#couponForm").submit(function(event) {
                                         event.preventDefault();
-                                        var redemptionCode = $("#coupon_code").val();
-                                        $("#redemption_code").val(redemptionCode);
+                                        var redemptionAbleCode = $("#coupon_code").val();
+                                        $("#redemption_code").val(redemptionAbleCode);
                                         // Now submit the cardinfo form
                                     });
                                 });
