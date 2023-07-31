@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 class PhoneNumberVerifyController extends Controller
 {
+    protected $redirectTo = '/phone/verify';
 
     public function show(Request $request)
 {
     if ($request->user()->userPhoneVerified()) {
-        return redirect()->route('home');
+        return redirect()->route('home.user');
     } else {
         return view('phoneverify.show');
     }
@@ -22,12 +23,12 @@ class PhoneNumberVerifyController extends Controller
             }
     
             if ($request->user()->userPhoneVerified()) {
-                return redirect()->route('home');
+                return redirect()->route('home.user');
             }
     
             $request->user()->phoneVerifiedAt();
     
-            return redirect()->route('home')->with('status', 'Your phone was successfully verified!');
+            return redirect()->route('home.user')->with('status', 'Your phone was successfully verified!');
         }
     
 }

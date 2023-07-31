@@ -295,7 +295,7 @@
         $("#add_FoodMenu_btn").text('Adding...');
         
         $.ajax({
-          url: '{{ route('store') }}',
+          url: '/store',
           method: 'POST',
           data: fd,
           cache: false,

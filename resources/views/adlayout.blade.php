@@ -33,6 +33,10 @@
   <!-- MDB -->
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<!--这个是Graph的-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.1/dist/chart.umd.min.js"></script>
+
   <title>Guys Cafe</title>
 </head>
 
@@ -99,7 +103,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand" href="#">
-          <img src="images/logo.png" height="25" alt="MDB Logo" loading="lazy" />
+          <img src="images/logo3.png" height="35px" style="margin-left:20px;" alt="Guys Cafe" />
         </a>
 
 
@@ -110,8 +114,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
               id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <img src="#" class="rounded-circle" height="22" width="22" style="object-fit: cover;" alt="Admin" />
-            </a>
+              <i class="bi bi-chevron-compact-down"></i>            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
 
               <li>

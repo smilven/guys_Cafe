@@ -9,7 +9,6 @@
 
 
 
-
 <div class="container">
 
     <div id="wrapper">
@@ -45,7 +44,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
+                                                Earnings (Yearly)</div>
                                                 <?php
                                                 $serverName = "localhost";
                                                 $userName = "root";
@@ -285,10 +284,9 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area" style="height:230px">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
+
+<canvas id="chart"></canvas>
+                              </div>
                             </div>
                         </div>
 
@@ -297,25 +295,15 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Food Analysis</h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="foodPieChart" width="400" height="400"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -324,7 +312,24 @@
                     <!-- Content Row -->
 
 
-
+                    <script>
+                        // Get the data from the PHP variables passed to the view
+                     
+                        const foodDatasets = @json($foodDatasets);
+                        const foodLabels = @json($foodLabels);
+                    
+            
+                    
+                        // Create the second pie chart for food counts
+                        const foodCtx = document.getElementById('foodPieChart').getContext('2d');
+                        const foodPieChart = new Chart(foodCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: foodLabels,
+                                datasets: foodDatasets,
+                            },
+                        });
+                    </script>
                 </div>
 
             </div>
@@ -332,8 +337,6 @@
 
         </div>
         <!-- End of Main Content -->
-
-
 
 
 
@@ -356,7 +359,7 @@
                    Payment Record
                </h4>
            </div>
-           <div class="card-body">
+           <div class="card-body"  id="paymentRecordTable">
                <table class="table table-bordered" id="paymentTable">
                    <thead>
                        <tr>
@@ -398,6 +401,16 @@
 
 
 
+<script>
+    var ctx = document.getElementById('chart').getContext('2d');
+    var userChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($labels) !!},
+            datasets: {!! json_encode($datasets) !!}
+        },
+    });
+</script>
 
 <!-- Page level plugins -->
 <script src="javascript/chart.js"></script>
@@ -424,6 +437,13 @@
 
 
 
+<style>
+        #paymentRecordTable{
+        overflow-y: auto;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+    }
+    </style>
 
 
 

@@ -21,8 +21,9 @@ use App\Http\Controllers\paymentController;
 use App\Http\Controllers\paymentDetailController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RecordController;
-
+use App\Http\Controllers\UserRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -167,7 +168,7 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
     Route::get('/home', [LoginController::class, 'page'])->name('home');
 
     Route::get('/',[LoginController::class, 'index']);
-
+Route::get('/adminhome',[ChartController::class,'show']);
     
 
     Route::post('supplier', [ControlController::class, 'store']);
@@ -235,6 +236,7 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
     Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
 
-
+    Route::get('/user', [UserRecordController::class, 'getDataWithTypeZero']);
+    Route::put('/users/{id}', [UserRecordController::class, 'updateUser']);
 });
 

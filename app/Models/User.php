@@ -87,7 +87,7 @@ class User extends Authenticatable
      $this->phone,
      
      [
-         'from' => "+13613143983", // REPLACE WITH YOUR TWILIO NUMBER
+         'from' => "+13204387458", // REPLACE WITH YOUR TWILIO NUMBER
          'body' => "Your OTP code is: " . $code // REPLACE WITH YOUR OTP MESSAGE
      ]
  );
