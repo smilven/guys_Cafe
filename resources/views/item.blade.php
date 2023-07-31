@@ -432,7 +432,7 @@
 
       function fetchAllFoodMenus() {
         $.ajax({
-          url: '{{ route('fetchAll') }}',
+          url: '/fetchall', //{{ route('fetchAll') }} 这是原本的
           method: 'get',
           success: function(response) {
             $("#show_all_FoodMenus").html(response);
