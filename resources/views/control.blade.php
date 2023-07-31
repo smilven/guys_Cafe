@@ -9,7 +9,7 @@
 
 
 
-<div class="container">
+<div class="container" id="pageContent">
 
     <div id="wrapper">
 
@@ -292,21 +292,17 @@
 
                         <!-- Pie Chart -->
                         <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Food Analysis</h6>
-
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="foodPieChart" width="400" height="400"></canvas>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                        </div>
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Food Analysis</h6>
+        </div>
+        <!-- Card Body -->
+            <div class="chart-pie pt-4 pb-2">
+                <canvas id="foodPieChart"></canvas>
+            </div>
+    </div>
+</div>
                     </div>
 
                     <!-- Content Row -->

@@ -85,7 +85,7 @@
 
 
 
-<div class="container">
+<div class="container" id="pageContent">
     <!-------------------------------这边是display create料的categotry------------------------------------>
     <div class="container py-5">
         <div class="row">
@@ -101,10 +101,7 @@
                     </div>
                     <div class="card-body" style="padding: 15px; overflow:scroll ; overflow-y: hidden;">
                         <div class="row mb-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="search" placeholder="Search..."
-                                    autocomplete="off">
-                            </div>
+                           
                         </div>
                         <table class="table">
                             <thead>

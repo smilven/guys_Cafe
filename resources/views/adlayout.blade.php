@@ -42,6 +42,21 @@
 
 
 <body>
+  <style>
+    /* CSS */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+    </style>
 
   <!--Main Navigation-->
   <header>
@@ -90,7 +105,12 @@
       </div>
     </nav>
     <!-- Sidebar -->
-
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const pageContent = document.getElementById("pageContent");
+        pageContent.classList.add("fade-in");
+      });
+    </script>
     <!-- Navbar -->
     <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
       <!-- Container wrapper -->
