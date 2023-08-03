@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('food_id');
             $table->string('food_name');
             $table->string('quantity');
+            $table->string('food_price');
             $table->string('userID');
             $table->string('food_requirement');
             $table->string('orderID');
+            $table->string('paymentID');
             $table->timestamps();
         });
     }
