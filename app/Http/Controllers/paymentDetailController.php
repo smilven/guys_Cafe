@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\paymentRecord;
 use App\Models\Redemption;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\mycart;
+
 
 class paymentDetailController extends Controller
 {
@@ -58,6 +61,34 @@ class paymentDetailController extends Controller
         $paymentRecord->totalFoodPrice = $paymentDetail->totalFoodPrice;
         $paymentRecord->userID = $paymentDetail->userID;
         $paymentRecord->save();
+       
+
+
+        $paymentID = $paymentRecord->id;
+
+        $user = $request->user();
+
+        $cartItems = mycart::where('userID', $user->id)->get();
+
+        foreach ($cartItems as $cartItem) {
+            // Save order
+            $order = new Order();
+            // Assign values from the cart item
+            $order->quantity = $cartItem->quantity;
+            $order->orderID = $cartItem->orderID;
+            $order->food_id = $cartItem->food_id;
+            $order->food_name = $cartItem->food_name;
+            $order->food_requirement = $cartItem->food_requirement;
+            $order->userID = $cartItem->userID;
+            $order->food_price = $cartItem->lastest_food_price;
+
+            // Assign the obtained paymentID to the paymentID field in the Order model
+            $order->paymentID = $paymentID;
+        
+            $order->save();
+        
+  
+        }
 
 
         $user = User::find($userID);

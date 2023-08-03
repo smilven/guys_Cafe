@@ -123,18 +123,16 @@
 
             <div id="success_message"></div>
 
-            <div class="card" >
-                <div class="card-header" >
+            <div class="card"  >
+                <div class="card-header" style="background: antiquewhite" >
                     <h4>
                         Supplier Contact Number
-                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddSupplierModal">Add Supplier</button>
+                        <button type="button" class="btn btn-warning float-end" data-bs-toggle="modal" data-bs-target="#AddSupplierModal">Add Supplier</button>
                     </h4>
                 </div>
                 <div class="card-body" id="tableBody">
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="search" placeholder="Search..." autocomplete="off">
-                        </div>
+                 
                     </div>
                     <table class="table" id="supplier-table" >
                         <thead>
@@ -168,6 +166,7 @@
 
     $(document).ready(function() {
         fetchsupplier();
+    
 
         function fetchsupplier() {
             $.ajax({
@@ -186,20 +185,19 @@
                             <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                         \</tr>');
                     });
+                    $('#supplier-table').DataTable();
+
+
                 }
+
+                
             });
-            $('#search').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $('tbody tr').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
+          
         }
 
 
 
 
-  
 
         $(document).on('click', '.add_supplier', function(e) {
             e.preventDefault();
@@ -375,6 +373,9 @@
     });
 
 </script>
+    
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 @endsection
 
 

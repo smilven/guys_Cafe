@@ -30,8 +30,12 @@ class OrderController extends Controller
         $order->orderID = $cartItem->orderID;
         $order->food_id = $cartItem->food_id;
         $order->food_name = $cartItem->food_name;
+        $order->food_price = $cartItem->lastest_food_price;
+
         $order->food_requirement = $cartItem->food_requirement;
         $order->userID = $cartItem->userID;
+        $order->paymentID = "";
+
         $order->save();
     
         // Save kitchen details

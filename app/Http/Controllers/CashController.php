@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PaymentDetail;
 use App\Models\PaymentRecord;
+use App\Models\mycart;
+use App\Models\Order;
+
 
 class CashController extends Controller
 {
@@ -33,6 +36,33 @@ class CashController extends Controller
         $paymentRecord->payment_method = 'Cash Payment'; // Set the payment method as "Cash"
         // Add other fields as needed for payment record
         $paymentRecord->save();
+
+
+        $paymentID = $paymentRecord->id;
+
+        $user = $request->user();
+
+        $cartItems = mycart::where('userID', $user->id)->get();
+
+        foreach ($cartItems as $cartItem) {
+            // Save order
+            $order = new Order();
+            // Assign values from the cart item
+            $order->quantity = $cartItem->quantity;
+            $order->orderID = $cartItem->orderID;
+            $order->food_id = $cartItem->food_id;
+            $order->food_name = $cartItem->food_name;
+            $order->food_requirement = $cartItem->food_requirement;
+            $order->userID = $cartItem->userID;
+            $order->food_price = $cartItem->lastest_food_price;
+
+            // Assign the obtained paymentID to the paymentID field in the Order model
+            $order->paymentID = $paymentID;
+        
+            $order->save();
+        
+  
+        }
 
         // Delete the payment detail from the paymentDetails table after payment
         $paymentDetail->delete();

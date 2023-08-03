@@ -422,6 +422,8 @@ $tableNumber = 1;
                                     <input type="hidden" name="food_price" id="food_price"
                                         value="{{ $foodMenu->food_price }}">
 
+                                        <input type="hidden" name="paymentID" id="paymentID"
+                                        value="">
 
                                     <h6>Requirement:</h6>
 
@@ -1449,7 +1451,7 @@ $('#removeCouponBtn').click(function() {
                             data-mdb-target="#staticBackdrop" style="width: 100%">
                             View Your Order History
                         </button>
-
+                      
                         <!-- Modal -->
                         <div class="modal-dialog modal-dialog-scrollable">
 
@@ -1467,59 +1469,72 @@ $('#removeCouponBtn').click(function() {
 
                                         <div class="modal-body">
                                             <div id="modal-orders-container">
-
                                                 @foreach ($paymentRecords->groupBy('userID') as $userID => $histories)
-                                                <div class="accordion" id="accordionExample">
-                                                    @foreach ($histories as $index => $history)
-                                                    @php
-                                                    $accordionId = 'accordion_' . $userID . '_' . $index;
-                                                    @endphp
-
-                                                    <div class="card">
-                                                        <div class="card-header mb-2" id="heading_{{ $accordionId }}">
-                                                            <h5 class="mb-0">
-                                                                <button class="btn btn-link card-header mb-2"
-                                                                    id="heading_{{ $accordionId }}" type="button"
-                                                                    data-toggle="collapse"
-                                                                    data-target="#collapse_{{ $accordionId }}"
-                                                                    aria-expanded="true"
-                                                                    aria-controls="collapse_{{ $accordionId }}">
-                                                                    Order {{ $history->id }}
-                                                                </button>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="collapse_{{ $accordionId }}" class="collapse"
-                                                            aria-labelledby="heading_{{ $accordionId }}"
-                                                            data-parent="#accordionExample">
-                                                            <div class="card-body">
-                                                                <table class="table table-borderless">
-                                                                    <!-- Your table content -->
-                                                                </table>
-
-                                                                <table class="table table-borderless">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>Total Price :</td>
-                                                                            <td>RM{{ $history->nett_total }}</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Payment Method :</td>
-                                                                            <td>{{ $history->payment_method }}</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Point Earned :</td>
-                                                                            <td>{{ $history->earnPoint }}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                    <div class="accordion" id="accordionExample">
+                                                        @foreach ($histories as $index => $history)
+                                                            @php
+                                                            $accordionId = 'accordion_' . $userID . '_' . $index;
+                                                            @endphp
+                                        
+                                                            <div class="card">
+                                                                <div class="card-header mb-2" id="heading_{{ $accordionId }}">
+                                                                    <h5 class="mb-0">
+                                                                        <button class="btn btn-link card-header mb-2" id="heading_{{ $accordionId }}" type="button"
+                                                                            data-toggle="collapse" data-target="#collapse_{{ $accordionId }}" aria-expanded="true"
+                                                                            aria-controls="collapse_{{ $accordionId }}">
+                                                                            Order {{ $history->id }}
+                                                                        </button>
+                                                                    </h5>
+                                                                </div>
+                                                                <div id="collapse_{{ $accordionId }}" class="collapse" aria-labelledby="heading_{{ $accordionId }}"
+                                                                    data-parent="#accordionExample">
+                                                                    <div class="card-body">
+                                                                        <table class="table table-borderless">
+                                                                            <!-- Your table content -->
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <td>Food Name<td>
+                                                                                        <td>Quantity<td>
+                                                                                            <td>Food Price<td>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach ($history->orders as $order)
+                                                                                    <tr>
+                                                                                        <td>{{ $order->food_name }}</td>
+                                                                                        <td>{{ $order->quantity }}</td>
+                                                                                        <td>{{ $order->food_price }}</td>
+                                                                                        <!-- Add other cells for other columns if needed -->
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                        
+                                                                        <table class="table table-borderless">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Total Price :</td>
+                                                                                    <td>RM{{ $history->nett_total }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Payment Method :</td>
+                                                                                    <td>{{ $history->payment_method }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Point Earned :</td>
+                                                                                    <td>{{ $history->earnPoint }}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
-                                                    @endforeach
-                                                </div>
                                                 @endforeach
                                             </div>
                                         </div>
+                                        
 
 
                                         <div class="modal-footer">
@@ -1551,50 +1566,59 @@ $('#removeCouponBtn').click(function() {
                         <script>
                             function loadOrderHistory() {
                                 $.ajax({
-                                    url: "{{ route('get.payment.records') }}"
-                                    , type: 'GET'
-                                    , dataType: 'json'
-                                    , success: function(response) {
+                                    url: "{{ route('get.payment.records') }}",
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(response) {
                                         var paymentRecordsHtml = '';
-
+                        
                                         $.each(response.paymentRecords, function(index, history) {
                                             var accordionId = "accordion_" + history.userID + "_" + index;
-
+                        
                                             paymentRecordsHtml += '<div class="card">';
-                                            paymentRecordsHtml += '    <div class="card-header mb-2" id="heading_' +
-                                                accordionId + '">';
+                                            paymentRecordsHtml += '    <div class="card-header mb-2" id="heading_' + accordionId + '">';
                                             paymentRecordsHtml += '        <h5 class="mb-0">';
-                                            paymentRecordsHtml +=
-                                                '            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_' +
-                                                accordionId + '" aria-expanded="true" aria-controls="collapse_' +
-                                                accordionId + '">';
+                                            paymentRecordsHtml += '            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_' + accordionId + '" aria-expanded="true" aria-controls="collapse_' + accordionId + '">';
                                             paymentRecordsHtml += '                Order ' + history.id;
                                             paymentRecordsHtml += '            </button>';
                                             paymentRecordsHtml += '        </h5>';
                                             paymentRecordsHtml += '    </div>';
-                                            paymentRecordsHtml += '    <div id="collapse_' + accordionId +
-                                                '" class="collapse" aria-labelledby="heading_' + accordionId +
-                                                '" data-parent="#modal-orders-container">';
+                                            paymentRecordsHtml += '    <div id="collapse_' + accordionId + '" class="collapse" aria-labelledby="heading_' + accordionId + '" data-parent="#modal-orders-container">';
                                             paymentRecordsHtml += '        <div class="card-body">';
-                                            paymentRecordsHtml += '            <table class="table table-borderless">';
-                                            // Add your table content here
+                                            paymentRecordsHtml += '            <table class="table">';
+                                            paymentRecordsHtml += '                <thead>';
+                                            paymentRecordsHtml += '                    <tr>';
+                                            paymentRecordsHtml += '                        <td><strong>Food Name</strong></td>';
+                                            paymentRecordsHtml += '                        <td><strong>Food Price</strong></td>';
+                                            paymentRecordsHtml += '                        <td><strong>Quantity</strong></td>';
+                                            // Add other table headers if needed
+                                            paymentRecordsHtml += '                    </tr>';
+                                            paymentRecordsHtml += '                </thead>';
+                                            paymentRecordsHtml += '                <tbody>';
+                                            $.each(history.orders, function(i, order) {
+                                                paymentRecordsHtml += '                    <tr>';
+                                                paymentRecordsHtml += '                        <td>' + order.food_name + '</td>';
+                                                paymentRecordsHtml += '                        <td>' + order.food_price + '</td>';
+                                                paymentRecordsHtml += '                        <td>' + order.quantity + '</td>';
+                                                // Add other cells for other columns if needed
+                                                paymentRecordsHtml += '                    </tr>';
+                                            });
+                                            paymentRecordsHtml += '                </tbody>';
                                             paymentRecordsHtml += '            </table>';
+                                            paymentRecordsHtml += '            <hr>'; 
                                             paymentRecordsHtml += '            <table class="table table-borderless">';
                                             paymentRecordsHtml += '                <tbody>';
                                             paymentRecordsHtml += '                    <tr>';
                                             paymentRecordsHtml += '                        <td>Total Price :</td>';
-                                            paymentRecordsHtml += '                        <td>RM' + history.nett_total +
-                                                '</td>';
+                                            paymentRecordsHtml += '                        <td>RM' + history.nett_total + '</td>';
                                             paymentRecordsHtml += '                    </tr>';
                                             paymentRecordsHtml += '                    <tr>';
                                             paymentRecordsHtml += '                        <td>Payment Method :</td>';
-                                            paymentRecordsHtml += '                        <td>' + history.payment_method +
-                                                '</td>';
+                                            paymentRecordsHtml += '                        <td>' + history.payment_method + '</td>';
                                             paymentRecordsHtml += '                    </tr>';
                                             paymentRecordsHtml += '                    <tr>';
                                             paymentRecordsHtml += '                        <td>Point Earned :</td>';
-                                            paymentRecordsHtml += '                        <td>' + history.earnPoint +
-                                                '</td>';
+                                            paymentRecordsHtml += '                        <td>' + history.earnPoint + '</td>';
                                             paymentRecordsHtml += '                    </tr>';
                                             paymentRecordsHtml += '                </tbody>';
                                             paymentRecordsHtml += '            </table>';
@@ -1602,21 +1626,22 @@ $('#removeCouponBtn').click(function() {
                                             paymentRecordsHtml += '    </div>';
                                             paymentRecordsHtml += '</div>';
                                         });
-
+                        
                                         $('#modal-orders-container').html(paymentRecordsHtml);
-                                    }
-                                    , error: function(error) {
+                                    },
+                                    error: function(error) {
                                         console.error(error);
                                     }
                                 });
                             }
-
+                        
                             // Load order history immediately when the modal is shown
                             $('#staticBackdrop').on('shown.bs.modal', function() {
                                 loadOrderHistory();
                             });
-
+                        
                         </script>
+                        
                         <h4 class="text-center"> Your Voucher</h4>
 
                         <ul style="padding-left: 0; margin-bottom: 20px; margin-top: 20px;" class="text-center"

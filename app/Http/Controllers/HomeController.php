@@ -45,25 +45,28 @@ class HomeController extends Controller
 
     public function showCategoryAndProduct()
     {
-        $userId = auth()->user()->id; // Replace this with the actual logic to get the user ID
+        $userId = auth()->user()->id;
         $data1 = Category::all();
         $data2 = FoodMenu::all();
         $data3 = Voucher::all();
-        $paymentDetail = paymentDetail::all();
+        $paymentDetail = PaymentDetail::all();
         $mycarts = DB::table('mycarts')
-        ->leftJoin('food_menus', 'food_menus.id', '=', 'mycarts.food_id')
-        ->select('food_menus.*')
-        ->where('mycarts.userID', '=', (int)Auth::id())
-
-        ->get();
-
-        // Fetch the latest kitchen record from the database
+            ->leftJoin('food_menus', 'food_menus.id', '=', 'mycarts.food_id')
+            ->select('food_menus.*')
+            ->where('mycarts.userID', '=', (int) Auth::id())
+            ->get();
+    
+        $myreceipt = DB::table('payment_records')
+            ->leftJoin('orders', 'orders.paymentID', '=', 'payment_records.id')
+            ->select('orders.*', 'payment_records.totalFoodPrice', 'payment_records.discount', 'payment_records.nett_total', 'payment_records.earnPoint', 'payment_records.payment_method')
+            ->where('payment_records.userID', '=', (int) Auth::id())
+            ->get();
+    
         $kitchen = Kitchen::latest()->first();
-        $paymentRecords = paymentRecord::where('userID', $userId)->get();
-        // Extract the food_Status from the kitchen record
+        $paymentRecords = PaymentRecord::where('userID', $userId)->get();
         $status = $kitchen ? $kitchen->food_Status : '';
-
-        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail'));
+    
+        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail', 'myreceipt'));
     }
 
     public function destroyPaymentDetail($id)
@@ -76,7 +79,7 @@ class HomeController extends Controller
     public function getPaymentRecords(Request $request)
     {
         $userId = auth()->user()->id;
-        $paymentRecords = paymentRecord::where('userID', $userId)->get();
+        $paymentRecords = PaymentRecord::with('orders')->where('userID', $userId)->get();
         return response()->json(['paymentRecords' => $paymentRecords]);
     }
 }

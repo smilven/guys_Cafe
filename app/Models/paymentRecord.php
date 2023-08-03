@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class paymentRecord extends Model
 {
     use HasFactory;
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'paymentID', 'id');
+    }
 }
