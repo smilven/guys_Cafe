@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PaymentDetail;
 use App\Models\PaymentRecord;
+use App\Models\payment;
 use App\Models\mycart;
 use App\Models\Order;
-
+use Illuminate\Support\Facades\DB;
 
 class CashController extends Controller
 {
@@ -37,6 +38,16 @@ class CashController extends Controller
         // Add other fields as needed for payment record
         $paymentRecord->save();
 
+        $userID = $paymentDetail->userID;
+        DB::beginTransaction();
+        try {
+            payment::where('userID', $userID)->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error' => 'Failed to delete payments'], 500);
+        }
+
 
         $paymentID = $paymentRecord->id;
 
@@ -58,10 +69,10 @@ class CashController extends Controller
 
             // Assign the obtained paymentID to the paymentID field in the Order model
             $order->paymentID = $paymentID;
-        
+
             $order->save();
-        
-  
+
+
         }
 
         // Delete the payment detail from the paymentDetails table after payment
@@ -69,4 +80,6 @@ class CashController extends Controller
 
         return response()->json(['message' => 'Cash payment recorded successfully']);
     }
+
+
 }

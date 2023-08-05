@@ -33,7 +33,12 @@
     <!--这个是Graph的-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.1/dist/chart.umd.min.js"></script>
 
+
+    
     <title>Guys Cafe</title>
+    
+
+
     
 </head>
 
@@ -89,7 +94,7 @@
                   </a>
       
                   <!-- Reminder -->
-                  <a href="general" id="general" class="list-group-item list-group-item-action py-3 ripple" data-mdb-ripple-color="#44c6e3">
+                  <a href="fullcalender" id="fullcalender" class="list-group-item list-group-item-action py-3 ripple" data-mdb-ripple-color="#44c6e3">
                       <i class="fas fa-building fa-fw me-3"></i><span>Reminder</span>
                   </a>
       
@@ -102,6 +107,12 @@
                   <a href="user" id="user" class="list-group-item list-group-item-action py-3 ripple" data-mdb-ripple-color="#44c6e3">
                       <i class="fas fa-users fa-fw me-3"></i><span>Users</span>
                   </a>
+
+                  
+                  <!-- Setting -->
+                  <a href="setting" id="setting" class="list-group-item list-group-item-action py-3 ripple" data-mdb-ripple-color="#44c6e3">
+                    <i class="bi bi-gear-fill fa-fw me-3"></i><span>Setting</span>
+                </a>
               </div>
           </div>
       </nav>

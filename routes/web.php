@@ -8,7 +8,7 @@ use App\Models\Voucher;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\myCartController;
-
+use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\ControlController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\FoodMenuController;
@@ -223,14 +223,19 @@ Route::get('/adminhome',[ChartController::class,'show']);
     Route::get('fetch-table', [TableController::class, 'fetchTables']);
     Route::get('deleteTable/{id}', [TableController::class, 'DeleteTable']);
 
-
-
+   
+     
+    Route::controller(FullCalenderController::class)->group(function(){
+        Route::get('fullcalender', 'index');
+        Route::post('fullcalenderAjax', 'ajax');
+    });
+/*
     Route::get('/general',[MessageController::class, 'message'])->name('humanresource');
     Route::post('/general',[MessageController::class, 'smessage'])->name('smessage');
     Route::get('edit-message/{id}',[MessageController::class, 'edit']);
     Route::put('update-message',[MessageController::class, 'update']);
     Route::delete('delete-message',[MessageController::class, 'destroy']);
-
+*/
 
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');

@@ -1014,11 +1014,7 @@ $('#removeCouponBtn').click(function() {
                             event.preventDefault();
                             var url = $(this).attr('data-action');
 
-                            // Check if the table is empty
-                            if ($('#Table').is(':empty')) {
-                                alert('Cannot place order. Cart is empty.');
-                                return; // Stop execution
-                            }
+              
 
                             $.ajax({
                                 url: '/home/place'
@@ -1105,6 +1101,7 @@ $('#removeCouponBtn').click(function() {
                                 error: function(response) {
                                     console.log("Fail Bad");
                                     console.log(response);
+                                    alert('Your Payment Error')
                                 }
                             });
                         });
@@ -1372,19 +1369,36 @@ $('#removeCouponBtn').click(function() {
                                                     </form>
 
                                                     <script>
+                                                            // Get the input element by its id
+    const cardholderNameInput = document.getElementById('cardholder_name');
+
+// Add an event listener for the 'input' event
+cardholderNameInput.addEventListener('input', function (event) {
+    // Get the input value and remove any non-alphabetic characters using regular expression
+    const filteredValue = event.target.value.replace(/[^a-zA-Z ]/g, '');
+    // Update the input value with the filtered value
+    event.target.value = filteredValue;
+});
                                                         document.getElementById('cvv').addEventListener('input', function() {
                                                             if (this.value.length > 3) {
                                                                 this.value = this.value.slice(0, 3); // Truncate to 3 characters
                                                             }
                                                         });
-                                                        document.getElementById('expiry_date').addEventListener('input', function() {
-                                                            var value = this.value;
-                                                            if (value.length === 2 && value.indexOf('/') === -1) {
-                                                                this.value = value + '/';
-                                                            } else if (value.length > 5) {
-                                                                this.value = value.slice(0, 5); // Truncate to 5 characters
-                                                            }
-                                                        });
+                                                    
+   // Get the input element by its id
+   const expiryDateInput = document.getElementById('expiry_date');
+
+// Add an event listener for the 'input' event
+expiryDateInput.addEventListener('input', function () {
+    // Get the input value and remove any non-numeric characters using regular expression
+    const filteredValue = this.value.replace(/\D/g, '');
+
+    // Format the input value as MM/YY
+    const formattedValue = filteredValue.replace(/^(\d\d)(\d\d)$/g, '$1/$2');
+
+    // Update the input value with the formatted value
+    this.value = formattedValue;
+});
 
                                                         document.getElementById('card_number').addEventListener('input', function() {
                                                             if (this.value.length > 16) {

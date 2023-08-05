@@ -186,7 +186,7 @@
                                                     //create connection
                                                     $con = mysqli_connect($serverName,$userName,$password, $dbName);
 
-                                                    $dash_message_query = "SELECT * from messages";
+                                                    $dash_message_query = "SELECT * from events";
                                                     $dash_message_query_run = mysqli_query($con,$dash_message_query);
 
                                                     if($message_total = mysqli_num_rows($dash_message_query_run))
@@ -217,13 +217,21 @@
                         </div>
                     </div>
 
+
+                    <style>
+                        #FlashMessages #title{
+                            font-weight: 900;
+                        }
+                        </style>
                     <!-- Modal -->
                     <div class="modal fade" id="showModal" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
+
+                        <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Flash Message</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Reminder Message</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -231,14 +239,15 @@
                                 <div class="modal-body">
 
                                     <table class="table" id="FlashMessages">
-                                        <thead>
-                                            <tr>
-                                                <th>Title</th>
-                                                <th>Body</th>
+                                        <thead >
+                                            <tr >
+                                                <th><strong>Title</strong></th>
+                                                <th><strong>Start Date</strong></th>
+                                                <th><strong>End Date</strong></th>
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody class="table-group-divider">
 
                                             <?php
                                         $conn = mysqli_connect("localhost", "root","","status_guys_cafe");
@@ -246,12 +255,12 @@
                                             die("Connection failed:". $conn-> connect_error);
                                         }
 
-                                        $sql = "SELECT title, body from messages";
+                                        $sql = "SELECT title,start,end from events";
                                         $result = $conn-> query($sql);
 
                                         if ($result-> num_rows > 0){
                                             while ($row = $result-> fetch_assoc()){
-                                                echo "<tr><td>". $row["title"] ."</td><td>". $row["body"] ."</td></tr>";
+                                                echo "<tr><td id=title>". $row["title"] ."</td><td>". $row["start"] ."</td><td>". $row["end"] ."</td></tr>";
                                             }
 
                                             echo "</table>";
@@ -277,6 +286,7 @@
 
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <!-- Content Row -->
@@ -419,13 +429,7 @@
     });
 </script>
 
-<!-- Page level plugins -->
-<script src="javascript/chart.js"></script>
 
-
-<!-- Page level custom scripts -->
-<script src="javascript/chartarea"></script>
-<script src="javascript/chartpie"></script>
 
 <script>
     $(document).on('click', '.show-msg-btn', function() {
