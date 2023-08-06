@@ -27,10 +27,17 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                  
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between" style="display: flex;">
-                        <h2 style="font-weight: 900">GUYS CAFÉ</h2>
+                        @php
+                        $type = 1; 
+                    
+                        $company_name = \App\Models\User::find($type)->name;
+                    @endphp
+                    
+                    <h2 style="font-weight: 900">{{ $company_name }}</h2> <!-- Display the name here -->
+
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
                         </a>

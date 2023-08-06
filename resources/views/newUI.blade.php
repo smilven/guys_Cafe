@@ -265,7 +265,13 @@ $tableNumber = 1;
     <nav>
         <div class="fixed-top">
             <center>
-                <h3 class="mt-2">Guys Café</h3>
+         
+
+                @php
+                    $type =1;
+                    $company_name = \App\Models\User::find($type)->name;
+                @endphp
+                <h3 class="mt-2">{{$company_name}}</h3>
             </center>
             <p style="display: flex; align-items: center; justify-content: center; position: relative;">
                 <span id="TableNumber">Table Number: <?php echo $tableNumber; ?></span>

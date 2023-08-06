@@ -24,7 +24,7 @@ use App\Http\Controllers\CashController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\UserRecordController;
-
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,11 +102,6 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
 
 
-
-//这个是for 看worker的page的
-Route::get('/worker', function () {
-    return view('humanresource');
-});
 
 //这个是for create worker的page的
 Route::post('worker', [AdminController::class, 'addWorker']);
@@ -243,5 +238,12 @@ Route::get('/adminhome',[ChartController::class,'show']);
 
     Route::get('/user', [UserRecordController::class, 'getDataWithTypeZero']);
     Route::put('/users/{id}', [UserRecordController::class, 'updateUser']);
+
+
+
+    
+    Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting');
+ 
+Route::post('/updateProfile', [App\Http\Controllers\SettingController::class, 'updateProfile'])->name('update.profile');
 });
 

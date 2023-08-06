@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('verification_code')->unique()->nullable();
             $table->rememberToken();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

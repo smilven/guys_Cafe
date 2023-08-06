@@ -70,7 +70,7 @@
               <div class="list-group list-group-flush mx-3 mt-4">
                   <!-- Welcome with User's Name -->
                   <a href="adminhome" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
-                      <i class="fas fa-user fa-fw me-3"></i><span>Welcome {{ Auth::user()->name }}</span>
+                      <i class="fas fa-user fa-fw me-3"></i><span>Welcome <br> {{ Auth::user()->name }}</span>
                   </a>
       
                   <!-- Table -->
@@ -134,10 +134,18 @@
                 </button>
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="#">
-                    <img src="images/logo3.png" height="35px" style="margin-left:20px;" alt="Guys Cafe" />
+                <a class="navbar-brand" href="adminhome">
+                    @php
+                    $type = 1; 
+                
+                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
+                @endphp
+                
+                
+                <img class="rounded-circle" height="35px" style="margin-left: 20px;" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" 
+                id="image_preview_container2">
+                
                 </a>
-
 
                 <!-- Right links -->
                 <ul class="navbar-nav ms-auto d-flex flex-row">
