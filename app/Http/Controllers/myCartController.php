@@ -69,7 +69,7 @@ public function addCart(Request $request)
     $quantity = $request->input('quantity_food');
     $lastest_food_price = $request->input('food_price');
     $food_price = $request->input('food_price');
-
+    $tableNumber = $request->input('tableNumber');
     $userId = Auth::id();
     $foodRequirement = $request->input('food_requirement') ?: "";
 
@@ -114,6 +114,7 @@ public function addCart(Request $request)
         $mycart->lastest_food_price = $lastest_food_price * $quantity;
         $mycart->food_requirement = $foodRequirement;
         $mycart->userID = $userId;
+        $mycart->tableNumber = $tableNumber;
         $mycart->food_id = $foodId;
         $mycart->food_name = $request->input('food_name');
 
@@ -153,6 +154,8 @@ public function addCart(Request $request)
     $paymentDetail->nett_total += $nett_total; // Accumulate the nett_total
     $paymentDetail->discount += $discount; // Accumulate the discount
     // Update other necessary fields as needed
+    $paymentDetail->tableNumber = $tableNumber;
+
     $paymentDetail->save();
 
     

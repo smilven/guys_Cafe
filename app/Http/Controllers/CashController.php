@@ -65,6 +65,7 @@ class CashController extends Controller
             $order->food_name = $cartItem->food_name;
             $order->food_requirement = $cartItem->food_requirement;
             $order->userID = $cartItem->userID;
+            $order->tableNumber = $cartItem->tableNumber;
             $order->food_price = $cartItem->lastest_food_price;
 
             // Assign the obtained paymentID to the paymentID field in the Order model

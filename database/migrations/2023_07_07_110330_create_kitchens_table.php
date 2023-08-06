@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('food_Status');
             $table->string('orderID');
             $table->string('food_requirement');
-
+            $table->string('tableNumber');
             $table->timestamps();
         });
     }

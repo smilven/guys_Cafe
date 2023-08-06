@@ -68,7 +68,8 @@ Route::get('/Login', function () {
 });
  
 
-Route::middleware(['auth', 'user-access:user'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+
     Route::get('/homeuser', [HomeController::class, 'showCategoryAndProduct'])->name('home.user')->middleware('verifiedphone');
     Route::post('build-twiml/{code}','PhoneVerificationController@buildTwiMl')->name('phoneverification.build');
     Auth::routes();
@@ -159,11 +160,13 @@ All Admin Routes List
 // Routes for authenticated users
  
 
+    
 Route::middleware(['auth', 'user-access:admin'] )->group(function () {
+
     Route::get('/home', [LoginController::class, 'page'])->name('home');
 
     Route::get('/',[LoginController::class, 'index']);
-Route::get('/adminhome',[ChartController::class,'show']);
+    Route::get('/adminhome',[ChartController::class,'show']);
     
 
     Route::post('supplier', [ControlController::class, 'store']);
@@ -224,13 +227,13 @@ Route::get('/adminhome',[ChartController::class,'show']);
         Route::get('fullcalender', 'index');
         Route::post('fullcalenderAjax', 'ajax');
     });
-/*
+    /*
     Route::get('/general',[MessageController::class, 'message'])->name('humanresource');
     Route::post('/general',[MessageController::class, 'smessage'])->name('smessage');
     Route::get('edit-message/{id}',[MessageController::class, 'edit']);
     Route::put('update-message',[MessageController::class, 'update']);
     Route::delete('delete-message',[MessageController::class, 'destroy']);
-*/
+    */
 
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
@@ -239,11 +242,12 @@ Route::get('/adminhome',[ChartController::class,'show']);
     Route::get('/user', [UserRecordController::class, 'getDataWithTypeZero']);
     Route::put('/users/{id}', [UserRecordController::class, 'updateUser']);
 
-
-
-    
     Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting');
- 
-Route::post('/updateProfile', [App\Http\Controllers\SettingController::class, 'updateProfile'])->name('update.profile');
+    Route::post('/updateProfile', [App\Http\Controllers\SettingController::class, 'updateProfile'])->name('update.profile');
+
+
+
+
+
 });
 

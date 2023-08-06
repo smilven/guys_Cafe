@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('discount');
             $table->float('nett_total');
             $table->string('payment_method');
+            $table->string('tableNumber');
             $table->timestamps();
         });
     }

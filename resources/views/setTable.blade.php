@@ -163,14 +163,14 @@
 
     $('#copy-url-button').click(function() {
         var tableNumber = $('#Tableinfo h1').text().split(" ")[2];
-        var url = "/new?tableNumber=" + tableNumber;
+        var url = "/homeuser?tableNumber=" + tableNumber;
         var dummy = document.createElement("textarea");
         document.body.appendChild(dummy);
         dummy.value = url;
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
-        alert("URL copied to clipboard: http://127.0.0.1:8000" + url);
+        alert("URL copied to clipboard: https://027c-2001-e68-5453-1be9-d8ed-dc99-29ba-aad7.ngrok-free.app" + url);
     })
 });
         function DeleteTable(id) {

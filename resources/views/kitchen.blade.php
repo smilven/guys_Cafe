@@ -82,7 +82,18 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
                     <form action="{{ route('update.order.status') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-title d-flex justify-content-between">
-                            <center><b>Table 1</b></center>
+                            @php
+                            $displayedTableNumbers = [];
+                        @endphp
+                        
+                        @foreach ($items as $item)
+                            @if (!in_array($item->tableNumber, $displayedTableNumbers))
+                                @php
+                                    $displayedTableNumbers[] = $item->tableNumber;
+                                @endphp
+                                <center><b>Table Number{{ $item->tableNumber }}</b></center>
+                            @endif
+                        @endforeach
                             <b>User {{ $userID }}</b>
                         </div>
                         <hr>

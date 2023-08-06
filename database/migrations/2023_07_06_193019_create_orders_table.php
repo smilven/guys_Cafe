@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('food_requirement');
             $table->string('orderID');
             $table->string('paymentID');
+            $table->string('tableNumber');
             $table->timestamps();
         });
     }

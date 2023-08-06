@@ -31,7 +31,7 @@ class OrderController extends Controller
         $order->food_id = $cartItem->food_id;
         $order->food_name = $cartItem->food_name;
         $order->food_price = $cartItem->lastest_food_price;
-
+        $order->tableNumber = $cartItem->tableNumber;
         $order->food_requirement = $cartItem->food_requirement;
         $order->userID = $cartItem->userID;
         $order->paymentID = "";
@@ -46,6 +46,7 @@ class OrderController extends Controller
         $kitchen->food_id = $cartItem->food_id;
         $kitchen->food_name = $cartItem->food_name;
         $kitchen->food_requirement = $cartItem->food_requirement;
+        $kitchen->tableNumber = $cartItem->tableNumber;
         $kitchen->userID = $cartItem->userID;
         $kitchen->food_Status = "placeorder";
         $kitchen->save();

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('food_name');
             $table->float('lastest_food_price');
             $table->string('food_requirement');
+            $table->string('tableNumber');
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@
         <thead>
             <tr>
                 <th>Payment ID</th>
+                <th>Table Number</th>
                 <th>User ID</th>
                 <th>Total Food Price</th>
                 <th>Nett Total</th>
@@ -32,6 +33,7 @@
             @foreach ($paymentDetails as $payment)
                 <tr>
                     <td>{{ $payment->id }}</td>
+                    <td>{{ $payment->tableNumber }}</td>
                     <td>{{ $payment->userID }}</td>
                     <td>{{ $payment->totalFoodPrice }}</td>
                     <td>{{ $payment->nett_total }}</td>

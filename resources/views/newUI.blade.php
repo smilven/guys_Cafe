@@ -1,5 +1,5 @@
 <?php
-$tableNumber = 1;
+$tableNumber = $_GET['tableNumber'];
 
 ?>
 <!DOCTYPE html>
@@ -1323,6 +1323,12 @@ $('#removeCouponBtn').click(function() {
                                                     <form id="cardinfo" method="POST"
                                                         data-action="{{ route('store.card.info') }}">
                                                         @csrf
+
+                                                       <div class="form-group">
+                                <input type="hidden" id="tableNumber" name="tableNumber"
+                                    value="<?php echo $tableNumber; ?>" class="form-control">
+                            </div>
+
                                                         <div class="row  mt-2">
                                                             <div class="col">
 
