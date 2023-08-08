@@ -33,7 +33,6 @@
                 <div class="form-group mb-3">
                     <select name="type" required class="type form-select" id="type">
                         <option value="">Choose The Voucher Type</option>
-                        <option value="percent">Percent</option>
                         <option value="fixed">Fixed</option>
 
                     </select>
@@ -44,19 +43,6 @@
                     <input type="text" required class="point form-control" id="point" name="point">
                 </div>
 
-                <div class="row form-group mb-3">
-                    <label for="">Expiry Date</label>
-                    <div class="col">
-                        <div class="input-group date">
-                            <input type="text" required class="expiry form-control" name="expiry">
-                            <span class="input-group-append">
-                                <span class="input-group-text bg-white">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
 
             </div>
@@ -112,19 +98,7 @@
                     <input type="text" required class="point form-control" id="edit_point" name="point">
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="">Expiry Date</label>
-                    <div class="col">
-                        <div class="input-group date">
-                            <input type="text" class="expiry form-control"  id="edit_expiry"  name="expiry">
-                            <span class="input-group-append">
-                                <span class="input-group-text bg-white">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+           
 
             </div>
             <div class="modal-footer">
@@ -181,7 +155,6 @@
                                 <th>Voucher Amount</th>
                                 <th>Voucher Quantity</th>
                                 <th>Point Required</th>
-                                <th>Expiry Date</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -294,7 +267,6 @@
                                     <td>' + item.amount + '</td>\
                                     <td>' + item.quantity + '</td>\
                                     <td>' + item.point + '</td>\
-                                    <td>' + item.expiry + '</td>\
                                     <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\
                                     <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                                 \</tr>');
@@ -314,7 +286,6 @@
                 'amount': $('.amount').val(),
                 'quantity': $('.quantity').val(),
                 'point': $('.point').val(),
-                'expiry': $('.expiry').val(),
             }
 
             $.ajaxSetup({
@@ -373,20 +344,12 @@
                         $('#edit_amount').val(response.voucher.amount);
                         $('#edit_quantity').val(response.voucher.quantity);
                         $('#edit_point').val(response.voucher.point);
-                        $('#edit_expiry').datepicker("setDate", new Date(response.voucher.expiry));
-                        // Set the expiry date using the datepicker's "setDate" method
                         $('#vou_id').val(vou_id);
                     }
                 }
             });
 
-            $('#edit_expiry').datepicker({
-                dateFormat: 'yy-mm-dd',
-                minDate: 0,
-                changeMonth: true,
-                changeYear: true
-            });
-
+ 
             $('.btn-close').find('input').val('');
 
         });
@@ -405,7 +368,6 @@
                 'amount': $('#edit_amount').val(),
                 'quantity': $('#edit_quantity').val(),
                 'point': $('#edit_point').val(),
-                'expiry': $('#edit_expiry').val(),
             }
 
 

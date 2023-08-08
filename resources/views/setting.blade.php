@@ -40,9 +40,9 @@
                                 <label class="labels">Email</label>
                                 <input type="text" name="phone" class="form-control" placeholder="Email Address" value="{{ auth()->user()->phone }}">
                             </div>
-
                         </div>
 
+                  
                         <div class="mt-5 text-center"><button id="btn" class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                     </div>
                 </div>
@@ -51,6 +51,18 @@
     </div>
     </form>
 </div>
+
+<script>
+    function initMap() {
+      const mapOptions = {
+        center: { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE },
+        zoom: YOUR_ZOOM_LEVEL,
+      };
+  
+      const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    }
+  </script>
+  
 <script>
     $(document).ready(function() {
 

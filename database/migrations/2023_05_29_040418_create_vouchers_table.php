@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('amount');
             $table->string('quantity');
             $table->string('point');
-            $table->string('expiry');
             $table->timestamps();
         });
     }

@@ -40,7 +40,6 @@ class VoucherController extends Controller
             'type' => 'required|max:191',
             'quantity' => 'required|max:10',
             'point' => 'required|max:191',
-            'expiry' => 'required|max:191',
 
         ]);
 
@@ -56,7 +55,6 @@ class VoucherController extends Controller
             $voucher->type = $request->input('type');
             $voucher->quantity = $request->input('quantity');
             $voucher->point = $request->input('point');
-            $voucher->expiry = $request->input('expiry');
             $voucher->save();
             return response()->json([
                 'status' => 200,
@@ -71,60 +69,90 @@ class VoucherController extends Controller
     {
         // Assuming you are using Laravel's built-in authentication, you can get the authenticated user's ID like this:
         $userID = Auth::id();
-
+    
         // Retrieve the cart items for the current user
         // Assuming 'Voucher' is the key for the voucher ID in the request
         $voucherIds = $request->input('Voucher');
-
+    
         // Calculate the total points required for redemption
         $totalRedemptionPoints = 0;
-
+    
+        // Initialize an array to store the redeemed vouchers
+        $redeemedVouchers = [];
+    
         foreach ($voucherIds as $voucherId) {
             $voucher = Voucher::find($voucherId);
             $totalRedemptionPoints += $voucher->point; // Use $voucher->point instead of $voucher->pointsRequired
+    
+            // Add the redeemed voucher to the array
+            $redeemedVouchers[] = $voucher;
         }
-
+    
         // Retrieve the user's current points from the database
         $user = User::find($userID);
         $userPoints = $user->point;
 
-        // Check if the user has enough points for redemption
-        if ($userPoints >= $totalRedemptionPoints) {
-            // Sufficient points, proceed with the redemption
-            foreach ($voucherIds as $voucherId) {
-                $voucher = Voucher::find($voucherId);
+     // Check if the user has enough points for redemption
+     if ($userPoints >= $totalRedemptionPoints) {
+        // Sufficient points, proceed with the redemption
+        foreach ($redeemedVouchers as $voucher) {
+            // Check if there are enough vouchers available for redemption
+            if ($voucher->quantity > 0) {
+                // Deduct the voucher quantity by 1
+                $voucher->quantity -= 1;
+                $voucher->save();
 
-                // Generate a unique redemption code
-                do {
-                    $redemptionCode = $this->generateRedemptionCode(5);
-                    $existingRedemption = Redemption::where('redemptionCode', $redemptionCode)->exists();
-                } while ($existingRedemption);
-
-                // Save the redemption details
-                $redemption = new Redemption();
-                $redemption->voucherCode = $voucher->code;
-                $redemption->redemptionCode = $redemptionCode;
-                $redemption->redemptionDate = Carbon::now();
-                $redemption->amount = $voucher->amount;
-                $redemption->type = $voucher->type;
-                $redemption->userID = $userID;
-                $redemption->save();
+    
+                    // Generate a unique redemption code
+                    do {
+                        $redemptionCode = $this->generateRedemptionCode(5);
+                        $existingRedemption = Redemption::where('redemptionCode', $redemptionCode)->exists();
+                    } while ($existingRedemption);
+    
+                    // Save the redemption details
+                    $redemption = new Redemption();
+                    $redemption->voucherCode = $voucher->code;
+                    $redemption->redemptionCode = $redemptionCode;
+                    $redemption->redemptionDate = Carbon::now();
+                    $redemption->amount = $voucher->amount;
+                    $redemption->type = $voucher->type;
+                    $redemption->userID = $userID;
+                    $redemption->save();
+              } else {
+                // If the voucher quantity is zero, return an error response
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Voucher quantity is zero.'
+                ], 405);
             }
-
+        }
+    
             // Deduct the total redemption points from the user's total points
             $user->point -= $totalRedemptionPoints;
             $user->save();
-
+    
             // Fetch the updated user's points from the database and return it in the response
             $updatedUser = User::find($userID);
-
+    
             return response()->json([
                 'status' => 200,
                 'message' => 'Voucher Added Successfully.',
-                'userPoints' => $updatedUser->point, // Include the updated points in the response
+                'userPoints' => $updatedUser->point,
+                'redemptionCode' => $redemptionCode // Assuming you generate 'redemptionCode' in the backend
             ]);
+        } else {
+            // If the user doesn't have enough points, return an error response
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Insufficient points for redemption.'
+            ], 400);
         }
     }
+    
+    
+
+
+
     public function storeCoupon(Request $request)
     {
         $userId = Auth::id();
@@ -250,7 +278,6 @@ class VoucherController extends Controller
             'amount' => 'required|max:191',
             'quantity' => 'required|max:10',
             'point' => 'required|max:191',
-            'expiry' => 'required|max:191',
 
         ]);
 
@@ -267,7 +294,6 @@ class VoucherController extends Controller
                 $voucher->amount = $request->input('amount');
                 $voucher->quantity = $request->input('quantity');
                 $voucher->point = $request->input('point');
-                $voucher->expiry = $request->input('expiry');
                 $voucher->update();
                 return response()->json([
                     'status' => 200,

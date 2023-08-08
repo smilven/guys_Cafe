@@ -48,9 +48,7 @@
                         <div class="form-group">
                             <center><button class="btn btn-primary mt-4">Verify Phone</button></center>
                         </div>
-                        @if (Route::has('login'))
-                        <center><a href="{{ route('login') }}" class="btn btn-link">Back to login</a></center>
-                    @endif
+      
                                 </div>
                     </form>
                     </div>

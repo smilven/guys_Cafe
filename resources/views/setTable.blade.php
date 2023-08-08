@@ -170,7 +170,7 @@
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
-        alert("URL copied to clipboard: https://027c-2001-e68-5453-1be9-d8ed-dc99-29ba-aad7.ngrok-free.app" + url);
+        alert("URL copied to clipboard: https://966b-2404-160-8060-da0f-2c00-f960-2ab2-42cd.ngrok-free.app" + url);
     })
 });
         function DeleteTable(id) {

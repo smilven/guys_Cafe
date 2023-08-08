@@ -71,6 +71,7 @@ Route::get('/Login', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/homeuser', [HomeController::class, 'showCategoryAndProduct'])->name('home.user')->middleware('verifiedphone');
+    
     Route::post('build-twiml/{code}','PhoneVerificationController@buildTwiMl')->name('phoneverification.build');
     Auth::routes();
     Route::post('/phone/verify', [App\Http\Controllers\PhoneNumberVerifyController::class, 'verify'])->name('phoneverification.verify');

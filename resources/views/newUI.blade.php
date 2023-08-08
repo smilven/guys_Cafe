@@ -1,7 +1,12 @@
 <?php
+if(isset($_GET['tableNumber'])){
 $tableNumber = $_GET['tableNumber'];
-
+}else{
+    $tableNumber = 1;
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -319,7 +324,8 @@ $tableNumber = $_GET['tableNumber'];
                 .message2,
                 .message3,
                 .message4,
-                .message5 {
+                .message5,
+                .message6{
                     position: absolute;
                     display: none;
                     text-align: center;
@@ -352,6 +358,9 @@ $tableNumber = $_GET['tableNumber'];
                 </div>
                 <div id="message5" class="message5" style="background: red">
                     Your Point Is Not Enough.
+                </div>
+                <div id="message6" class="message6" style="background: red">
+                    Sorry, this voucher is out of stock and cannot be redeemed at the moment.
                 </div>
             </div>
         </div>
@@ -433,7 +442,7 @@ $tableNumber = $_GET['tableNumber'];
 
                                     <h6>Requirement:</h6>
 
-                                    <textarea style="resize:none;overflow:hidden; width:100%;  min-height: 105px;"
+                                    <textarea style="resize:none;overflow:hidden; width:100%;"
                                         id="food_requirement" name="food_requirement"></textarea>
 
 
@@ -833,7 +842,7 @@ $tableNumber = $_GET['tableNumber'];
         // Make the AJAX request to storeCoupon endpoint
         $.ajax({
             type: 'POST',
-            url: "{{ route('coupon.store') }}",
+            url: "/coupon",
             data: {
                 coupon_code: couponCode,
                 _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
@@ -1018,7 +1027,14 @@ $('#removeCouponBtn').click(function() {
 
                         $(form).on('submit', function(event) {
                             event.preventDefault();
-                            var url = $(this).attr('data-action');
+                           // Check if the table is empty before proceeding with the form submission
+    if ($('#Table').is(':empty')) {
+       alert("Table is empty. Cannot submit form.");
+        // You can display an error message or take other appropriate actions here.
+        return; // Do not proceed with the form submission
+    }
+
+    var url = $(this).attr('data-action');
 
               
 
@@ -1193,38 +1209,52 @@ $('#removeCouponBtn').click(function() {
 
                         var form = '[id^="VoucherRedemption"]';
                         $(form).on('submit', function(event) {
-                            event.preventDefault();
-                            var url = $(this).attr('data-action');
+    event.preventDefault();
+    var url = $(this).attr('data-action');
 
-                            $.ajax({
-                                url: '/VoucherRedemption'
-                                , method: 'POST'
-                                , data: new FormData(this)
-                                , dataType: 'JSON'
-                                , contentType: false
-                                , cache: false
-                                , processData: false
-                                , success: function(response) {
-                                    console.log("Redemption");
+    $.ajax({
+        url: '/VoucherRedemption',
+        method: 'POST',
+        data: new FormData(this),
+        dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(response) {
+            console.log("Redemption");
 
-                                    // Access the updated points from the response
-                                    var updatedPoints = response.userPoints;
-                                    var redemptionCode = response.redemptionCode; // Assuming 'redemptionCode' is returned in the AJAX response
-                                    // Update the displayed points on the page without reloading
-                                    $('#userPoints').text(updatedPoints); // Update the points correctly without concatenating with existing points
-                                    fetchRedemptionCode()
-                                }
-                                , error: function(response) {
-                                    var message = document.getElementById("message5");
-                                    message.style.display = "block";
-                                    setTimeout(function() {
-                                        message.style.display = "none";
-                                    }, 2000);
-                                    console.log(response);
-                                }
-                            });
-                            
-                        });
+            if (response.status === 'error') {
+                // Handle the error response when the voucher quantity is zero
+                alert(response.message);
+            } else {
+                // Access the updated points from the response
+                var updatedPoints = response.userPoints;
+                var redemptionCode = response.redemptionCode; // Assuming 'redemptionCode' is returned in the AJAX response
+                // Update the displayed points on the page without reloading
+                $('#userPoints').text(updatedPoints); // Update the points correctly without concatenating with existing points
+                fetchRedemptionCode()
+            }
+        },
+        error: function(response) {
+    if (response.status === 400) {
+        // Handle the specific error when the HTTP status code is 400 (Bad Request)
+        var message = document.getElementById("message5");
+        message.style.display = "block";
+        setTimeout(function() {
+            message.style.display = "none";
+        }, 2000);
+    }   if (response.status === 405) {
+        // Handle the specific error when the HTTP status code is 400 (Bad Request)
+        var message = document.getElementById("message6");
+        message.style.display = "block";
+        setTimeout(function() {
+            message.style.display = "none";
+        }, 3000);
+    } 
+}
+    });
+});
+
 
 
 

@@ -1,7 +1,7 @@
 <?php
    
 namespace App\Models;
-   
+use Twilio\Exceptions\ConfigurationException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -26,9 +27,7 @@ class User extends Authenticatable
         'password',
         'type',
         'point',
-        'profile_image',
-
-
+        'profile_image'
     ];
    
     /**
@@ -76,23 +75,27 @@ class User extends Authenticatable
       ])->save();
     }
     public function varifyByCall()
-{
-  $code = mt_rand(100000, 999999);
-       
-   $this->forceFill([
-       'verification_code' => $code
-   ])->save();
-
-   $client = new Client(env('TWILIO_ACCOUNT_SID'), env('TWILIO_AUTH_TOKEN'));
-
-   $client->messages->create(
-     $this->phone,
-     
-     [
-         'from' => "+13204387458", // REPLACE WITH YOUR TWILIO NUMBER
-         'body' => "Your OTP code is: " . $code // REPLACE WITH YOUR OTP MESSAGE
-     ]
- );
- 
-}
+    {
+        try {
+            $code = mt_rand(100000, 999999);
+    
+            $this->forceFill(['verification_code' => $code])->save();
+    
+            $client = new Client(env('TWILIO_ACCOUNT_SID'), env('TWILIO_AUTH_TOKEN'));
+    
+            $client->messages->create(
+                $this->phone,
+                [
+                    'from' => "+13613143983",
+                    'body' => "Your OTP code is: " . $code
+                ]
+            );
+        } catch (ConfigurationException $e) {
+            // Handle the exception, e.g., log an error message
+            Log::error('Twilio Configuration Exception: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            // Handle other exceptions
+        }
+    }
+    
 }

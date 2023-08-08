@@ -38,7 +38,7 @@
                         @csrf
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Email Address') }}</label>
+                            <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Phone Number') }}</label>
 
                             <div class="col-md-12">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

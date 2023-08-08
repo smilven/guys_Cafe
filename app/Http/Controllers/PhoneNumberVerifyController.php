@@ -19,7 +19,7 @@ class PhoneNumberVerifyController extends Controller
     public function verify(Request $request)
     {
        if ($request->user()->verification_code !== $request->code) {
-                return back()->withErrors(['msg', 'Invalid Code Please Try Again!']);
+                return back()->withErrors(['Invalid Code Please Try Again!', 'Invalid Code Please Try Again!']);
             }
     
             if ($request->user()->userPhoneVerified()) {
@@ -28,7 +28,7 @@ class PhoneNumberVerifyController extends Controller
     
             $request->user()->phoneVerifiedAt();
     
-            return redirect()->route('home.user')->with('status', 'Your phone was successfully verified!');
+            return redirect()->route('home.user')->with('Your phone was successfully verified!', 'Your phone was successfully verified!');
         }
     
 }

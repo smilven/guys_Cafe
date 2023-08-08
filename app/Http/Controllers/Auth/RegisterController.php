@@ -68,6 +68,6 @@ class RegisterController extends Controller
      protected function registered(Request $request, User $user)
 {
     $user->varifyByCall();
-    return redirect($this->redirectPath());
+    return redirect('phone/verify');
 }
 }

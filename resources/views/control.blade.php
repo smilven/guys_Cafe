@@ -38,9 +38,7 @@
                     
                     <h2 style="font-weight: 900">{{ $company_name }}</h2> <!-- Display the name here -->
 
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-                        </a>
+                       
                     </div>
                     <p style="font-weight: 600">Home/Dashboard</p>
 
