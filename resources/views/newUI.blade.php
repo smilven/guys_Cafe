@@ -1028,11 +1028,7 @@ $('#removeCouponBtn').click(function() {
                         $(form).on('submit', function(event) {
                             event.preventDefault();
                            // Check if the table is empty before proceeding with the form submission
-    if ($('#Table').is(':empty')) {
-       alert("Table is empty. Cannot submit form.");
-        // You can display an error message or take other appropriate actions here.
-        return; // Do not proceed with the form submission
-    }
+ 
 
     var url = $(this).attr('data-action');
 
