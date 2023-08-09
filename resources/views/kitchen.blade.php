@@ -24,6 +24,26 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 
+<style>
+.updateMessage,
+.completeMessage{
+    position: absolute;
+    display: none;
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #ffc107;
+    /* Change the background color as desired */
+    color: #fff;
+    font-weight: bold;
+    width: 50%;
+    animation: fade-in 0.5s ease-out, fade-out 0.5s 1.5s ease-in-out;
+    border-radius: 10px;
+    z-index: 1;
+
+}
+</style>
+
 <!-- Navbar -->
 <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <!-- Container wrapper -->
@@ -73,7 +93,10 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
     <!-- Container wrapper -->
 </nav>
 
+
+
 <div class="container">
+    
     <div class="row">
         @foreach ($data4->groupBy('userID') as $userID => $items)
         <div class="col-md-4 mt-5">
@@ -130,10 +153,21 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
                         @method('DELETE')
                         <button type="button" class="btn btn-success mt-2 delete-button" name="delete-button">Complete</button>
                     </form>
+                    <div class="message-container ">
+
+                      
+                    </div>
                 </div>
             </div>
         </div>
         @endforeach
+    </div>
+       
+    <div id="updateMessage" class="updateMessage" style="background: rgb(255, 204, 0)">
+        Updated
+    </div>
+    <div id="completeMessage" class="completeMessage" style="background: rgb(70, 222, 14)">
+        Completed
     </div>
 </div>
 <script>
@@ -173,6 +207,12 @@ $(document).ready(function () {
             success: function (response) {
                 // Update the food status in local storage
                 updateFoodStatus(response);
+                var message = document.getElementById("updateMessage");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+              
             },
             error: function (xhr, status, error) {
                 // Handle the error if any
@@ -202,6 +242,11 @@ $(document).ready(function () {
                 console.log(response.message);
                 // Remove the card dynamically
                 form.closest('.card').remove();
+                var message = document.getElementById("completeMessage");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
             },
             error: function (xhr, status, error) {
                 // Handle the error if any

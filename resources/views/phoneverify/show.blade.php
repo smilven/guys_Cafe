@@ -30,7 +30,13 @@
                         </div>
                    @endif
             <div class="card mt-3">
-                <div class="card-header"><img src="/images/Capture-removebg-preview.png" align="center"></div>
+                <div class="card-header">  @php
+                    $type = 1; 
+                
+                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
+                @endphp
+                
+                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container"></div>
                 <div class="card-body">
                     <p>Thanks for registering with our platform. We will call you to verify your phone number in a jiffy. Provide the code below.</p>
 

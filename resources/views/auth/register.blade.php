@@ -25,7 +25,13 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card mt-3">
-                <div class="card-header"><img src="/images/Capture-removebg-preview.png" align="center"></div>
+                <div class="card-header">  @php
+                    $type = 1; 
+                
+                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
+                @endphp
+                
+                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container"></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -33,8 +39,8 @@
                             <label for="name" class="form-label">Name</label>
 
                             <div class="col-md-12">
-                                <input id="name" type="text" class="form-control  @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control   @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Name" autofocus>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -54,7 +60,7 @@
                                                 <label for="phone" class="form-label">Phone</label>
 
                                                 <div class="col-md-12">
-                                                    <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="" required>
+                                                    <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="" placeholder="Phone Number" required>
 
                                                     @if ($errors->has('phone'))
                                                     <span class="invalid-feedback" role="alert">
@@ -75,7 +81,7 @@
                                             <div class="col-md-12">
                                                 <input id="password" type="password"
                                                     class="form-control @error('password') is-invalid @enderror"
-                                                    name="password" required autocomplete="new-password">
+                                                    name="password" required autocomplete="new-password" placeholder="At least 6 character">
 
                                                     @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -90,7 +96,7 @@
                                             <label for="password-confirm" class="form-label">Confirm Password</label>
 
                                             <div class="col-md-12">
-                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="At least 6 character" required autocomplete="new-password">
                                             </div>
                                         </div>
 

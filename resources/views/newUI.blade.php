@@ -545,27 +545,25 @@ $tableNumber = $_GET['tableNumber'];
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body small text-center">
-                        <div class="container mb-9">
-                            <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
-                                alt="GCLogo" style="width:200px; height: 200px;">
-
-
-
-
-                            <div class="row">
-                                <div class="col-xs-12 col-md-8 offset-md-2">
-                                    <div class="wrapper-progressBar">
-                                        <ul class="progressBar">
-                                            <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
-                                            <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
-                                            <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered
-                                            </li>
-                                        </ul>
+                        <div class="offcanvas-body small text-center">
+                            <div class="container mb-9">
+                                <img id="statusImage" src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
+                                    alt="GCLogo" style="width:200px; height: 200px;">
+                        
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-8 offset-md-2">
+                                        <div class="wrapper-progressBar">
+                                            <ul class="progressBar">
+                                                <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
+                                                <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
+                                                <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                        
 
 
                     </div>
@@ -1033,28 +1031,28 @@ $('#removeCouponBtn').click(function() {
     var url = $(this).attr('data-action');
 
               
+    $.ajax({
+    url: '/home/place',
+    method: 'POST',
+    data: new FormData(this),
+    dataType: 'JSON',
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function(response) {
+        console.log("Success");
 
-                            $.ajax({
-                                url: '/home/place'
-                                , method: 'POST'
-                                , data: new FormData(this)
-                                , dataType: 'JSON'
-                                , contentType: false
-                                , cache: false
-                                , processData: false
-                                , success: function(response) {
-                                    console.log("Success");
-                                    $('#Table').fadeOut('slow', function() {
-                                        $(this).empty().fadeIn('slow');
+     
+        $('#Table').fadeOut('slow', function() {
+            $(this).empty().fadeIn('slow');
+        });
 
-                                    });
-                                    var message = document.getElementById("message2");
-                                    message.style.display = "block";
-                                    setTimeout(function() {
-                                        message.style.display = "none";
-                                    }, 2000);
-                                }
-                                , error: function(response) {
+        var message = document.getElementById("message2");
+        message.style.display = "block";
+        setTimeout(function() {
+            message.style.display = "none";
+        }, 2000);
+    }, error: function(response) {
 
                                 }
                             });
