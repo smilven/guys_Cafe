@@ -62,9 +62,10 @@ class HomeController extends Controller
             ->where('payment_records.userID', '=', (int) Auth::id())
             ->get();
     
-        $kitchen = Kitchen::latest()->first();
-        $paymentRecords = PaymentRecord::where('userID', $userId)->get();
-        $status = $kitchen ? $kitchen->food_Status : '';
+            $kitchen = Kitchen::where('userID', $userId)->latest()->first(); // Filtering by user ID
+            $paymentRecords = PaymentRecord::where('userID', $userId)->get();
+
+            $status = $kitchen ? $kitchen->food_Status : '';
     
         return view('newUI', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail', 'myreceipt'));
     }

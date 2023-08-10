@@ -167,16 +167,20 @@
     $(document).ready(function() {
         fetchsupplier();
     
-
+        var dataTable = $('#supplier-table').DataTable();
+        
         function fetchsupplier() {
             $.ajax({
                 type: "GET"
                 , url: "/fetch-supplier"
                 , dataType: "json"
                 , success: function(response) {
+                    dataTable.destroy();
+
                     // console.log(response);
                     $('#supplier-table tbody').html("");
                     $.each(response.suppliers, function(key, item) {
+                        
                         $('#supplier-table tbody').append('<tr>\
                             <td>' + item.SupplierName + '</td>\
                             <td>' + item.PhoneNumber + '</td>\
@@ -185,8 +189,8 @@
                             <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
                         \</tr>');
                     });
-                    $('#supplier-table').DataTable();
 
+                    dataTable = $('#supplier-table').DataTable();
 
                 }
 

@@ -18,8 +18,7 @@ $tableNumber = $_GET['tableNumber'];
     <link rel="icon" href="images/logo.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/location.js') }}"></script>
     <!-- Font Awesome -->
@@ -28,8 +27,7 @@ $tableNumber = $_GET['tableNumber'];
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -265,31 +263,31 @@ $tableNumber = $_GET['tableNumber'];
         p {
             word-break: break-all;
         }
+
     </style>
 
     <nav>
         <div class="fixed-top">
             <center>
-         
+
 
                 @php
-                    $type =1;
-                    $company_name = \App\Models\User::find($type)->name;
+                $type =1;
+                $company_name = \App\Models\User::find($type)->name;
                 @endphp
                 <h3 class="mt-2">{{$company_name}}</h3>
             </center>
             <p style="display: flex; align-items: center; justify-content: center; position: relative;">
                 <span id="TableNumber">Table Number: <?php echo $tableNumber; ?></span>
-                    <a href="{{ route('logout') }}" style="position: absolute; right: 0; margin-right: 15px;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logoutBtn">
-                        <i class="bi bi-box-arrow-right"></i>
+                <a href="{{ route('logout') }}" style="position: absolute; right: 0; margin-right: 15px;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logoutBtn">
+                    <i class="bi bi-box-arrow-right"></i>
 
 
-                    </a>
-                
+                </a>
+
             </p>
-       
-            <input type="search" class="form-control border" placeholder="Search... P001" aria-label="Search"
-                aria-describedby="search-addon" id="search-input" style="width: 90%; margin:10px auto;
+
+            <input type="search" class="form-control border" placeholder="Search... P001" aria-label="Search" aria-describedby="search-addon" id="search-input" style="width: 90%; margin:10px auto;
               background:transparent;
              border-radius:20px;
             height:35px;
@@ -304,17 +302,20 @@ $tableNumber = $_GET['tableNumber'];
 
             </div>
 
-          
+
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
             <style>
-#logoutBtn{
-   
-    color: black; /* Set the color to black (or any color you prefer) */
-    text-decoration: none; /* Remove underline */
-  
-}
+                #logoutBtn {
+
+                    color: black;
+                    /* Set the color to black (or any color you prefer) */
+                    text-decoration: none;
+                    /* Remove underline */
+
+                }
+
                 .message-container {
                     display: flex;
                     justify-content: center;
@@ -325,7 +326,7 @@ $tableNumber = $_GET['tableNumber'];
                 .message3,
                 .message4,
                 .message5,
-                .message6{
+                .message6 {
                     position: absolute;
                     display: none;
                     text-align: center;
@@ -341,6 +342,7 @@ $tableNumber = $_GET['tableNumber'];
                     z-index: 1;
 
                 }
+
             </style>
             <div class="message-container ">
                 <div id="message" class="message">
@@ -376,8 +378,7 @@ $tableNumber = $_GET['tableNumber'];
     <div class="list-group">
         <ul class="list-group list-group-light list-group-small">
 
-            <div id="scrollfood" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
-                class="scrollspy-example-2" tabindex="0">
+            <div id="scrollfood" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
 
                 @foreach($data1 as $type)
                 <section id="section{{ $type->id }}">
@@ -386,9 +387,7 @@ $tableNumber = $_GET['tableNumber'];
                     @if ($foodMenu['status'] == true)
                     @if ($foodMenu->food_category == $type->food_category)
 
-                    <button class="list-group-item list-group-item-action mb-1" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasBottom{{ $foodMenu->id }}"
-                        aria-controls="offcanvasBottom{{ $foodMenu->id }}">
+                    <button class="list-group-item list-group-item-action mb-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom{{ $foodMenu->id }}" aria-controls="offcanvasBottom{{ $foodMenu->id }}">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
@@ -410,22 +409,18 @@ $tableNumber = $_GET['tableNumber'];
 
                     </button>
 
-                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom{{ $foodMenu->id }}"
-                        aria-labelledby="offcanvasBottomLabel{{ $foodMenu->id }}">
-                        <form data-action="{{route('add.to.cart')}}" method="POST"
-                            id="add-project-form-{{ $foodMenu->id }}">
+                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom{{ $foodMenu->id }}" aria-labelledby="offcanvasBottomLabel{{ $foodMenu->id }}">
+                        <form data-action="{{route('add.to.cart')}}" method="POST" id="add-project-form-{{ $foodMenu->id }}">
                             @csrf
                             <div class="form-group">
-                                <input type="hidden" id="tableNumber" name="tableNumber"
-                                    value="<?php echo $tableNumber; ?>" class="form-control">
+                                <input type="hidden" id="tableNumber" name="tableNumber" value="<?php echo $tableNumber; ?>" class="form-control">
                             </div>
                             <div class="offcanvas-header">
                                 <input type="hidden" name="foodName" id="foodName" value="{{ $foodMenu->food_name }}">
 
                                 <h4 class="offcanvas-title" id="foodName" data-food-name="{{ $foodMenu->food_name }}">{{
                                     $foodMenu->food_name }}</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body small">
 
@@ -434,42 +429,32 @@ $tableNumber = $_GET['tableNumber'];
                                     <p id="foodDescription" data-food-description="{{ $foodMenu->food_description }}">{{
                                         $foodMenu->food_description }}</p>
 
-                                    <input type="hidden" name="food_price" id="food_price"
-                                        value="{{ $foodMenu->food_price }}">
+                                    <input type="hidden" name="food_price" id="food_price" value="{{ $foodMenu->food_price }}">
 
-                                        <input type="hidden" name="paymentID" id="paymentID"
-                                        value="">
+                                    <input type="hidden" name="paymentID" id="paymentID" value="">
 
                                     <h6>Requirement:</h6>
 
-                                    <textarea style="resize:none;overflow:hidden; width:100%;"
-                                        id="food_requirement" name="food_requirement"></textarea>
+                                    <textarea style="resize:none;overflow:hidden; width:100%;" id="food_requirement" name="food_requirement"></textarea>
 
 
 
                                     <div class="d-flex mt-2 mb-2 justify-content-center">
-                                        <input type="hidden" name="food_name" id="food_name"
-                                            value="{{ $foodMenu->food_name }}">
+                                        <input type="hidden" name="food_name" id="food_name" value="{{ $foodMenu->food_name }}">
 
-                                        <button type="button" class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        <button type="button" class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                             <i class="fas fa-plus"></i>
                                         </button>
 
-                                        <input id="quantity_food" min="1" name="quantity_food" value="1" type="number"
-                                            class="form-control form-control-sm" onKeyDown="return false"
-                                            style="width: 15%; margin:5px 0" />
+                                        <input id="quantity_food" min="1" name="quantity_food" value="1" type="number" class="form-control form-control-sm" onKeyDown="return false" style="width: 15%; margin:5px 0" />
 
-                                        <button type="button" class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                        <button type="button" class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
                                     <input type="hidden" name="food_id" id="food_id" value="{{ $foodMenu->id }}">
 
-                                    <center> <button type="submit" data-bs-dismiss="offcanvas" aria-label="Close"
-                                            class="btn btn-warning UserMenu" style="width: 100%;"
-                                            onclick="addToCart()">Add to Cart</button>
+                                    <center> <button type="submit" data-bs-dismiss="offcanvas" aria-label="Close" class="btn btn-warning UserMenu" style="width: 100%;" onclick="addToCart()">Add to Cart</button>
 
                                     </center>
                         </form>
@@ -528,14 +513,12 @@ $tableNumber = $_GET['tableNumber'];
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas"
-                    data-bs-target="#menu">
+                <div class="col text-center" style="border-top-left-radius: 20px;" data-bs-toggle="offcanvas" data-bs-target="#menu">
                     <i class="bi bi-menu-button-wide"></i>
                     <strong> Menu</strong>
                 </div>
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook"
-                    aria-controls="offcanvasBottom">
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cook" aria-controls="offcanvasBottom">
                     <i class="bi bi-clipboard-check"></i>
                     <strong>Food</strong>
                 </div>
@@ -547,9 +530,8 @@ $tableNumber = $_GET['tableNumber'];
                     <div class="offcanvas-body small text-center">
                         <div class="offcanvas-body small text-center">
                             <div class="container mb-9">
-                                <img id="statusImage" src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
-                                    alt="GCLogo" style="width:200px; height: 200px;">
-                        
+                                <img id="statusImage" src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" alt="GCLogo" style="width:200px; height: 200px;">
+
                                 <div class="row">
                                     <div class="col-xs-12 col-md-8 offset-md-2">
                                         <div class="wrapper-progressBar">
@@ -563,14 +545,13 @@ $tableNumber = $_GET['tableNumber'];
                                 </div>
                             </div>
                         </div>
-                        
+
 
 
                     </div>
                 </div>
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart"
-                    aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasBottom"><i class="bi bi-basket"></i>
                     <strong>Cart</strong>
                 </div>
 
@@ -588,6 +569,7 @@ $tableNumber = $_GET['tableNumber'];
 
                         <form data-action="{{ route('place') }}" method="POST" id="PlaceOrderForm">
                             @csrf
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <button type="submit" class="btn btn-primary mb-8 UserMenu" style="width:100%">Place
                                 Order</button>
                         </form>
@@ -624,6 +606,7 @@ $tableNumber = $_GET['tableNumber'];
                         line-height: 25px;
                         font-size: 15px;
                     }
+
                 </style>
 
 
@@ -819,115 +802,115 @@ $tableNumber = $_GET['tableNumber'];
 
 
 
-                      
+
                         $(document).ready(function() {
-    // Create a flag to keep track of whether the coupon has been applied
-    let couponApplied = false;
+                            // Create a flag to keep track of whether the coupon has been applied
+                            let couponApplied = false;
 
-    $('#couponForm').submit(function(e) {
-        e.preventDefault(); // Prevent default form submission
+                            $('#couponForm').submit(function(e) {
+                                e.preventDefault(); // Prevent default form submission
 
-        // Check if the coupon has already been applied
-        if (couponApplied) {
-            // Show a message or take any appropriate action to indicate that the coupon has already been applied
-            $('#responseContainer').html('<p>Coupon has already been applied.</p>');
-            return; // Stop further processing
-        }
+                                // Check if the coupon has already been applied
+                                if (couponApplied) {
+                                    // Show a message or take any appropriate action to indicate that the coupon has already been applied
+                                    $('#responseContainer').html('<p>Coupon has already been applied.</p>');
+                                    return; // Stop further processing
+                                }
 
-        // Get the coupon code from the input field
-        const couponCode = $('#coupon_code').val();
+                                // Get the coupon code from the input field
+                                const couponCode = $('#coupon_code').val();
 
-        // Make the AJAX request to storeCoupon endpoint
-        $.ajax({
-            type: 'POST',
-            url: "/coupon",
-            data: {
-                coupon_code: couponCode,
-                _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
-            },
-            dataType: 'json',
-            success: function(response) {
-                // Handle the success response
-                const message = response.message;
-                const amount = response.amount;
+                                // Make the AJAX request to storeCoupon endpoint
+                                $.ajax({
+                                    type: 'POST'
+                                    , url: "/coupon"
+                                    , data: {
+                                        coupon_code: couponCode
+                                        , _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
+                                    }
+                                    , dataType: 'json'
+                                    , success: function(response) {
+                                        // Handle the success response
+                                        const message = response.message;
+                                        const amount = response.amount;
 
-                // Update the response container with the success message and amount
-                $('#responseContainer').html(`<p>${message}</p>`);
+                                        // Update the response container with the success message and amount
+                                        $('#responseContainer').html(`<p>${message}</p>`);
 
-                // Update the discount amount value after receiving the updated data
-                $('#discountAmount').text('RM' + amount); // Assuming the "amount" is the discount amount.
+                                        // Update the discount amount value after receiving the updated data
+                                        $('#discountAmount').text('RM' + amount); // Assuming the "amount" is the discount amount.
 
-                // Calculate and update the nett_total value after applying the coupon
-                const oldNettTotal = parseFloat($('#nett_total').text().replace('RM', ''));
-                const newNettTotal = (oldNettTotal - amount).toFixed(2); // Ensure the result has two decimal places
-                $('#nett_total').text('RM' + newNettTotal);
+                                        // Calculate and update the nett_total value after applying the coupon
+                                        const oldNettTotal = parseFloat($('#nett_total').text().replace('RM', ''));
+                                        const newNettTotal = (oldNettTotal - amount).toFixed(2); // Ensure the result has two decimal places
+                                        $('#nett_total').text('RM' + newNettTotal);
 
-                // Set the flag to indicate that the coupon has been applied
-                couponApplied = true;
-            },
-            error: function(error) {
-                // Handle the error response
-                const errorMessage = error.responseJSON.message;
+                                        // Set the flag to indicate that the coupon has been applied
+                                        couponApplied = true;
+                                    }
+                                    , error: function(error) {
+                                        // Handle the error response
+                                        const errorMessage = error.responseJSON.message;
 
-                // Update the response container with the error message
-                $('#responseContainer').html(`<p>${errorMessage}</p>`);
-            }
-        });
-    });
-
-
-// Function to remove the applied coupon
-function removeCoupon() {
-    // Make the AJAX request to removeCoupon endpoint
-    $.ajax({
-        type: 'POST',
-        url: "{{ route('coupon.remove') }}", // Replace this with the actual route for removing the coupon
-        data: {
-            _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
-        },
-        dataType: 'json',
-        success: function(response) {
-            // Handle the success response
-            const message = response.message;
-
-            // Update the response container with the success message
-            $('#responseContainer').html(`<p>${message}</p>`);
-
-            // Reset the coupon-related UI elements
-            $('#discountAmount').text('RM0.00'); // Assuming the "discountAmount" element displays the discount amount.
-            
-            // Calculate and update the nett_total value after removing the coupon
-            const oldNettTotal = parseFloat($('#nett_total').text().replace('RM', ''));
-            const discountAmount = parseFloat(response.amount);
-            const newNettTotal = (oldNettTotal + discountAmount).toFixed(2); // Ensure the result has two decimal places
-            $('#nett_total').text('RM' + newNettTotal);
-
-            // Set the flag to indicate that the coupon has been removed
-            couponApplied = false;
-            $('#coupon_code').val('');
-        },
-        error: function(error) {
-            console.log(error);
-            // Handle the error response
-            const errorMessage = error.responseJSON.message;
-
-            // Update the response container with the error message
-            $('#responseContainer').html(`<p>${errorMessage}</p>`);
-        }
-    });
-}
-
-// Event listener for the remove coupon button
-$('#removeCouponBtn').click(function() {
-    $('#coupon_code').val('');
-
-    removeCoupon();
-
-});
+                                        // Update the response container with the error message
+                                        $('#responseContainer').html(`<p>${errorMessage}</p>`);
+                                    }
+                                });
+                            });
 
 
+                            // Function to remove the applied coupon
+                            function removeCoupon() {
+                                // Make the AJAX request to removeCoupon endpoint
+                                $.ajax({
+                                    type: 'POST'
+                                    , url: "{{ route('coupon.remove') }}", // Replace this with the actual route for removing the coupon
+                                    data: {
+                                        _token: "{{ csrf_token() }}" // Pass the CSRF token with the request
+                                    }
+                                    , dataType: 'json'
+                                    , success: function(response) {
+                                        // Handle the success response
+                                        const message = response.message;
 
-});
+                                        // Update the response container with the success message
+                                        $('#responseContainer').html(`<p>${message}</p>`);
+
+                                        // Reset the coupon-related UI elements
+                                        $('#discountAmount').text('RM0.00'); // Assuming the "discountAmount" element displays the discount amount.
+
+                                        // Calculate and update the nett_total value after removing the coupon
+                                        const oldNettTotal = parseFloat($('#nett_total').text().replace('RM', ''));
+                                        const discountAmount = parseFloat(response.amount);
+                                        const newNettTotal = (oldNettTotal + discountAmount).toFixed(2); // Ensure the result has two decimal places
+                                        $('#nett_total').text('RM' + newNettTotal);
+
+                                        // Set the flag to indicate that the coupon has been removed
+                                        couponApplied = false;
+                                        $('#coupon_code').val('');
+                                    }
+                                    , error: function(error) {
+                                        console.log(error);
+                                        // Handle the error response
+                                        const errorMessage = error.responseJSON.message;
+
+                                        // Update the response container with the error message
+                                        $('#responseContainer').html(`<p>${errorMessage}</p>`);
+                                    }
+                                });
+                            }
+
+                            // Event listener for the remove coupon button
+                            $('#removeCouponBtn').click(function() {
+                                $('#coupon_code').val('');
+
+                                removeCoupon();
+
+                            });
+
+
+
+                        });
 
 
 
@@ -1025,34 +1008,35 @@ $('#removeCouponBtn').click(function() {
 
                         $(form).on('submit', function(event) {
                             event.preventDefault();
-                           // Check if the table is empty before proceeding with the form submission
- 
+                            // Check if the table is empty before proceeding with the form submission
 
-    var url = $(this).attr('data-action');
 
-              
-    $.ajax({
-    url: '/home/place',
-    method: 'POST',
-    data: new FormData(this),
-    dataType: 'JSON',
-    contentType: false,
-    cache: false,
-    processData: false,
-    success: function(response) {
-        console.log("Success");
+                            var url = $(this).attr('data-action');
 
-     
-        $('#Table').fadeOut('slow', function() {
-            $(this).empty().fadeIn('slow');
-        });
 
-        var message = document.getElementById("message2");
-        message.style.display = "block";
-        setTimeout(function() {
-            message.style.display = "none";
-        }, 2000);
-    }, error: function(response) {
+                            $.ajax({
+                                url: '/home/place'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    console.log("Success");
+                                    $('.progressBar li').eq(0).addClass('active'); // Update the index to match the placeorder step
+
+                                    $('#Table').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+
+                                    var message = document.getElementById("message2");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+                                }
+                                , error: function(response) {
 
                                 }
                             });
@@ -1192,7 +1176,7 @@ $('#removeCouponBtn').click(function() {
 
                                             $('#redemptionCode').append(listItem);
                                         });
-                                        
+
                                     }
                                 }
                                 , error: function(xhr, status, error) {
@@ -1203,51 +1187,52 @@ $('#removeCouponBtn').click(function() {
 
                         var form = '[id^="VoucherRedemption"]';
                         $(form).on('submit', function(event) {
-    event.preventDefault();
-    var url = $(this).attr('data-action');
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
 
-    $.ajax({
-        url: '/VoucherRedemption',
-        method: 'POST',
-        data: new FormData(this),
-        dataType: 'JSON',
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(response) {
-            console.log("Redemption");
+                            $.ajax({
+                                url: '/VoucherRedemption'
+                                , method: 'POST'
+                                , data: new FormData(this)
+                                , dataType: 'JSON'
+                                , contentType: false
+                                , cache: false
+                                , processData: false
+                                , success: function(response) {
+                                    console.log("Redemption");
 
-            if (response.status === 'error') {
-                // Handle the error response when the voucher quantity is zero
-                alert(response.message);
-            } else {
-                // Access the updated points from the response
-                var updatedPoints = response.userPoints;
-                var redemptionCode = response.redemptionCode; // Assuming 'redemptionCode' is returned in the AJAX response
-                // Update the displayed points on the page without reloading
-                $('#userPoints').text(updatedPoints); // Update the points correctly without concatenating with existing points
-                fetchRedemptionCode()
-            }
-        },
-        error: function(response) {
-    if (response.status === 400) {
-        // Handle the specific error when the HTTP status code is 400 (Bad Request)
-        var message = document.getElementById("message5");
-        message.style.display = "block";
-        setTimeout(function() {
-            message.style.display = "none";
-        }, 2000);
-    }   if (response.status === 405) {
-        // Handle the specific error when the HTTP status code is 400 (Bad Request)
-        var message = document.getElementById("message6");
-        message.style.display = "block";
-        setTimeout(function() {
-            message.style.display = "none";
-        }, 3000);
-    } 
-}
-    });
-});
+                                    if (response.status === 'error') {
+                                        // Handle the error response when the voucher quantity is zero
+                                        alert(response.message);
+                                    } else {
+                                        // Access the updated points from the response
+                                        var updatedPoints = response.userPoints;
+                                        var redemptionCode = response.redemptionCode; // Assuming 'redemptionCode' is returned in the AJAX response
+                                        // Update the displayed points on the page without reloading
+                                        $('#userPoints').text(updatedPoints); // Update the points correctly without concatenating with existing points
+                                        fetchRedemptionCode()
+                                    }
+                                }
+                                , error: function(response) {
+                                    if (response.status === 400) {
+                                        // Handle the specific error when the HTTP status code is 400 (Bad Request)
+                                        var message = document.getElementById("message5");
+                                        message.style.display = "block";
+                                        setTimeout(function() {
+                                            message.style.display = "none";
+                                        }, 2000);
+                                    }
+                                    if (response.status === 405) {
+                                        // Handle the specific error when the HTTP status code is 400 (Bad Request)
+                                        var message = document.getElementById("message6");
+                                        message.style.display = "block";
+                                        setTimeout(function() {
+                                            message.style.display = "none";
+                                        }, 3000);
+                                    }
+                                }
+                            });
+                        });
 
 
 
@@ -1264,8 +1249,7 @@ $('#removeCouponBtn').click(function() {
 
 
 
-                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#pay"
-                    aria-controls="offcanvasBottom">
+                <div class="col text-center" data-bs-toggle="offcanvas" data-bs-target="#pay" aria-controls="offcanvasBottom">
                     <i class="bi bi-receipt"></i>
                     <strong>Pay</strong>
                 </div>
@@ -1295,13 +1279,10 @@ $('#removeCouponBtn').click(function() {
                             <form id="couponForm">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="coupon_code" name="coupon_code"
-                                        placeholder="Voucher Code" aria-label="Recipient's username"
-                                        aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary" id="removeCouponBtn" type="button"><i class="bi bi-x-lg" style="font-size: 1px;"></i>
-                                        </button>
-                                    <button class="btn btn-outline-secondary" type="submit"
-                                        id="button-addon2">Apply</button>
+                                    <input type="text" class="form-control" id="coupon_code" name="coupon_code" placeholder="Voucher Code" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary" id="removeCouponBtn" type="button"><i class="bi bi-x-lg" style="font-size: 1px;"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Apply</button>
 
                                 </div>
 
@@ -1314,14 +1295,11 @@ $('#removeCouponBtn').click(function() {
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-                                            aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                             <i class="fas fa-hand-holding-usd"></i>Cash Payment
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">Please inform the cashier at the counter that you
                                             would like
                                             to
@@ -1330,35 +1308,27 @@ $('#removeCouponBtn').click(function() {
                                 </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-                                            aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                             <i class="far fa-credit-card"></i>Debit/Credit Card
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <h5>Card Information <img
-                                                            src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png"
-                                                            width="60px" height="25px"></h5>
-                                                    <form id="cardinfo" method="POST"
-                                                        data-action="{{ route('store.card.info') }}">
+                                                    <h5>Card Information <img src="https://w7.pngwing.com/pngs/678/81/png-transparent-visa-and-master-cards-mastercard-money-foothills-florist-business-visa-visa-mastercard-text-service-orange.png" width="60px" height="25px"></h5>
+                                                    <form id="cardinfo" method="POST" data-action="{{ route('store.card.info') }}">
                                                         @csrf
 
-                                                       <div class="form-group">
-                                <input type="hidden" id="tableNumber" name="tableNumber"
-                                    value="<?php echo $tableNumber; ?>" class="form-control">
-                            </div>
+                                                        <div class="form-group">
+                                                            <input type="hidden" id="tableNumber" name="tableNumber" value="<?php echo $tableNumber; ?>" class="form-control">
+                                                        </div>
 
                                                         <div class="row  mt-2">
                                                             <div class="col">
 
                                                                 <div class="form-outline">
-                                                                    <input type="number" id="card_number"
-                                                                        class="form-control" required />
+                                                                    <input type="number" id="card_number" class="form-control" required />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Number</label>
                                                                 </div>
@@ -1369,19 +1339,15 @@ $('#removeCouponBtn').click(function() {
                                                         <div class="row  mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="expiry_date"
-                                                                        class="form-control" required maxlength="5"
-                                                                        placeholder="MM/YY">
+                                                                    <input type="text" id="expiry_date" class="form-control" required maxlength="5" placeholder="MM/YY">
                                                                     <label class="form-label" for="form6Example1">MM /
                                                                         YY</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="number" id="cvv" class="form-control"
-                                                                        required />
-                                                                    <label class="form-label"
-                                                                        for="form6Example2">Cvv</label>
+                                                                    <input type="number" id="cvv" class="form-control" required />
+                                                                    <label class="form-label" for="form6Example2">Cvv</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1389,9 +1355,7 @@ $('#removeCouponBtn').click(function() {
                                                         <div class="row mt-2">
                                                             <div class="col">
                                                                 <div class="form-outline">
-                                                                    <input type="text" id="cardholder_name"
-                                                                        class="form-control" required
-                                                                        autocomplete="off" />
+                                                                    <input type="text" id="cardholder_name" class="form-control" required autocomplete="off" />
                                                                     <label class="form-label" for="form6Example1">Card
                                                                         Holder
                                                                         Name</label>
@@ -1399,42 +1363,41 @@ $('#removeCouponBtn').click(function() {
                                                             </div>
 
 
-<input type="hidden" value="" id="redemption_code" class="redemption_code">
-                                                            <button type="submit" class="btn btn-primary"
-                                                                id="checkoutBtn" style="width: 100%;">Checkout</button>
+                                                            <input type="hidden" value="" id="redemption_code" class="redemption_code">
+                                                            <button type="submit" class="btn btn-primary" id="checkoutBtn" style="width: 100%;">Checkout</button>
                                                     </form>
 
                                                     <script>
-                                                            // Get the input element by its id
-    const cardholderNameInput = document.getElementById('cardholder_name');
+                                                        // Get the input element by its id
+                                                        const cardholderNameInput = document.getElementById('cardholder_name');
 
-// Add an event listener for the 'input' event
-cardholderNameInput.addEventListener('input', function (event) {
-    // Get the input value and remove any non-alphabetic characters using regular expression
-    const filteredValue = event.target.value.replace(/[^a-zA-Z ]/g, '');
-    // Update the input value with the filtered value
-    event.target.value = filteredValue;
-});
+                                                        // Add an event listener for the 'input' event
+                                                        cardholderNameInput.addEventListener('input', function(event) {
+                                                            // Get the input value and remove any non-alphabetic characters using regular expression
+                                                            const filteredValue = event.target.value.replace(/[^a-zA-Z ]/g, '');
+                                                            // Update the input value with the filtered value
+                                                            event.target.value = filteredValue;
+                                                        });
                                                         document.getElementById('cvv').addEventListener('input', function() {
                                                             if (this.value.length > 3) {
                                                                 this.value = this.value.slice(0, 3); // Truncate to 3 characters
                                                             }
                                                         });
-                                                    
-   // Get the input element by its id
-   const expiryDateInput = document.getElementById('expiry_date');
 
-// Add an event listener for the 'input' event
-expiryDateInput.addEventListener('input', function () {
-    // Get the input value and remove any non-numeric characters using regular expression
-    const filteredValue = this.value.replace(/\D/g, '');
+                                                        // Get the input element by its id
+                                                        const expiryDateInput = document.getElementById('expiry_date');
 
-    // Format the input value as MM/YY
-    const formattedValue = filteredValue.replace(/^(\d\d)(\d\d)$/g, '$1/$2');
+                                                        // Add an event listener for the 'input' event
+                                                        expiryDateInput.addEventListener('input', function() {
+                                                            // Get the input value and remove any non-numeric characters using regular expression
+                                                            const filteredValue = this.value.replace(/\D/g, '');
 
-    // Update the input value with the formatted value
-    this.value = formattedValue;
-});
+                                                            // Format the input value as MM/YY
+                                                            const formattedValue = filteredValue.replace(/^(\d\d)(\d\d)$/g, '$1/$2');
+
+                                                            // Update the input value with the formatted value
+                                                            this.value = formattedValue;
+                                                        });
 
                                                         document.getElementById('card_number').addEventListener('input', function() {
                                                             if (this.value.length > 16) {
@@ -1462,6 +1425,7 @@ expiryDateInput.addEventListener('input', function () {
                                         // Now submit the cardinfo form
                                     });
                                 });
+
                             </script>
 
 
@@ -1473,8 +1437,7 @@ expiryDateInput.addEventListener('input', function () {
 
                 </div>
             </div>
-            <div class="col text-center" style="border-top-right-radius: 20px;" data-bs-toggle="offcanvas"
-                data-bs-target="#User" aria-controls="offcanvasBottom">
+            <div class="col text-center" style="border-top-right-radius: 20px;" data-bs-toggle="offcanvas" data-bs-target="#User" aria-controls="offcanvasBottom">
                 <i class="bi bi-person"></i>
                 <strong>User</strong>
             </div>
@@ -1497,99 +1460,94 @@ expiryDateInput.addEventListener('input', function () {
 
                         </div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-info" data-mdb-toggle="modal"
-                            data-mdb-target="#staticBackdrop" style="width: 100%">
+                        <button type="button" class="btn btn-info" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop" style="width: 100%">
                             View Your Order History
                         </button>
-                      
+
                         <!-- Modal -->
                         <div class="modal-dialog modal-dialog-scrollable">
 
-                            <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="false"
-                                data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="false" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog mt-5">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel"> Order History</h5>
 
-                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                                         </div>
 
                                         <div class="modal-body">
                                             <div id="modal-orders-container">
                                                 @foreach ($paymentRecords->groupBy('userID') as $userID => $histories)
-                                                    <div class="accordion" id="accordionExample">
-                                                        @foreach ($histories as $index => $history)
-                                                            @php
-                                                            $accordionId = 'accordion_' . $userID . '_' . $index;
-                                                            @endphp
-                                        
-                                                            <div class="card">
-                                                                <div class="card-header mb-2" id="heading_{{ $accordionId }}">
-                                                                    <h5 class="mb-0">
-                                                                        <button class="btn btn-link card-header mb-2" id="heading_{{ $accordionId }}" type="button"
-                                                                            data-toggle="collapse" data-target="#collapse_{{ $accordionId }}" aria-expanded="true"
-                                                                            aria-controls="collapse_{{ $accordionId }}">
-                                                                            Order {{ $history->id }}
-                                                                        </button>
-                                                                    </h5>
-                                                                </div>
-                                                                <div id="collapse_{{ $accordionId }}" class="collapse" aria-labelledby="heading_{{ $accordionId }}"
-                                                                    data-parent="#accordionExample">
-                                                                    <div class="card-body">
-                                                                        <table class="table table-borderless">
-                                                                            <!-- Your table content -->
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <td>Food Name<td>
-                                                                                        <td>Quantity<td>
-                                                                                            <td>Food Price<td>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                @foreach ($history->orders as $order)
-                                                                                    <tr>
-                                                                                        <td>{{ $order->food_name }}</td>
-                                                                                        <td>{{ $order->quantity }}</td>
-                                                                                        <td>{{ $order->food_price }}</td>
-                                                                                        <!-- Add other cells for other columns if needed -->
-                                                                                    </tr>
-                                                                                @endforeach
-                                                                            </tbody>
-                                                                        </table>
-                                        
-                                                                        <table class="table table-borderless">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td>Total Price :</td>
-                                                                                    <td>RM{{ $history->nett_total }}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Payment Method :</td>
-                                                                                    <td>{{ $history->payment_method }}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Point Earned :</td>
-                                                                                    <td>{{ $history->earnPoint }}</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
+                                                <div class="accordion" id="accordionExample">
+                                                    @foreach ($histories as $index => $history)
+                                                    @php
+                                                    $accordionId = 'accordion_' . $userID . '_' . $index;
+                                                    @endphp
+
+                                                    <div class="card">
+                                                        <div class="card-header mb-2" id="heading_{{ $accordionId }}">
+                                                            <h5 class="mb-0">
+                                                                <button class="btn btn-link card-header mb-2" id="heading_{{ $accordionId }}" type="button" data-toggle="collapse" data-target="#collapse_{{ $accordionId }}" aria-expanded="true" aria-controls="collapse_{{ $accordionId }}">
+                                                                    Order {{ $history->id }}
+                                                                </button>
+                                                            </h5>
+                                                        </div>
+                                                        <div id="collapse_{{ $accordionId }}" class="collapse" aria-labelledby="heading_{{ $accordionId }}" data-parent="#accordionExample">
+                                                            <div class="card-body">
+                                                                <table class="table table-borderless">
+                                                                    <!-- Your table content -->
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td>Food Name
+                                                                            <td>
+                                                                            <td>Quantity
+                                                                            <td>
+                                                                            <td>Food Price
+                                                                            <td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($history->orders as $order)
+                                                                        <tr>
+                                                                            <td>{{ $order->food_name }}</td>
+                                                                            <td>{{ $order->quantity }}</td>
+                                                                            <td>{{ $order->food_price }}</td>
+                                                                            <!-- Add other cells for other columns if needed -->
+                                                                        </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <table class="table table-borderless">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Total Price :</td>
+                                                                            <td>RM{{ $history->nett_total }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Payment Method :</td>
+                                                                            <td>{{ $history->payment_method }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Point Earned :</td>
+                                                                            <td>{{ $history->earnPoint }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
-                                                        @endforeach
+                                                        </div>
                                                     </div>
+                                                    @endforeach
+                                                </div>
                                                 @endforeach
                                             </div>
                                         </div>
-                                        
+
 
 
                                         <div class="modal-footer">
-                                            <button type="hidden" class="btn btn-secondary hidden"
-                                                data-mdb-dismiss="modal" hidden>Close</button>
+                                            <button type="hidden" class="btn btn-secondary hidden" data-mdb-dismiss="modal" hidden>Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1603,6 +1561,7 @@ expiryDateInput.addEventListener('input', function () {
                                 overflow: hidden;
                                 margin-top: 80px;
                             }
+
                         </style>
 
 
@@ -1616,15 +1575,15 @@ expiryDateInput.addEventListener('input', function () {
                         <script>
                             function loadOrderHistory() {
                                 $.ajax({
-                                    url: "{{ route('get.payment.records') }}",
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    success: function(response) {
+                                    url: "{{ route('get.payment.records') }}"
+                                    , type: 'GET'
+                                    , dataType: 'json'
+                                    , success: function(response) {
                                         var paymentRecordsHtml = '';
-                        
+
                                         $.each(response.paymentRecords, function(index, history) {
                                             var accordionId = "accordion_" + history.userID + "_" + index;
-                        
+
                                             paymentRecordsHtml += '<div class="card">';
                                             paymentRecordsHtml += '    <div class="card-header mb-2" id="heading_' + accordionId + '">';
                                             paymentRecordsHtml += '        <h5 class="mb-0">';
@@ -1655,7 +1614,7 @@ expiryDateInput.addEventListener('input', function () {
                                             });
                                             paymentRecordsHtml += '                </tbody>';
                                             paymentRecordsHtml += '            </table>';
-                                            paymentRecordsHtml += '            <hr>'; 
+                                            paymentRecordsHtml += '            <hr>';
                                             paymentRecordsHtml += '            <table class="table table-borderless">';
                                             paymentRecordsHtml += '                <tbody>';
                                             paymentRecordsHtml += '                    <tr>';
@@ -1676,51 +1635,43 @@ expiryDateInput.addEventListener('input', function () {
                                             paymentRecordsHtml += '    </div>';
                                             paymentRecordsHtml += '</div>';
                                         });
-                        
+
                                         $('#modal-orders-container').html(paymentRecordsHtml);
-                                    },
-                                    error: function(error) {
+                                    }
+                                    , error: function(error) {
                                         console.error(error);
                                     }
                                 });
                             }
-                        
+
                             // Load order history immediately when the modal is shown
                             $('#staticBackdrop').on('shown.bs.modal', function() {
                                 loadOrderHistory();
                             });
-                        
+
                         </script>
-                        
+
                         <h4 class="text-center"> Your Voucher</h4>
 
-                        <ul style="padding-left: 0; margin-bottom: 20px; margin-top: 20px;" class="text-center"
-                            id="redemptionCode">
+                        <ul style="padding-left: 0; margin-bottom: 20px; margin-top: 20px;" class="text-center" id="redemptionCode">
 
                         </ul>
                         <hr>
                         <ul style="padding-left: 0; margin-bottom: 80px;" class="text-center">
                             <h4>Redeemable Voucher</h4>
                             @foreach ($data3 as $voucher)
-                            <li class="list-group-item d-flex justify-content-between align-items-center mb-2"
-                                style="background: orange;">
+                            <li class="list-group-item d-flex justify-content-between align-items-center mb-2" style="background: orange;">
                                 <div class="row">
                                     <div class="col-3">
-                                        <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg"
-                                            width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">
+                                        <img src="https://thumbs.dreamstime.com/b/chef-cartoon-giving-thumb-up-isolated-white-background-176171655.jpg" width="80px" height="80px" style="object-fit: cover; border-radius: 50%;">
                                     </div>
                                     <div class="col-9">
                                         <div class="infor" style="color: white;">
                                             <h4>Voucher RM{{ $voucher->amount }}</h4>
-                                            <form data-action="{{ route('VoucherRedemption') }}" method="POST"
-                                                id="VoucherRedemption{{ $voucher->id }}">
+                                            <form data-action="{{ route('VoucherRedemption') }}" method="POST" id="VoucherRedemption{{ $voucher->id }}">
                                                 @csrf
-                                                <input type="hidden" name="Voucher[{{ $voucher->id }}]"
-                                                    id="Voucher[{{ $voucher->id }}]" value="{{ $voucher->id }}">
-                                                <button type="submit" class="btn btn-danger btn-sm UserVoucher"
-                                                    data-voucher-id="{{ $voucher->id }}"
-                                                    data-redemption-code="{{ $voucher->redemptionCode }}"
-                                                    data-points="{{ $voucher->point }}">Points {{ $voucher->point
+                                                <input type="hidden" name="Voucher[{{ $voucher->id }}]" id="Voucher[{{ $voucher->id }}]" value="{{ $voucher->id }}">
+                                                <button type="submit" class="btn btn-danger btn-sm UserVoucher" data-voucher-id="{{ $voucher->id }}" data-redemption-code="{{ $voucher->redemptionCode }}" data-points="{{ $voucher->point }}">Points {{ $voucher->point
                                                     }}</button>
                                             </form>
                                             <span class="redemption-code" style="display: none;"></span>
@@ -1783,14 +1734,11 @@ expiryDateInput.addEventListener('input', function () {
 
     <!--Boostrap-->
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
