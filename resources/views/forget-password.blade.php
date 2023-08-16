@@ -21,7 +21,14 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card mt-3">
-                <div class="card-header"><img src="/images/Capture-removebg-preview.png" align="center"></div>
+                <div class="card-header">                      @php
+                    $type = 1; 
+                
+                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
+                @endphp
+                
+                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
+               </div>
                 <div class="card-body">
 
     <div class="row-mb-3">

@@ -88,7 +88,6 @@
                 <div class="form-group mb-3">
                     <select name="type" required class="type form-select" id="edit_type">
                         <option value="">Choose The Voucher Type</option>
-                        <option value="percent">Percent</option>
                         <option value="fixed">Fixed</option>
 
                     </select>
@@ -264,7 +263,7 @@
                         $('#voucher_tbody').append('<tr>\
                                     <td>' + item.code + '</td>\
                                     <td>' + item.type + '</td>\
-                                    <td>' + item.amount + '</td>\
+                                    <td>RM ' + item.amount + '</td>\
                                     <td>' + item.quantity + '</td>\
                                     <td>' + item.point + '</td>\
                                     <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\

@@ -32,7 +32,8 @@
                 @endphp
                 
                 <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
-                </div>
+               
+            </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -84,7 +85,12 @@
                     @if (Route::has('register'))
                     <a href="{{ route('register') }}" class="btn btn-link" >New here? Create an Account</a>
                     @endif
-              
+                    @if (Route::has('forget.password'))
+                    <a class="btn btn-link" href="{{ route('forget.password') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                    @endif
+    
                 <br>
 
             
