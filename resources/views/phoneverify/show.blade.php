@@ -1,6 +1,6 @@
 @extends('layouts.app')
-        @section('content')
-        <meta charset="utf-8">
+@section('content')
+<meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Login</title>
@@ -15,53 +15,57 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
 
-<div class="container">
-    <div class="row justify-content-center">
 
-        <div class="col-md-4">
-            @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if($errors->any())
-                       <div class="alert alert-danger" role="alert">
-                            {{$errors->first()}}
-                        </div>
-                   @endif
-            <div class="card mt-3">
-                <div class="card-header">  @php
-                    $type = 1; 
-                
-                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
-                @endphp
-                
-                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container"></div>
-                <div class="card-body">
-                    <p>Thanks for registering with our platform. We will call you to verify your phone number in a jiffy. Provide the code below.</p>
 
-                    <form method="post" action="{{ route('phoneverification.verify') }}">
-                        @csrf
-                        <div class="form-group mt-3">
-                            <label for="code">Verification Code</label>
-                            <input id="code" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }} mt-1" name="code" type="text" placeholder="Verification Code" required autofocus>
-                            @if ($errors->has('code'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('code') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <center><button class="btn btn-primary mt-4">Verify Phone</button></center>
-                        </div>
-      
-                                </div>
-                    </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="col-md-4">
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
     </div>
+    @endif
+    @if($errors->any())
+    <div class="alert alert-danger" role="alert">
+        {{$errors->first()}}
+    </div>
+    @endif
+    <div class="card mt-3">
+        <div class="card-header"> @php
+            $type = 1;
+
+            $admin_profile_image = \App\Models\User::find($type)->profile_image;
+            @endphp
+<div class="text-center" style="margin: 10px;">
+
+            <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset(" storage/avatar/avatar.png") }}
+                @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
+                    
+</div>
+        </div>
+        <div class="card-body">
+            <p>Thanks for registering with our platform. We will call you to verify your phone number in a
+                jiffy. Provide the code below.</p>
+
+            <form method="post" action="{{ route('phoneverification.verify') }}">
+                @csrf
+                <div class="form-group mt-3">
+                    <label for="code">Verification Code</label>
+                    <input id="code" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }} mt-1"
+                        name="code" type="text" placeholder="Verification Code" required autofocus>
+                    @if ($errors->has('code'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('code') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <center><button class="btn btn-primary mt-4">Verify Phone</button></center>
+                </div>
+
+        </div>
+        </form>
+    </div>
+</div>
+
 
 
 
@@ -71,11 +75,9 @@
 
 <style>
     img,
-    svg {
-        vertical-align: middle;
+    svg { 
         height: 150px;
-        margin-left: 115px;
-        padding: 0;
+    
     }
 
     .card-header:first-child {
@@ -101,14 +103,17 @@
         margin-left: 13px;
     }
 
-    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: pointer;
-    width: 100%;
-    border-radius: 15px;
-    color: white;
-    background: orange;
-    border-color: lightpink;
-}
+    [type=button]:not(:disabled),
+    [type=reset]:not(:disabled),
+    [type=submit]:not(:disabled),
+    button:not(:disabled) {
+        cursor: pointer;
+        width: 100%;
+        border-radius: 15px;
+        color: white;
+        background: orange;
+        border-color: lightpink;
+    }
 
     .fa-solid,
     .fas {
@@ -118,14 +123,18 @@
         padding-left: 10px;
     }
 
-    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: pointer;
-    width: 100%;
-    border-radius: 15px;
-    color: white;
-    background: orange;
-    border-color: lightpink;
-}
+    [type=button]:not(:disabled),
+    [type=reset]:not(:disabled),
+    [type=submit]:not(:disabled),
+    button:not(:disabled) {
+        cursor: pointer;
+        width: 100%;
+        border-radius: 15px;
+        color: white;
+        background: orange;
+        border-color: lightpink;
+    }
+
     .card-header:first-child {
         border-radius: var(--mdb-card-inner-border-radius) var(--mdb-card-inner-border-radius) 0 0;
         background-color: white;
@@ -164,8 +173,8 @@
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

@@ -28,12 +28,14 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
+    
 
 
-        <main class="py-4">
+    <div class="container">
+        <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
             @yield('content')
-        </main>
+     
+        </div>
     </div>
 </body>
 

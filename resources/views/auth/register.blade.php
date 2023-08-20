@@ -21,18 +21,20 @@
 
 
 
-<div class="container">
-    <div class="row justify-content-center">
+
         <div class="col-md-4">
-            <div class="card mt-3">
+            <div class="card">
                 <div class="card-header">  @php
                     $type = 1; 
                 
                     $admin_profile_image = \App\Models\User::find($type)->profile_image;
                 @endphp
                 
-                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container"></div>
-                <div class="card-body">
+                <div class="text-center" style="margin: 10px;"> 
+                    <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
+                </div>
+                </div>
+            <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="row mb-3">
@@ -80,14 +82,10 @@
 
                                             <div class="col-md-12">
                                                 <input id="password" type="password"
-                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    class="form-control"
                                                     name="password" required autocomplete="new-password" placeholder="At least 6 character">
 
-                                                    @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
+                                              
 
                                             </div>
                                         </div>
@@ -96,7 +94,12 @@
                                             <label for="password-confirm" class="form-label">Confirm Password</label>
 
                                             <div class="col-md-12">
-                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="At least 6 character" required autocomplete="new-password">
+                                                <input id="password-confirm" type="password" class="form-control  @error('password') is-invalid @enderror" name="password_confirmation" placeholder="At least 6 character" required autocomplete="new-password">
+                                                @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -110,12 +113,12 @@
                                     <!-- Submit button -->
                                     <center><button type="Submit" class="btn btn-primary">
                                             Register
-                                        </button></center>
+                                        </button>
 
                                         @if (Route::has('login'))
-                        <a href="{{ route('login') }}" class="btn btn-link">Back to login</a>
+                        <a href="{{ route('login') }}" class="btn btn-link" style="background-color: transparent;margin-top:5px;">Back to login</a>
                     @endif
-                                </div>
+                </center>  </div>
 
 
                     </form>
@@ -123,17 +126,14 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+
 
 
 
 <style>
     img,
     svg {
-        vertical-align: middle;
         height: 150px;
-        margin-left: 115px;
         padding: 0;
     }
 
@@ -151,6 +151,7 @@
 
     body {
         margin: 0;
+        padding: 0;
         font-family: var(--mdb-body-font-family);
         font-size: var(--mdb-body-font-size);
         font-weight: var(--mdb-body-font-weight);

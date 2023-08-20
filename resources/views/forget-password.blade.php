@@ -17,18 +17,20 @@
 
 
 
-<div class="container">
-    <div class="row justify-content-center">
+
         <div class="col-md-4">
-            <div class="card mt-3">
+            <div class="card">
                 <div class="card-header">                      @php
                     $type = 1; 
                 
                     $admin_profile_image = \App\Models\User::find($type)->profile_image;
                 @endphp
-                
+                <div class="text-center" style="margin: 10px;">
+                    
                 <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
-               </div>
+               
+            </div>
+            </div>
                 <div class="card-body">
 
     <div class="row-mb-3">
@@ -63,24 +65,21 @@
                             <center><button type="submit" class="btn btn-primary mt-3">Submit</button></center>
 
                             @if (Route::has('login'))
-                            <center><a href="{{ route('login') }}" class="btn btn-link mt-1">Back to login</a></center>
+                            <center><a href="{{ route('login') }}" class="btn btn-link mt-1" style="background-color: transparent;margin-top:5px;">Back to login</a></center>
                             @endif
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+  
+
 
 <style>
 
     img,
     svg {
-        vertical-align: middle;
         height: 150px;
-        margin-left: 115px;
-        padding: 0;
     }
 
     .card-header:first-child {

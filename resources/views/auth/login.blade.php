@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Login</title>
 <link rel="stylesheet" href="">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 <!-- Google Fonts -->
@@ -20,29 +21,36 @@
 
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+
         <div class="col-md-4">
-            <div class="card mt-5">
-                <div class="card-header">                  
-                      @php
-                    $type = 1; 
-                
+            <div class="card">
+                <div class="card-header">
+                    @php
+                    $type = 1;
+
                     $admin_profile_image = \App\Models\User::find($type)->profile_image;
-                @endphp
-                
-                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif" id="image_preview_container">
-               
-            </div>
+                    @endphp
+
+                    <div class="text-center" style="margin: 10px;">
+                        <!-- Center the image within the card header -->
+                        <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("
+                            storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif"
+                            id="image_preview_container">
+                    </div>
+
+
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Phone Number') }}</label>
+                            <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Phone
+                                Number') }}</label>
 
                             <div class="col-md-12">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
 
 
@@ -58,10 +66,13 @@
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <label for="password" class="form-label"><i class="fas fa-lock"></i></span>{{ __('Password') }}</label>
+                            <label for="password" class="form-label"><i class="fas fa-lock"></i></span>{{ __('Password')
+                                }}</label>
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="current-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -83,18 +94,18 @@
                         {{ __('Login') }}
                     </button>
                     @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-link" >New here? Create an Account</a>
+                    <a href="{{ route('register') }}" class="btn btn-link">New here? Create an Account</a>
                     @endif
                     @if (Route::has('forget.password'))
                     <a class="btn btn-link" href="{{ route('forget.password') }}">
                         {{ __('Forgot Your Password?') }}
                     </a>
                     @endif
-    
-                <br>
 
-            
-              </center>
+                    <br>
+
+
+                </center>
             </div>
 
 
@@ -107,13 +118,9 @@
 
 
 <style>
-
-
     img,
     svg {
-        vertical-align: middle;
         height: 150;
-        margin-left: 115px;
         padding: 0;
     }
 
@@ -206,10 +213,11 @@
         background-color: royalblue;
 
     }
-
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
