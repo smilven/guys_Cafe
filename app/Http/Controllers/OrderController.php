@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\mycart;
 use App\Models\Order;
 use App\Models\Kitchen;
-use App\Models\payment;
-
+use App\Models\confirmOrder;
+use App\Models\cash;
 
 class OrderController extends Controller
 {
@@ -14,12 +14,12 @@ class OrderController extends Controller
 {
     // Retrieve the current authenticated user
     $user = $request->user();
-
+    
     // Retrieve the cart items for the current user
     $cartItems = mycart::where('userID', $user->id)->get();
 
-    // Create a new order
-
+ 
+    
 
     // Iterate over the cart items and store the relevant attributes in the order
     foreach ($cartItems as $cartItem) {
@@ -37,6 +37,44 @@ class OrderController extends Controller
         $order->paymentID = "";
 
         $order->save();
+
+        $confirmOrder = new confirmOrder();
+        // Assign values from the cart item
+        $confirmOrder->quantity = $cartItem->quantity;
+        $confirmOrder->orderID = $cartItem->orderID;
+        $confirmOrder->food_id = $cartItem->food_id;
+        $confirmOrder->food_name = $cartItem->food_name;
+        $confirmOrder->food_price = $cartItem->lastest_food_price;
+        $confirmOrder->tableNumber = $cartItem->tableNumber;
+        $confirmOrder->food_requirement = $cartItem->food_requirement;
+        $confirmOrder->userID = $cartItem->userID;
+        $confirmOrder->paymentID = "";
+
+        $confirmOrder->save();
+
+   // Create a new order
+   $totalFoodPrice = $confirmOrder->food_price ;
+
+   $cash = Cash::where('userID',$user->id)->first(); // Check if cash row exists for the user
+        if ($cash) {
+            // Update the existing cash row
+            $cash->totalFoodPrice += $totalFoodPrice;
+            $cash->nett_total = $cash->totalFoodPrice; // Assuming no discounts
+            $cash->earnPoint += (int)($totalFoodPrice / 10);
+            $cash->tableNumber = $order->tableNumber;
+            $cash->save();
+        } else {
+            // Create a new cash row
+            $newCash = new Cash();
+            $newCash->userID = $cartItem->userID;
+            $newCash->totalFoodPrice = $totalFoodPrice;
+            $newCash->nett_total = $totalFoodPrice; // Assuming no discounts
+            $newCash->earnPoint = (int)($totalFoodPrice / 10);
+            $newCash->tableNumber = $order->tableNumber;
+            $newCash->discount = 0;
+            $newCash->save();
+    
+        }
     
         // Save kitchen details
         $kitchen = new Kitchen();
@@ -51,13 +89,9 @@ class OrderController extends Controller
         $kitchen->food_Status = "placeorder";
         $kitchen->save();
 
-
+ 
  
     }
-
-
-    // Save the order
-
 
     
     // Clear the cart for the current user

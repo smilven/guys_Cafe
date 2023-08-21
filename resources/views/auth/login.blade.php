@@ -22,96 +22,91 @@
 
 @section('content')
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    @php
-                    $type = 1;
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header">
+            @php
+            $type = 1;
 
-                    $admin_profile_image = \App\Models\User::find($type)->profile_image;
-                    @endphp
+            $admin_profile_image = \App\Models\User::find($type)->profile_image;
+            @endphp
 
-                    <div class="text-center" style="margin: 10px;">
-                        <!-- Center the image within the card header -->
-                        <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("
-                            storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif"
-                            id="image_preview_container">
-                    </div>
-
-
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Phone
-                                Number') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-
-
-
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <label for="password" class="form-label"><i class="fas fa-lock"></i></span>{{ __('Password')
-                                }}</label>
-
-                            <div class="col-md-12">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="current-password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- 2 column grid layout for inline styling -->
-
-                        <!-- Checkbox -->
-
-                </div>
-
-
-                <!-- Submit button -->
-                <center><button type="submit" class="btn btn-primary">
-                        {{ __('Login') }}
-                    </button>
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-link">New here? Create an Account</a>
-                    @endif
-                    @if (Route::has('forget.password'))
-                    <a class="btn btn-link" href="{{ route('forget.password') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                    @endif
-
-                    <br>
-
-
-                </center>
+            <div class="text-center" style="margin: 10px;">
+                <!-- Center the image within the card header -->
+                <img class="rounded-circle" src="@if($admin_profile_image == null) {{ asset("
+                    storage/avatar/avatar.png") }} @else {{ asset("storage/$admin_profile_image") }} @endif"
+                    id="image_preview_container">
             </div>
 
 
-            </form>
         </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="email"><span class="far fa-user p-2"></span>{{ __('Phone
+                        Number') }}</label>
+
+                    <div class="col">
+                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label for="password" class="form-label"><i class="fas fa-lock"></i></span>{{ __('Password')
+                        }}</label>
+
+                    <div class="col-md-12">
+                        <input id="password" type="password"
+                            class="form-control @error('password') is-invalid @enderror" name="password" required
+                            autocomplete="current-password">
+
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+
+                <!-- Checkbox -->
+
+        </div>
+
+
+        <!-- Submit button -->
+        <center><button type="submit" class="btn btn-primary">
+                {{ __('Login') }}
+            </button>
+            @if (Route::has('register'))
+            <a href="{{ route('register') }}" class="btn btn-link">New here? Create an Account</a>
+            @endif
+            @if (Route::has('forget.password'))
+            <a class="btn btn-link" href="{{ route('forget.password') }}">
+                {{ __('Forgot Your Password?') }}
+            </a>
+            @endif
+
+            <br>
+
+
+        </center>
     </div>
+
+
+    </form>
+</div>
+</div>
 </div>
 
 
@@ -189,11 +184,11 @@
 
     .form-outline .form-control {
         min-height: auto;
-        padding: 0.32rem 0.75rem;
         border: 10px;
         background: lightgrey;
         transition: all .2s linear;
         border-color: black;
+        margin-bottom: 0px;
     }
 
     .form-check-input[type=checkbox]:checked:after {

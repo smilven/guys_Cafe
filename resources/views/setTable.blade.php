@@ -60,15 +60,14 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-warning size" id="Open-Menu-button"
-                        onclick="openNewWindow()">Open Menu</button>
+                    <button type="button" class="btn btn-warning size" id="Open-Menu-button" onclick="openNewWindow()">Open Menu</button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-primary size" data-bs-toggle="modal" data-bs-target="#qrcodeModal" id="download-qrCode-button">QR CODE</button>
 
-                    
-              
-                    
+
+
+
                 </div>
             </div>
         </div>
@@ -106,129 +105,131 @@
 
 <script>
     $(document).ready(function() {
-    fetchTable();
+        fetchTable();
 
-    function fetchTable() {
-        $.ajax({
-            type: "GET"
-            , url: "/fetch-table"
-            , dataType: "json"
-            , success: function(response) {
-                $('#Table').html("");
-                $.each(response.tables, function(key, data) {
-                    $('#Table').append('<div class="col-4 mt-5" data-id="' + data.id + '";><a href="#"class="fas fa-times" onclick="DeleteTable(' + data.id + '); return false;" role="button"></a><div class="box" data-bs-toggle="modal" data-bs-target="#Tableinfo" data-table-number="' + data.TableNumber + '"><p>Table ' + data.TableNumber + '</p></div>');
-                });
-            }
-        });
-    }
-
-    $(document).on('click', '.add_table', function(e) {
-        e.preventDefault();
-
-        $(this).text('Sending..');
-
-        var data = {
-            'TableNumber': $('.TableNumber').val()              
+        function fetchTable() {
+            $.ajax({
+                type: "GET"
+                , url: "/fetch-table"
+                , dataType: "json"
+                , success: function(response) {
+                    $('#Table').html("");
+                    $.each(response.tables, function(key, data) {
+                        $('#Table').append('<div class="col-4 mt-5" data-id="' + data.id + '";><a href="#"class="fas fa-times" onclick="DeleteTable(' + data.id + '); return false;" role="button"></a><div class="box" data-bs-toggle="modal" data-bs-target="#Tableinfo" data-table-number="' + data.TableNumber + '"><p>Table ' + data.TableNumber + '</p></div>');
+                    });
+                }
+            });
         }
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $(document).on('click', '.add_table', function(e) {
+            e.preventDefault();
 
-        $.ajax({
-            type: "POST"
-            , url: "/SaveTable"
-            , data: data
-            , dataType: "json"
-            , success: function(response) {
-                if (response.status == 400) {
-                    $('#save_msgList').html("");
-                    $('#save_msgList').addClass('alert alert-danger');
-                    $.each(response.errors, function(key, err_value) {
-                        $('#save_msgList').append('<li>' + err_value + '</li>');
-                    });
-                    $('.add_table').text('Save');
-                } else {
-                    $('#save_msgList').html("");
-                    $('#success_message').addClass('alert alert-success');
-                    $('#success_message').text(response.message);
-                    $('#addTableModal').find('input').val('');
-                    $('.add_table').text('Save');
-                    $('#addTableModal').modal('hide');
-                    $("#success_message").show().delay(600).fadeOut();
-                    fetchTable();
+            $(this).text('Sending..');
+
+            var data = {
+                'TableNumber': $('.TableNumber').val()
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            }
-        });
-    });
+            });
 
-  
-
-
-    $(document).on('click', '.box', function() {
-        var tableNumber = $(this).data('table-number');
-        $('#Tableinfo h1').text('Table Number ' + tableNumber);
-    });
-
-    $('#Open-Menu-button').click(function() {
-        document.getElementById('Open-Menu-button').addEventListener('click', function() {
-    var tableNumber = document.getElementById('Tableinfo').getElementsByTagName('h1')[0].innerText.split(" ")[2];
-    var url = "/homeuser?tableNumber=" + tableNumber;
-    window.open(url, '_blank');
-  });
-        
-    });
-
-    $('#download-qrCode-button').click(function() {
-        var tableNumber = $('#Tableinfo h1').text().split(" ")[2];
-        console.log(tableNumber);
-        var url = "/homeuser?tableNumber=" + tableNumber;
-
-        $('#qrcode-container').empty();
-
-        var qrcode = new QRCode(document.getElementById("qrcode-container"), {
-            text: url,
-            width: 128,
-            height: 128,
-        });
-
-        $('#url-text').text("URL: " + url);
-
-        $('#download-button').click(function() {
-            // Generate a Data URL for the QR code image
-            var qrCodeDataURL = $('#qrcode-container canvas')[0].toDataURL("image/png");
-
-            // Create a temporary <a> element and trigger the download
-            var link = document.createElement('a');
-            link.download = 'qrcode.png';
-            link.href = qrCodeDataURL;
-            link.click();
-        });
-
-        $('#qrcodeModal').modal('show');
-
-        var dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = url;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-    });
-});
-        function DeleteTable(id) {
-                if (confirm('Are you sure you want to delete?')) {
-                    $.ajax({
-                        type: "GET"
-                        , url: "deleteTable/" + id
-                        , success: function() {
-                            // Remove the row from the table
-                            $('[data-id="' + id + '"]').remove();
-                        }
-                    });
+            $.ajax({
+                type: "POST"
+                , url: "/SaveTable"
+                , data: data
+                , dataType: "json"
+                , success: function(response) {
+                    if (response.status == 400) {
+                        $('#save_msgList').html("");
+                        $('#save_msgList').addClass('alert alert-danger');
+                        $.each(response.errors, function(key, err_value) {
+                            $('#save_msgList').append('<li>' + err_value + '</li>');
+                        });
+                        $('.add_table').text('Save');
+                    } else {
+                        $('#save_msgList').html("");
+                        $('#success_message').addClass('alert alert-success');
+                        $('#success_message').text(response.message);
+                        $('#addTableModal').find('input').val('');
+                        $('.add_table').text('Save');
+                        $('#addTableModal').modal('hide');
+                        $("#success_message").show().delay(600).fadeOut();
+                        fetchTable();
+                    }
                 }
-            }
+            });
+        });
+
+
+
+
+        $(document).on('click', '.box', function() {
+            var tableNumber = $(this).data('table-number');
+            $('#Tableinfo h1').text('Table Number ' + tableNumber);
+        });
+
+        $('#Open-Menu-button').click(function() {
+            document.getElementById('Open-Menu-button').addEventListener('click', function() {
+                var tableNumber = document.getElementById('Tableinfo').getElementsByTagName('h1')[0].innerText.split(" ")[2];
+                var url = "/homeuser?tableNumber=" + tableNumber;
+                window.open(url, '_blank');
+            });
+
+        });
+
+        $('#download-qrCode-button').click(function() {
+            var tableNumber = $('#Tableinfo h1').text().split(" ")[2];
+            console.log(tableNumber);
+            var url = "/homeuser?tableNumber=" + tableNumber;
+
+            $('#qrcode-container').empty();
+
+            var qrcode = new QRCode(document.getElementById("qrcode-container"), {
+                text: url
+                , width: 128
+                , height: 128
+            , });
+
+            $('#url-text').text("URL: " + url);
+
+            $('#download-button').click(function() {
+                // Generate a Data URL for the QR code image
+                var qrCodeDataURL = $('#qrcode-container canvas')[0].toDataURL("image/png");
+
+                // Create a temporary <a> element and trigger the download
+                var link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = qrCodeDataURL;
+                link.click();
+            });
+
+            $('#qrcodeModal').modal('show');
+
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = url;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        });
+    });
+
+    function DeleteTable(id) {
+        if (confirm('Are you sure you want to delete?')) {
+            $.ajax({
+                type: "GET"
+                , url: "deleteTable/" + id
+                , success: function() {
+                    // Remove the row from the table
+                    $('[data-id="' + id + '"]').remove();
+                }
+            });
+        }
+    }
+
 </script>
 
 
@@ -300,6 +301,7 @@
     .fa-times:hover {
         color: darkgrey;
     }
+
 </style>
 
 

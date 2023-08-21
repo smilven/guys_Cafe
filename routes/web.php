@@ -239,6 +239,7 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
     Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
+    Route::get('deleteSubOrder/{id}', [CashController::class, 'DeleteSubOrder']);
 
     Route::get('/user', [UserRecordController::class, 'getDataWithTypeZero']);
     Route::put('/users/{id}', [UserRecordController::class, 'updateUser']);

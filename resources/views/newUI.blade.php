@@ -1037,6 +1037,7 @@ $tableNumber = $_GET['tableNumber'];
                                     }, 2000);
                                 }
                                 , error: function(response) {
+                                    console.log(response);
 
                                 }
                             });
@@ -1085,9 +1086,10 @@ $tableNumber = $_GET['tableNumber'];
                                         $(this).empty().fadeIn('slow');
                                     })
                                     $('#cardinfo')[0].reset(); // Reset the form to clear the values
-                                    // $('#delete-mycart').click(); 
-                                    $('#PlaceOrderForm').submit();
-
+                                  
+                                    $('#Table').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
                                     $('#coupon_code').val('');
                                     fetchAllMyPoint()
                                 },
@@ -1280,7 +1282,7 @@ $tableNumber = $_GET['tableNumber'];
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="coupon_code" name="coupon_code" placeholder="Voucher Code" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-outline-secondary" id="removeCouponBtn" type="button"><i class="bi bi-x-lg" style="font-size: 1px;"></i>
+                                    <button class="btn btn-outline-secondary" id="removeCouponBtn" type="button"><i class="bi bi-x-lg" style="font-size: 20px;"></i>
                                     </button>
                                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Apply</button>
 

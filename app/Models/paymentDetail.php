@@ -21,4 +21,5 @@ class paymentDetail extends Model
     {
         return $this->hasMany(Payment::class, 'payment_detail_id', 'id');
     }
+    
 }

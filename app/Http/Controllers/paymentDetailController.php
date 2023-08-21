@@ -13,7 +13,9 @@ use App\Models\Redemption;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\mycart;
-
+use App\Models\confirmOrder;
+use App\Models\cash;
+use Illuminate\Support\Facades\DB;
 
 class paymentDetailController extends Controller
 {
@@ -47,7 +49,7 @@ class paymentDetailController extends Controller
         $cardInfo->save();
 
 
- 
+
 
 
 
@@ -61,7 +63,7 @@ class paymentDetailController extends Controller
         $paymentRecord->totalFoodPrice = $paymentDetail->totalFoodPrice;
         $paymentRecord->userID = $paymentDetail->userID;
         $paymentRecord->save();
-       
+
 
 
         $paymentID = $paymentRecord->id;
@@ -85,12 +87,16 @@ class paymentDetailController extends Controller
 
             // Assign the obtained paymentID to the paymentID field in the Order model
             $order->paymentID = $paymentID;
-        
+
             $order->save();
-        
-  
         }
 
+        Order::where('userID', $userID)
+        ->where(function ($query) {
+            $query->whereNull('paymentID')
+                ->orWhere('paymentID', '');
+        })
+        ->update(['paymentID' => $paymentID]);
 
         $user = User::find($userID);
 
@@ -102,8 +108,7 @@ class paymentDetailController extends Controller
             $user->point += $paymentDetail->earnPoint;
             $user->save();
         } else {
-            // Handle the case if the user record is not found
-            // You may want to decide what to do in this situation (e.g., create a new user, show an error, etc.)
+         
         }
 
         // Delete existing data from the Payment and PaymentRecord tables (assuming you have models for them)
@@ -114,28 +119,28 @@ class paymentDetailController extends Controller
         // Delete PaymentRecord records
         PaymentDetail::where('userID', $userID)->delete();
 
+        ConfirmOrder::where('userID', $userID)->delete();
+
+        cash::where('userID', $userID)->delete();
+
+        mycart::where('userID', $userID)->delete();
+
+        $coupon = Redemption::where('userID', $userID)->first();
 
 
+        if ($coupon) {
+            $coupon->delete();
+            return response()->json(['message' => 'good'],);
+        } else {
+            return response()->json(['message' => $coupon],);
+        }
 
 
-           $coupon = Redemption::where('userID', $userID)->first();
+  
+       
+  
 
 
-    if ($coupon) {
-        $coupon->delete();
-        return response()->json(['message' => 'good'],);
-
-    }else{
-        return response()->json(['message' => $coupon],);
-
-    }
-    
-
-
-
-
-
-    
         return response()->json([
             'status' => 200,
             'message' => 'Added successfully.'
