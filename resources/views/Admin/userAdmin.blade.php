@@ -1,4 +1,4 @@
-@extends('adlayout')
+@extends('layouts.adlayout')
 @section('content')
 
 <!-- Add the CSRF token meta tag in the head section -->
@@ -77,6 +77,7 @@
         <table class="table" id="userTable">
             <thead style="font-weight:700">
               <tr>
+                <td>User ID</td>
                 <td>User Phone Number</td>
                 <td>Point</td>
                 <td>Edit Account</td>
@@ -85,6 +86,9 @@
             <tbody>
               @foreach ($usersWithTypeZero as $user)
               <tr>
+                <td>
+                    <p class="fw-normal mb-1" id="phone-{{ $user->id }}">{{ $user->id }}</p>
+                  </td>
                 <td>
                   <p class="fw-normal mb-1" id="phone-{{ $user->id }}">{{ $user->phone }}</p>
                 </td>

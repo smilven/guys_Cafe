@@ -24,7 +24,7 @@ class FullCalenderController extends Controller
              return response()->json($data);
         }
    
-        return view('humanresource');
+        return view('Admin.reminderAdmin');
     }
   
     /**

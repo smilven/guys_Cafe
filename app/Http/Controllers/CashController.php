@@ -25,7 +25,7 @@ class CashController extends Controller
            
            
     
-        return view('cash', compact('paymentDetails', 'myreceipt'));
+        return view('Admin.cashPaymentAdmin', compact('paymentDetails', 'myreceipt'));
     }
     
 
@@ -131,7 +131,7 @@ class CashController extends Controller
          if ($userCash) {
              $userCash->totalFoodPrice -= $deletedFoodPrice;
              $userCash->nett_total = $userCash->totalFoodPrice; // Update nett_total as well
-             $userCash->earnPoint -= (int)($deletedFoodPrice / 10);
+             $userCash->earnPoint -= (int)($deletedFoodPrice);
          
              // Check if the values are 0 and delete the record if needed
              if ($userCash->totalFoodPrice <= 0 && $userCash->nett_total <= 0) {
@@ -145,7 +145,7 @@ class CashController extends Controller
          if ($paymentDetailinUserSide) {
              $paymentDetailinUserSide->totalFoodPrice -= $deletedFoodPrice;
              $paymentDetailinUserSide->nett_total = $userCash->totalFoodPrice; // Update nett_total as well
-            $paymentDetailinUserSide->earnPoint -= (int)($deletedFoodPrice/10);
+            $paymentDetailinUserSide->earnPoint -= (int)($deletedFoodPrice);
              if($paymentDetailinUserSide->totalFoodPrice <=0 && $paymentDetailinUserSide->nett_total<=0){
                 $paymentDetailinUserSide->delete();
              }else{

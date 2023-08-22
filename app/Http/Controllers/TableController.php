@@ -8,7 +8,7 @@ class TableController extends Controller
 {
     public function indexTable()
     {
-        return view('setTable');
+        return view('Admin.setTableAdmin');
     }
     
         public function fetchTables()

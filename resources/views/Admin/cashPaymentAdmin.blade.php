@@ -1,5 +1,5 @@
 <!-- cash.blade.php -->
-@extends('adlayout')
+@extends('layouts.adlayout')
 @section('content')
 
 <style>

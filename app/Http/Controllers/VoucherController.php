@@ -16,7 +16,7 @@ class VoucherController extends Controller
 {
     public function index()
     {
-        return view('voucher.index');
+        return view('Admin.voucherAdmin');
     }
 
     public function fetchvoucher()
@@ -248,7 +248,7 @@ class VoucherController extends Controller
     public function showRedemption()
     {
         $redemptions = Redemption::all();
-        return view('voucher.index', compact('redemptions'));
+        return view('Admin.voucherAdmin', compact('redemptions'));
     }
 
 

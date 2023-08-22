@@ -1,4 +1,4 @@
-@extends('adlayout')
+@extends('layouts.adlayout')
 @section('content')
 <style>
     #recordSupplier {

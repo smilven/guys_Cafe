@@ -35,6 +35,7 @@ use App\Http\Controllers\SettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/forget-password',[ForgetPasswordManager::class,'forgetPassword'])
 ->name("forget.password");
 Route::post('/forget-password',[ForgetPasswordManager::class,'forgetPasswordPost'])
@@ -46,27 +47,10 @@ Route::post('/reset-password',[ForgetPasswordManager::class,'resetPasswordPost']
 Route::get('/layout', function () {
     return view('layout');
 });
-Route::post('Login',[UserLoginController::class,'addData']);
 
-Route::get('/menu', function () {
-    return view('menu');
-});
 
-Route::get('/cart', function () {
-    return view('cart');
-});
-Route::get('/layout2', function () {
-    return view('layout2');
-});
 
-Route::get('/payment', function () {
-    return view('paymentMethod');
-});
 
-Route::get('/Login', function () {
-    return view('welcome');
-});
- 
 
 Route::middleware(['auth'])->group(function () {
 
@@ -105,38 +89,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-//这个是for create worker的page的
-Route::post('worker', [AdminController::class, 'addWorker']);
-
-//这个是for show create料worker的page
-Route::get('worker', [AdminController::class, 'showWorker']);
-
-//这个是for delete create料worker的page
-Route::get('delete3/{id}', [AdminController::class, 'deleteWorker']);
 
 
-//Look Admin Dashboard to editWorker
-Route::get('edit-worker/{id}', [AdminController::class, 'editWorker']);
-
-//Look Admin Dashboard to UpdateWorker
-Route::put('update-worker', [AdminController::class, 'UpdateWorker']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::post('/toggle-status/{foodId}', [AdminController::class, 'toggleStatus']);
-Auth::routes();
 
 /*------------------------------------------
 --------------------------------------------
@@ -238,7 +192,7 @@ Route::middleware(['auth', 'user-access:admin'] )->group(function () {
 
     Route::get('/cash', [CashController::class, 'index'])->name('cash.index');
     Route::post('/cash/perform-payment', [CashController::class, 'performCashPayment'])->name('cash.perform.payment');
-    Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
+  //  Route::get('/get-payment-data', [RecordController::class, 'show'])->name('get-payment-data');
     Route::get('deleteSubOrder/{id}', [CashController::class, 'DeleteSubOrder']);
 
     Route::get('/user', [UserRecordController::class, 'getDataWithTypeZero']);

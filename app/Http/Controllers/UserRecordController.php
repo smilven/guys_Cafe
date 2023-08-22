@@ -13,7 +13,7 @@ class UserRecordController extends Controller
         $usersWithTypeZero = User::where('type', 0)->get();
 
         // Pass the data to the view
-        return view('client', ['usersWithTypeZero' => $usersWithTypeZero]);
+        return view('Admin.userAdmin', ['usersWithTypeZero' => $usersWithTypeZero]);
     }
 
     public function updateUser(Request $request, $id)

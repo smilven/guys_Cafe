@@ -18,7 +18,7 @@ class AdminController extends Controller
 {
     public function Category()
     {
-        return view('record');
+        return view('Admin.supplierAdmin');
     }
 
 

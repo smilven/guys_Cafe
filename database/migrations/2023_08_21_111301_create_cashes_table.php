@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('cashes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('userID');
-            $table->float('tableNumber');
             $table->float('totalFoodPrice');
             $table->float('discount');
             $table->float('nett_total');
             $table->float('earnPoint');
+            $table->float('tableNumber');
+            $table->timestamps();
+         
          
         });
     }

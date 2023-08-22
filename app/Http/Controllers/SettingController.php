@@ -10,7 +10,7 @@ class SettingController extends Controller
 
     public function index()
     {
-        return view('setting');
+        return view('Admin.settingAdmin');
     }
     public function updateProfile(Request $request)
     {

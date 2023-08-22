@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ControlController extends Controller
 {
-    public function index()
-    {
-        return view('control');
-    }
-
+    
     public function fetchsupplier()
     {
         $suppliers = Supplier::all();
@@ -92,7 +88,7 @@ $foodDatasets = [
         
         $paymentDetails = PaymentRecord::all();
 
-        return view('control', compact('datasets', 'labels', 'paymentDetails', 'foodDatasets', 'foodLabels'));
+        return view('Admin.dashBoardAdmin', compact('datasets', 'labels', 'paymentDetails', 'foodDatasets', 'foodLabels'));
     }
     public function store(Request $request)
     {

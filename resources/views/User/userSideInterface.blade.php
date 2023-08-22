@@ -264,6 +264,73 @@ $tableNumber = $_GET['tableNumber'];
             word-break: break-all;
         }
 
+        #logoutBtn {
+
+            color: black;
+            /* Set the color to black (or any color you prefer) */
+            text-decoration: none;
+            /* Remove underline */
+
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .message,
+        .message2,
+        .message3,
+        .message4,
+        .message5,
+        .message6,
+        .message7 {
+            position: absolute;
+            display: none;
+            text-align: center;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #ffc107;
+            /* Change the background color as desired */
+            color: #fff;
+            font-weight: bold;
+            width: 50%;
+            animation: fade-in 0.5s ease-out, fade-out 0.5s 1.5s ease-in-out;
+            border-radius: 10px;
+            z-index: 1;
+
+        }
+
+        #Table a {
+            color: #050709;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .requirement-container {
+            word-wrap: break-word; // Enable word wrapping for the requirement container
+        }
+
+        .requirement-text {
+            word-break: break-all; // Allow long words to break and wrap within the requirement text
+        }
+
+
+        .payment_tbody_width {
+            width: 70%;
+        }
+
+        tbody {
+            line-height: 25px;
+            font-size: 15px;
+        }
+
+        .modal-dialog-scrollable .modal-content {
+            max-height: calc(80vh - 1rem);
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
     </style>
 
     <nav>
@@ -278,7 +345,9 @@ $tableNumber = $_GET['tableNumber'];
                 <h3 class="mt-2">{{$company_name}}</h3>
             </center>
             <p style="display: flex; align-items: center; justify-content: center; position: relative;">
-                <span id="TableNumber">Table Number: <?php echo $tableNumber; ?></span>
+                <span id="TableNumber">Table Number:
+                    <?php echo $tableNumber; ?>
+                </span>
                 <a href="{{ route('logout') }}" style="position: absolute; right: 0; margin-right: 15px;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logoutBtn">
                     <i class="bi bi-box-arrow-right"></i>
 
@@ -306,44 +375,7 @@ $tableNumber = $_GET['tableNumber'];
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-            <style>
-                #logoutBtn {
 
-                    color: black;
-                    /* Set the color to black (or any color you prefer) */
-                    text-decoration: none;
-                    /* Remove underline */
-
-                }
-
-                .message-container {
-                    display: flex;
-                    justify-content: center;
-                }
-
-                .message,
-                .message2,
-                .message3,
-                .message4,
-                .message5,
-                .message6 {
-                    position: absolute;
-                    display: none;
-                    text-align: center;
-                    margin: 10px auto;
-                    padding: 10px;
-                    background-color: #ffc107;
-                    /* Change the background color as desired */
-                    color: #fff;
-                    font-weight: bold;
-                    width: 50%;
-                    animation: fade-in 0.5s ease-out, fade-out 0.5s 1.5s ease-in-out;
-                    border-radius: 10px;
-                    z-index: 1;
-
-                }
-
-            </style>
             <div class="message-container ">
                 <div id="message" class="message">
                     Added
@@ -363,6 +395,9 @@ $tableNumber = $_GET['tableNumber'];
                 </div>
                 <div id="message6" class="message6" style="background: red">
                     Sorry, this voucher is out of stock and cannot be redeemed at the moment.
+                </div>
+                <div id="message7" class="message7" style="background: rgb(255, 155, 5)">
+                    Redeem Successfully
                 </div>
             </div>
         </div>
@@ -536,9 +571,11 @@ $tableNumber = $_GET['tableNumber'];
                                     <div class="col-xs-12 col-md-8 offset-md-2">
                                         <div class="wrapper-progressBar">
                                             <ul class="progressBar">
-                                                <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order</li>
+                                                <li class="{{ $status === 'placeorder' ? 'active' : '' }}">Places Order
+                                                </li>
                                                 <li class="{{ $status === 'preparing' ? 'active' : '' }}">Preparing</li>
-                                                <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered</li>
+                                                <li class="{{ $status === 'delivered' ? 'active' : '' }}">Food Delivered
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -582,32 +619,7 @@ $tableNumber = $_GET['tableNumber'];
 
 
 
-                <style>
-                    #Table a {
-                        color: #050709;
-                        text-decoration: none;
-                        background-color: transparent;
-                    }
 
-                    .requirement-container {
-                        word-wrap: break-word; // Enable word wrapping for the requirement container
-                    }
-
-                    .requirement-text {
-                        word-break: break-all; // Allow long words to break and wrap within the requirement text
-                    }
-
-
-                    .payment_tbody_width {
-                        width: 70%;
-                    }
-
-                    tbody {
-                        line-height: 25px;
-                        font-size: 15px;
-                    }
-
-                </style>
 
 
 
@@ -1004,16 +1016,82 @@ $tableNumber = $_GET['tableNumber'];
 
 
                     $(document).ready(function() {
+
+
+                        var form = '#cardinfo';
+
+                        $(form).on('submit', function(event) {
+
+                            event.preventDefault();
+                            var url = $(this).attr('data-action');
+                            var expiry_date = $('#expiry_date').val();
+                            var cvv = $('#cvv').val();
+                            var cardholder_name = $('#cardholder_name').val();
+                            var card_number = $('#card_number').val();
+                            var redemption_code = $('#redemption_code').val();
+
+                            $.ajax({
+                                url: '/home/store'
+                                , method: 'POST'
+                                , data: {
+                                    _token: '{{ csrf_token() }}'
+                                    , expiry_date: expiry_date
+                                    , cvv: cvv
+                                    , cardholder_name: cardholder_name
+                                    , card_number: card_number
+                                , }
+                                , dataType: 'JSON'
+                                , success: function(response) {
+
+
+                                    console.log("Success Good");
+                                    console.log(response);
+                                    var message = document.getElementById("message4");
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+                                    }, 2000);
+
+                                    $('#total_food_price_value').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+                                    $('#table_payment').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+                                    $('#table_tbody_payment').fadeOut('Slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    })
+                                    $('#cardinfo')[0].reset(); // Reset the form to clear the values
+                                    $('#PlaceOrderForm').submit();
+
+                                    $('#Table').fadeOut('slow', function() {
+                                        $(this).empty().fadeIn('slow');
+                                    });
+                                    $('#coupon_code').val('');
+
+                                    fetchAllMyPoint()
+                                },
+
+
+
+
+
+
+
+                                error: function(response) {
+                                    console.log("Fail Bad");
+                                    console.log(response);
+                                    alert('Your Payment Error')
+                                }
+                            });
+                        });
+
                         var form = '#PlaceOrderForm';
 
                         $(form).on('submit', function(event) {
                             event.preventDefault();
                             // Check if the table is empty before proceeding with the form submission
-
-
                             var url = $(this).attr('data-action');
-
-
                             $.ajax({
                                 url: '/home/place'
                                 , method: 'POST'
@@ -1044,69 +1122,7 @@ $tableNumber = $_GET['tableNumber'];
                         });
 
 
-                        var form = '#cardinfo';
 
-                        $(form).on('submit', function(event) {
-
-                            event.preventDefault();
-                            var url = $(this).attr('data-action');
-                            var expiry_date = $('#expiry_date').val();
-                            var cvv = $('#cvv').val();
-                            var cardholder_name = $('#cardholder_name').val();
-                            var card_number = $('#card_number').val();
-                            var redemption_code = $('#redemption_code').val();
-
-                            $.ajax({
-                                url: '/home/store'
-                                , method: 'POST'
-                                , data: {
-                                    _token: '{{ csrf_token() }}'
-                                    , expiry_date: expiry_date
-                                    , cvv: cvv
-                                    , cardholder_name: cardholder_name
-                                    , card_number: card_number
-                                , }
-                                , dataType: 'JSON'
-                                , success: function(response) {
-                                    console.log("Success Good");
-                                    console.log(response);
-                                    var message = document.getElementById("message4");
-                                    message.style.display = "block";
-                                    setTimeout(function() {
-                                        message.style.display = "none";
-                                    }, 2000);
-
-                                    $('#total_food_price_value').fadeOut('slow', function() {
-                                        $(this).empty().fadeIn('slow');
-                                    });
-                                    $('#table_payment').fadeOut('slow', function() {
-                                        $(this).empty().fadeIn('slow');
-                                    });
-                                    $('#table_tbody_payment').fadeOut('Slow', function() {
-                                        $(this).empty().fadeIn('slow');
-                                    })
-                                    $('#cardinfo')[0].reset(); // Reset the form to clear the values
-                                  
-                                    $('#Table').fadeOut('slow', function() {
-                                        $(this).empty().fadeIn('slow');
-                                    });
-                                    $('#coupon_code').val('');
-                                    fetchAllMyPoint()
-                                },
-
-
-
-
-
-
-
-                                error: function(response) {
-                                    console.log("Fail Bad");
-                                    console.log(response);
-                                    alert('Your Payment Error')
-                                }
-                            });
-                        });
 
 
 
@@ -1202,6 +1218,12 @@ $tableNumber = $_GET['tableNumber'];
                                 , processData: false
                                 , success: function(response) {
                                     console.log("Redemption");
+                                    var message = document.getElementById("message7")
+                                    message.style.display = "block";
+                                    setTimeout(function() {
+                                        message.style.display = "none";
+
+                                    }, 2000);
 
                                     if (response.status === 'error') {
                                         // Handle the error response when the voucher quantity is zero
@@ -1557,15 +1579,6 @@ $tableNumber = $_GET['tableNumber'];
                         </div>
 
 
-                        <style>
-                            .modal-dialog-scrollable .modal-content {
-                                max-height: calc(80vh - 1rem);
-                                overflow: hidden;
-                                margin-top: 80px;
-                            }
-
-                        </style>
-
 
                         <!-- Your existing HTML content -->
 
@@ -1577,7 +1590,7 @@ $tableNumber = $_GET['tableNumber'];
                         <script>
                             function loadOrderHistory() {
                                 $.ajax({
-                                    url: "{{ route('get.payment.records') }}"
+                                    url: "/get-payment-records"
                                     , type: 'GET'
                                     , dataType: 'json'
                                     , success: function(response) {

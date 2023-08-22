@@ -15,7 +15,7 @@ class KitchenController extends Controller
     
         // Retrieve the cart items for the current user
         $data5 = Kitchen::where('userID', $user->id)->get();
-        return view('kitchen', compact('data4', 'data5'));
+        return view('Kitchen.kitchen', compact('data4', 'data5'));
     }
 
     public function updateOrderStatus(Request $request)

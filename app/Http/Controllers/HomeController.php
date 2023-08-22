@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('kitchen');
+        return view('Kitchen.kitchen');
     }
 
     /**
@@ -40,7 +40,7 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('control');
+        return view('Admin.dashBoardAdmin');
     }
 
     public function showCategoryAndProduct()
@@ -67,7 +67,7 @@ class HomeController extends Controller
 
             $status = $kitchen ? $kitchen->food_Status : '';
     
-        return view('newUI', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail', 'myreceipt'));
+        return view('User.userSideInterface', compact('data1', 'data2', 'data3', 'mycarts', 'status', 'userId', 'paymentRecords', 'paymentDetail', 'myreceipt'));
     }
 
     public function destroyPaymentDetail($id)

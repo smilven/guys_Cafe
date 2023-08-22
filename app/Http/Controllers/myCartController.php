@@ -150,7 +150,7 @@ public function addCart(Request $request)
     
     // Update the payment details
     $paymentDetail->totalFoodPrice += $totalFoodPrice; // Accumulate the totalFoodPrice
-    $paymentDetail->earnPoint +=  (($totalFoodPrice/10)|0) ;
+    $paymentDetail->earnPoint +=  (int)($totalFoodPrice) ;
     $paymentDetail->nett_total += $nett_total; // Accumulate the nett_total
     $paymentDetail->discount += $discount; // Accumulate the discount
     // Update other necessary fields as needed
@@ -190,7 +190,7 @@ public function delete($id)
             $reductionNettTotal = $reductionPrice - $payment->discount;
 
             // Calculate the reduction in earnPoint
-            $earnPointReduction = (($reductionPrice/10)|0);
+            $earnPointReduction = (int)($reductionPrice);
 
             // Update the PaymentDetail record
             $paymentDetail = PaymentDetail::where('userID', $cartItem->userID)->first();

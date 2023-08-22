@@ -60,7 +60,7 @@ class OrderController extends Controller
             // Update the existing cash row
             $cash->totalFoodPrice += $totalFoodPrice;
             $cash->nett_total = $cash->totalFoodPrice; // Assuming no discounts
-            $cash->earnPoint += (int)($totalFoodPrice / 10);
+            $cash->earnPoint += (int)($totalFoodPrice);
             $cash->tableNumber = $order->tableNumber;
             $cash->save();
         } else {
@@ -69,7 +69,7 @@ class OrderController extends Controller
             $newCash->userID = $cartItem->userID;
             $newCash->totalFoodPrice = $totalFoodPrice;
             $newCash->nett_total = $totalFoodPrice; // Assuming no discounts
-            $newCash->earnPoint = (int)($totalFoodPrice / 10);
+            $newCash->earnPoint = (int)($totalFoodPrice);
             $newCash->tableNumber = $order->tableNumber;
             $newCash->discount = 0;
             $newCash->save();

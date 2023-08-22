@@ -14,7 +14,7 @@ class FoodMenuController extends Controller
     // set index page view
     public function index()
     {
-        return view('item');
+        return view('Admin.foodMenuAdmin');
     }
 
     // handle fetch all FoodMenu ajax request
