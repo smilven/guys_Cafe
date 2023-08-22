@@ -11,9 +11,6 @@ class cash extends Model
     protected $table = 'cashes';
 
     protected $fillable = [
-        'id',
-        'created_at',
-        'updated_at',
         'userID',
         'totalFoodPrice',
         'discount',

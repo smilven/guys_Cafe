@@ -15,6 +15,7 @@ class Event extends Model
      * @var array
  
      */
+    protected $table = 'events';
     protected $fillable = [
         'title', 'start', 'end'
     ];
