@@ -10,6 +10,7 @@ class CreateUsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * php artisan db:seed --class=CreateUsersSeeder
      *
      * @return void
      */
@@ -21,6 +22,9 @@ class CreateUsersSeeder extends Seeder
                'phone'=>'guyscafe123@gmail.com',
                'type'=>1,
                'password'=> bcrypt('123456'),
+               'verification'=>'123456',
+               'profile_image'=>'123.png',
+               'point'=>'99999',
             ],
            
             [
@@ -28,12 +32,18 @@ class CreateUsersSeeder extends Seeder
                'phone'=>'kitchen@kitchen.com',
                'type'=>2,
                'password'=> bcrypt('123456'),
+               'verification'=>'123456',
+               'profile_image'=>'123.png',
+               'point'=>'99999',
             ],
             [
                'name'=>'User',
                'phone'=>'user@user.com',
                'type'=>0,
                'password'=> bcrypt('123456'),
+               'verification'=>'123456',
+               'profile_image'=>'123.png',
+               'point'=>'99999',
             ],
         ];
     
