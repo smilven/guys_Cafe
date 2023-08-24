@@ -118,6 +118,24 @@
 
 @section('scripts')
 <script>
+
+        // Attach click event to the "Cash Payment" button
+        $(document).on("click", ".btn-cash-payment", function() {
+        var paymentId = $(this).data("payment-id");
+      
+        // Show the confirmation dialog
+        var confirmed = confirm("Are you sure you want to proceed with the cash payment?");
+        
+        if (confirmed) {
+            console.log(paymentId);
+            // User clicked "OK", proceed with the cash payment
+            performCashPayment(paymentId);
+        } else {
+            console.log(paymentId);
+            // User clicked "Cancel", do nothing or show a message
+        }
+    });
+
     // AJAX function to handle cash payment
     function performCashPayment(paymentId) {
         $.ajax({
@@ -141,12 +159,8 @@
         });
     }
 
-    // Attach click event to the "Cash Payment" button
-    $(document).on("click", ".btn-cash-payment", function() {
-        var paymentId = $(this).data("payment-id");
-        performCashPayment(paymentId);
-    });
 
+ 
 
     function DeleteSubOrder(id) {
         console.log("DeleteSubOrder called with id:", id);

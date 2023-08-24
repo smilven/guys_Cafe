@@ -50,7 +50,7 @@
 
                     <div class="col">
                         <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="+60123456789" autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

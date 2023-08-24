@@ -183,7 +183,7 @@
         $('#download-qrCode-button').click(function() {
             var tableNumber = $('#Tableinfo h1').text().split(" ")[2];
             console.log(tableNumber);
-            var url = "/homeuser?tableNumber=" + tableNumber;
+            var url = "https://a84a-2001-e68-5453-e36-3824-b090-efd1-c8a2.ngrok-free.app/homeuser?tableNumber=" + tableNumber;
 
             $('#qrcode-container').empty();
 

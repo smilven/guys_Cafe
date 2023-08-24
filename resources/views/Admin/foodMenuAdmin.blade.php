@@ -36,7 +36,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit & Update category Data</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit & Update Category Data</h5>
                 <button type="button" class="btn-close closing" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -47,7 +47,7 @@
                 <input type="hidden" id="stud_id" />
 
                 <div class="form-group mb-3">
-                    <label for="">Categor</label>
+                    <label for="">Category</label>
                     <input type="text" id="food_category" required class="form-control">
                 </div>
 
@@ -67,7 +67,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="DeleteModalLabel">Delete category Data</h5>
+                <h5 class="modal-title" id="DeleteModalLabel">Delete Category Data</h5>
                 <button type="button" class="btn-close closing" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
