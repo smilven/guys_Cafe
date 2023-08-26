@@ -183,7 +183,7 @@
         $('#download-qrCode-button').click(function() {
             var tableNumber = $('#Tableinfo h1').text().split(" ")[2];
             console.log(tableNumber);
-            var url = "https://a84a-2001-e68-5453-e36-3824-b090-efd1-c8a2.ngrok-free.app/homeuser?tableNumber=" + tableNumber;
+            var url = "https://913c-175-141-253-213.ngrok-free.app/homeuser?tableNumber=" + tableNumber;
 
             $('#qrcode-container').empty();
 
@@ -273,6 +273,7 @@
         align-items: center;
         float: right;
         font-size: 14px;
+        margin-top: 20px;
     }
 
     p {

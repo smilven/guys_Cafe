@@ -644,9 +644,10 @@ $tableNumber = $_GET['tableNumber'];
                                 , success: function(response) {
                                     $('#Table').html("");
                                     $.each(response.mycarts, function(key, data) {
-                                        var deleteUrl = "{{ route('mycart.delete', ':id') }}";
+                                        var deleteUrl = "/mycart/delete/" + data.id;
                                         deleteUrl = deleteUrl.replace(':id', data.id);
-
+                                       
+                                        // {{ route('mycart.delete', ':id') }}
                                         var listItem = $('<li class="list-group-item d-flex justify-content-between align-items-center"></li>');
 
                                         var itemContainer = $('<div class="d-flex align-items-start"></div>');
